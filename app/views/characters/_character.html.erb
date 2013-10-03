@@ -1,8 +1,135 @@
+<% if current_user == character.user %>
+	<tr>
+		<td><%= link_to character.name, character %></td>
+		<td>
+			<!--Tauren-->
+			<% if character.race == 6 && character.gender == 1 %>
+			    <%= image_tag "http://images2.wikia.nocookie.net/__cb20071212064706/wowwiki/images/c/cb/Tauren_Female_32x32.png", height: '32', width: '32' %>
+			<% elsif character.race == 6 && character.gender == 0 %>
+				<%= image_tag "http://images4.wikia.nocookie.net/__cb20071212064733/wowwiki/images/b/ba/Tauren_Male_32x32.png", height: '32', width: '32' %>
+			<% end %> 
 
-      <tr>
-        <td><%= character.name %></td>
-        <td><%= character.realm %></td>
-        <td><%= link_to 'Show', character %></td>
-        <td><%= link_to 'Edit', edit_character_path(character) %></td>
-        <td><%= link_to 'Destroy', character, method: :delete, data: { confirm: 'Are you sure?' } %></td>
-      </tr>
+			<!--Undead-->
+			<% if character.race == 5 && character.gender == 1 %>
+			    <%= image_tag "http://images2.wikia.nocookie.net/__cb20071212063253/wowwiki/images/0/02/Forsaken_Female_32x32.png", height: '32', width: '32' %>
+			<% elsif character.race == 5 && character.gender == 0 %>
+				<%= image_tag "http://images2.wikia.nocookie.net/__cb20071212063341/wowwiki/images/5/5f/Forsaken_Male_32x32.png", height: '32', width: '32' %>
+			<% end %> 
+
+			<!--Orc-->
+			<% if character.race == 2 && character.gender == 1 %>
+			    <%= image_tag "http://images1.wikia.nocookie.net/__cb20071212064612/wowwiki/images/3/35/Orc_Female_32x32.png", height: '32', width: '32' %>
+			<% elsif character.race == 2 && character.gender == 0 %>
+				<%= image_tag "http://images1.wikia.nocookie.net/__cb20071212064635/wowwiki/images/4/4c/Orc_Male_32x32.png", height: '32', width: '32' %>
+			<% end %> 
+
+			<!--Gnome-->
+			<% if character.race == 7 && character.gender == 1 %>
+			    <%= image_tag "http://images2.wikia.nocookie.net/__cb20071212063423/wowwiki/images/4/43/Gnome_Female_32x32.png", height: '32', width: '32' %>
+			<% elsif character.race == 7 && character.gender == 0 %>
+				<%= image_tag "http://images1.wikia.nocookie.net/__cb20071212063553/wowwiki/images/5/56/Gnome_Male_32x32.png", height: '32', width: '32' %>
+			<% end %> 
+
+			<!--Goblin-->
+			<% if character.race == 9 && character.gender == 1 %>
+			    <%= image_tag "http://images2.wikia.nocookie.net/__cb20111022221454/wowwiki/images/c/c1/Goblin_Female_32x32.png", height: '32', width: '32' %>
+			<% elsif character.race == 9 && character.gender == 0 %>
+				<%= image_tag "http://images1.wikia.nocookie.net/__cb20111022221550/wowwiki/images/5/58/Goblin_Male_32x32.png", height: '32', width: '32' %>
+			<% end %>
+
+			<!--Human-->
+			<% if character.race == 1 && character.gender == 1 %>
+			    <%= image_tag "http://images1.wikia.nocookie.net/__cb20071212064339/wowwiki/images/8/80/Human_Female_32x32.png", height: '32', width: '32' %>
+			<% elsif character.race == 1 && character.gender == 0 %>
+				<%= image_tag "http://images3.wikia.nocookie.net/__cb20071212064436/wowwiki/images/5/56/Human_Male_32x32.png", height: '32', width: '32' %>
+			<% end %>
+
+			<!--Troll-->
+			<% if character.race == 8 && character.gender == 1 %>
+			    <%= image_tag "http://images1.wikia.nocookie.net/__cb20071212064761/wowwiki/images/7/78/Troll_Female_32x32.png", height: '32', width: '32' %>
+			<% elsif character.race == 8 && character.gender == 0 %>
+				<%= image_tag "http://images3.wikia.nocookie.net/__cb20071212064850/wowwiki/images/c/ce/Troll_Male_32x32.png", height: '32', width: '32' %>
+			<% end %>
+
+			<!--Draenei-->
+			<% if character.race == 11 && character.gender == 1 %>
+			    <%= image_tag "http://images2.wikia.nocookie.net/__cb20071212062732/wowwiki/images/3/3c/Draenei_Female_32x32.png", height: '32', width: '32' %>
+			<% elsif character.race == 11 && character.gender == 0 %>
+				<%= image_tag "http://images4.wikia.nocookie.net/__cb20071212062806/wowwiki/images/2/2e/Draenei_Male_32x32.png", height: '32', width: '32' %>
+			<% end %>
+
+			<!--Worgen-->
+			<% if character.race == 22 && character.gender == 1 %>
+			    <%= image_tag "http://a.deviantart.net/avatars/h/e/helasz.png?7", height: '32', width: '32' %>
+			<% elsif character.race == 22 && character.gender == 0 %>
+				<%= image_tag "http://fc07.deviantart.net/fs70/f/2010/326/d/6/worgen_male_icon_by_murlocaggrob_madmab-d33eq9f.jpg", height: '32', width: '32' %>
+			<% end %>
+
+			<!--Blood Elf-->
+			<% if character.race == 10 && character.gender == 1 %>
+			    <%= image_tag "http://images1.wikia.nocookie.net/__cb20071212062610/wowwiki/images/2/26/BloodElf_Female_32x32.png", height: '32', width: '32' %>
+			<% elsif character.race == 10 && character.gender == 0 %>
+				<%= image_tag "http://images1.wikia.nocookie.net/__cb20071212062644/wowwiki/images/3/30/BloodElf_Male_32x32.png", height: '32', width: '32' %>
+			<% end %>
+
+			<!--Night Elf-->
+			<% if character.race == 4 && character.gender == 1 %>
+			    <%= image_tag "http://images2.wikia.nocookie.net/__cb20071212064510/wowwiki/images/a/ab/NightElf_Female_32x32.png", height: '32', width: '32' %>
+			<% elsif character.race == 4 && character.gender == 0 %>
+				<%= image_tag "http://images3.wikia.nocookie.net/__cb20071212064537/wowwiki/images/a/ad/NightElf_Male_32x32.png", height: '32', width: '32' %>
+			<% end %>
+
+			<!--Dwarf-->
+			<% if character.race == 3 && character.gender == 1 %>
+			    <%= image_tag "http://images2.wikia.nocookie.net/__cb20071212062905/wowwiki/images/e/e9/Dwarf_Female_32x32.png", height: '32', width: '32' %>
+			<% elsif character.race == 3 && character.gender == 0 %>
+				<%= image_tag "http://images1.wikia.nocookie.net/__cb20071212063003/wowwiki/images/f/f7/Dwarf_Male_32x32.png", height: '32', width: '32' %>
+			<% end %>
+
+			<!--Panda Ally-->
+			<% if character.race == 25 && character.gender == 1 %>
+			    <%= image_tag "http://images3.wikia.nocookie.net/__cb20120321050448/wowwiki/images/4/48/Pandaren_Female_32x32.png", height: '32', width: '32' %>
+			<% elsif character.race == 25 && character.gender == 0 %>
+				<%= image_tag "http://images1.wikia.nocookie.net/__cb20111022221708/wowwiki/images/a/a3/Pandaren_Male_32x32.png", height: '32', width: '32' %>
+			<% end %>
+
+			<!--Panda Horde-->
+			<% if character.race == 26 && character.gender == 1 %>
+			    <%= image_tag "http://images3.wikia.nocookie.net/__cb20120321050448/wowwiki/images/4/48/Pandaren_Female_32x32.png", height: '32', width: '32' %>
+			<% elsif character.race == 26 && character.gender == 0 %>
+				<%= image_tag "http://images1.wikia.nocookie.net/__cb20111022221708/wowwiki/images/a/a3/Pandaren_Male_32x32.png", height: '32', width: '32' %>
+			<% end %>
+
+		</td>
+		<td>
+			<% if character.cls == 6 %>
+			    <%= image_tag "http://hydra-media.cursecdn.com/wowpedia.org/e/e5/Ui-charactercreate-classes_deathknight.png", height: '32', width: '32' %>
+			<% elsif character.cls == 11 %>
+			    <%= image_tag("http://hydra-media.cursecdn.com/wowpedia.org/6/6f/Ui-charactercreate-classes_druid.png", height: '32', width: '32' ) %>
+			<% elsif character.cls == 3 %>
+			    <%= image_tag("http://hydra-media.cursecdn.com/wowpedia.org/4/4e/Ui-charactercreate-classes_hunter.png", height: '32', width: '32' ) %>
+			<% elsif character.cls == 8 %>
+			    <%= image_tag("http://hydra-media.cursecdn.com/wowpedia.org/5/56/Ui-charactercreate-classes_mage.png", height: '32', width: '32' ) %>
+			<% elsif character.cls == 10 %>
+			    <%= image_tag("http://hydra-media.cursecdn.com/wowpedia.org/2/24/Ui-charactercreate-classes_monk.png", height: '32', width: '32' ) %>
+			<% elsif character.cls == 2 %>
+			    <%= image_tag("http://hydra-media.cursecdn.com/wowpedia.org/8/80/Ui-charactercreate-classes_paladin.png", height: '32', width: '32' ) %>
+			<% elsif character.cls == 5 %>
+			    <%= image_tag("http://hydra-media.cursecdn.com/wowpedia.org/0/0f/Ui-charactercreate-classes_priest.png", height: '32', width: '32' ) %>
+			<% elsif character.cls == 4 %>
+			    <%= image_tag("http://hydra-media.cursecdn.com/wowpedia.org/b/b1/Ui-charactercreate-classes_rogue.png", height: '32', width: '32' ) %>
+			<% elsif character.cls == 7 %>
+			    <%= image_tag("http://hydra-media.cursecdn.com/wowpedia.org/3/3e/Ui-charactercreate-classes_shaman.png", height: '32', width: '32' ) %>
+			<% elsif character.cls == 9 %>
+			    <%= image_tag("http://hydra-media.cursecdn.com/wowpedia.org/c/cf/Ui-charactercreate-classes_warlock.png", height: '32', width: '32' ) %>
+			<% elsif character.cls == 1 %>
+			    <%= image_tag("http://hydra-media.cursecdn.com/wowpedia.org/3/37/Ui-charactercreate-classes_warrior.png", height: '32', width: '32' ) %>
+			<% end %>
+		</td>
+		<td><%= character.ilvl %></td>
+		<td><%= character.cr %></td>
+		<td><%= character.pvppower %></td>
+		<td><%= link_to 'Edit Character', edit_character_path(character), class: "btn btn-success pull-right" %></td>
+		<td><%= link_to 'Delete Character', character, method: :delete, data: { confirm: 'Are you sure?' }, class: "btn btn-danger pull-right" %></td>
+	</tr>
+<% end %>

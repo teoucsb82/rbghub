@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20131003034928) do
+ActiveRecord::Schema.define(version: 20131003192255) do
 
   create_table "characters", force: true do |t|
     t.string   "name"
@@ -28,7 +28,13 @@ ActiveRecord::Schema.define(version: 20131003034928) do
     t.integer  "cr"
     t.integer  "ilvl"
     t.integer  "role"
+    t.integer  "user_id"
+    t.integer  "pvpresil"
+    t.integer  "pvppower"
+    t.integer  "gender"
   end
+
+  add_index "characters", ["user_id"], name: "index_characters_on_user_id"
 
   create_table "users", force: true do |t|
     t.string   "email",                  default: "", null: false

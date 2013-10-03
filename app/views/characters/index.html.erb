@@ -1,13 +1,16 @@
 <% provide(:title, 'My Roster') %>
 
-<h1><%= yield(:title)%></h1>
+<h1 class="brand"><%= yield(:title)%></h1>
 
 <table class="table">
   <thead>
     <tr>
-      <th>Name</th>
-      <th>Realm</th>
-      <th></th>
+      <th><%= link_to "Character", '#' %></th>
+      <th>Race</th>
+      <th>Class</th>
+      <th><%= link_to "Gear Level", '#' %></th>
+      <th>Current Rating</th>
+      <th>PVP Power</th>
       <th></th>
       <th></th>
     </tr>
@@ -18,6 +21,7 @@
   </tbody>
 </table>
 
-<br>
-
-<%= link_to 'New Character', new_character_path %>
+<hr>
+<center>
+  <%= link_to 'Add Character +', new_character_path, class: "btn btn-primary" %>
+</center>
