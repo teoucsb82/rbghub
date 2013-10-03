@@ -1,5 +1,7 @@
 Rbghub::Application.routes.draw do
 
+  resources :characters
+
   devise_for :users
 get 'home' => 'pages#home'
 get 'about' => 'pages#about'

@@ -8,17 +8,16 @@
 			</a>
 
 			<%= link_to "RBG Hub", root_path, class: "brand" %>
-			<ul class="nav">    
-				<li><%= link_to "About", about_path %></li> 
-			</ul>
 			<div class="nav-collapse">
 				<% if user_signed_in? %>
 					<ul class="nav">    
-						<li><%= link_to "Text", '#' %></li>                            
+						<li><%= link_to "My Roster", characters_path %></li>                            
 						<li><%= link_to "Text 2", '#' %></li>
 					</ul>
 				<% end %>
-
+				<ul class="nav">    
+					<li><%= link_to "About", about_path %></li> 
+				</ul>
 				<ul class="nav pull-right">
 					<% if user_signed_in? %>
 						<li class="dropdown">
