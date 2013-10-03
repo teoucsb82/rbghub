@@ -1,14 +1,20 @@
-<p id="notice"><%= notice %></p>
+<% provide(:title, @character.name + ' - ' + @character.realm) %>
+<% toon = HTTParty.get("http://us.battle.net/api/wow/character/" + @character.realm + "/" + @character.name + "?fields=stats,pvp,items") %>
 
-<p>
-  <strong>Name:</strong>
-  <%= @character.name %>
-</p>
+<div class="hero-unit">
+	<h1 class="brand"><%= yield(:title)%></h1><%= link_to '[Edit]', edit_character_path(@character) %>
+	<hr>
 
-<p>
-  <strong>Realm:</strong>
-  <%= @character.realm %>
-</p>
+	<p>
+  		<strong>Armory: </strong><%= link_to @character.name, "http://us.battle.net/wow/en/character/" + @character.realm + "/" + @character.name + "/advanced", :target => "blank" %>
+  	</p>
+	<p>
+  		<strong>Arena Achievements: </strong><%= link_to @character.name, "http://us.battle.net/wow/en/character/" + @character.realm + "/" + @character.name + "/achievement#95:165", :target => "blank" %>
+  	</p>  	
+  	<p>
+  		<strong>Current iLevel: </strong> <%= toon["items"]["averageItemLevelEquipped"] %>
+  	</p>
 
-<%= link_to 'Edit', edit_character_path(@character) %> |
-<%= link_to 'Back', characters_path %>
+</div>
+<%= render 'edit' %>
+<%= render 'back' %>
