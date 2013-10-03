@@ -1,3 +1,72 @@
 <% provide(:title, 'Home') %>
-<h1>Pages#home</h1>
-<p>Find me in app/views/pages/home.html.erb</p>
+
+<% unless signed_in? %>
+	<center>
+		<div class="hero-unit">
+			<h1 class="brand">RBGhub.com</h1><br>
+			<h3>Find or create a cross-realm Rated Battleground raid in minutes</h3>
+			<%= link_to "Login Now >>", new_user_session_path, class: "btn btn-primary" %>
+		</div>
+	</center>
+
+	<div class="row">
+		<div class="span4">
+			<div class="well">
+				<center>
+					<h2 class="brand">Step 1</h2>
+					<p>Create an account to get started</p>
+					<%= link_to "Create Account", new_user_registration_path, class: "btn btn-success" %>
+				</center>  	
+			</div>
+		</div>
+
+		<div class="span4">
+			<div class="well">
+				<center>
+					<h2 class="brand">Step 2</h2>
+					<p>Add or manage toons on your roster</p>
+					<%= link_to "My Roster", '#', class: "btn btn-success" %>
+				</center>
+			</div>
+		</div>
+
+		<div class="span4">
+			<div class="well">
+				<center>
+					<h2 class="brand">Step 3</h2>
+					<p>Find a team that fits your schedule</p>
+					<%= link_to "Join A Team", '#', class: "btn btn-success" %>
+				</center>
+			</div>
+		</div>
+	</div>
+
+<% else %>
+	<center>
+		<div class="hero-unit">
+			<h1 class="brand">RBGhub.com</h1><br>
+			<h3>Find or create a cross-realm Rated Battleground raid in minutes</h3>
+			<%= link_to "My Roster", '#', class: "btn btn-primary" %>
+			<%= link_to "Teams Hub", '#', class: "btn btn-primary" %>
+		</div>
+	</center>
+
+		<div class="row">
+			<div class="span4">
+				<div class="well">
+				</div>
+			</div>
+
+			<div class="span4">
+				<div class="well">
+				</div>
+			</div>
+
+			<div class="span4">
+				<div class="well">
+				</div>
+			</div>
+		</div>
+
+
+<% end %>

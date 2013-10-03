@@ -1,0 +1,41 @@
+<% provide(:title, 'Edit Profile') %>
+
+<div class="hero-unit">
+  <h2><%= yield(:title)%></h2><hr>
+
+  <%= simple_form_for(resource, :as => resource_name, :url => registration_path(resource_name), :html => { :method => :put }, html: { class: 'form-horizontal'}) do |f| %>
+    <%= f.error_notification %>
+
+    <div class="form-inputs">
+      <div class="row">
+          <div class="span4">
+              <%= f.input :name %>
+              <%= f.input :email %>
+              <% if devise_mapping.confirmable? && resource.pending_reconfirmation? %>
+                <p>Currently waiting confirmation for: <%= resource.unconfirmed_email %></p>
+              <% end %>
+
+              <%= f.input :password, :autocomplete => "off", :required => false %>
+              <%= f.input :password_confirmation, :required => false %>
+              <%= f.input :current_password, :required => true, placeholder: "required to make changes" %>
+            </div>
+            <div class="span4">
+              <%= f.input :skype %>
+              <%= f.input :battletag, label: "Battle Tag", placeholder: "optional" %>
+              <%= f.input :aboutMe, label: "About Me", :input_html => { :rows => 5, :placeholder => "Briefly describe your WoW history. How long have you been playing? Which achievement(s) are you most proud of and why? How often do you play WoW? Is this toon your main or an alt? What spec do you prefer? Anything that might be useful to know, please include here.", :class => "span5"}   %>
+              <%= f.input :addons, label: "Add-ons", :input_html => { :rows => 5, :placeholder => "Which add-ons do you use for RBGs?", :class => "span5"}   %>
+              <%= f.input :haveMic, label: "Do you have a mic?", as: :radio_buttons, :item_wrapper_class => 'inline'  %>
+            </div>
+    </div>
+
+    <div class="form-actions">
+      <%= f.submit "Edit Profile", class: "btn btn-primary" %>
+    </div>
+  <% end %>
+
+  <h3>Cancel my account</h3>
+
+  <p>Unhappy? <%= link_to "Cancel my account", registration_path(resource_name), :data => { :confirm => "Are you sure?" }, :method => :delete %></p>
+
+  <%= link_to "Back", :back %>
+</div>
