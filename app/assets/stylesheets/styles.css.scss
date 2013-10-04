@@ -12,9 +12,8 @@ $bodyBackground: black;
 $textColor: white;
 $navbarBackground: black;
 $navbarBackgroundHighlight: black;
-
 $baseBGcolor: #010131;
-
+$btnInfoBackground: #83AEC4; 
 
 @import 'bootstrap';
 body{
@@ -31,6 +30,10 @@ body{
 
 .navbar-fixed-bottom{
 	padding-bottom: 0px;
+}
+
+.question{
+  color: $btnInfoBackground;
 }
 
 .hero-unit {

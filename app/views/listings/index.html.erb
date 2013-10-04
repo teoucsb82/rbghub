@@ -1,0 +1,27 @@
+<% provide(:title, 'Live Listings') %>
+
+<h1 class="brand"><%= yield(:title)%></h1>
+
+<table class="table">
+  <thead>
+    <tr>
+      <th>Description</th>
+      <th>Role</th>
+      <th>Listskype</th>
+      <th>Listbattletag</th>
+      <th>Toon</th>
+      <th></th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <%= render @listings %>
+  </tbody>
+</table>
+
+<hr>
+<center>
+  <%= link_to 'Join List +', new_listing_path, class: "btn btn-primary" %>
+</center>

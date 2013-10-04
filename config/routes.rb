@@ -1,5 +1,7 @@
 Rbghub::Application.routes.draw do
 
+  resources :listings
+
   resources :characters
 
   devise_for :users

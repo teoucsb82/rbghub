@@ -1,0 +1,15 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
+
+one:
+  description: MyString
+  role: MyString
+  listSkype: false
+  listBattletag: false
+  toon: MyString
+
+two:
+  description: MyString
+  role: MyString
+  listSkype: false
+  listBattletag: false
+  toon: MyString
