@@ -6,13 +6,14 @@
     <thead>
       <tr>
         <th>Character</th>
-        <th>Race</th>
-        <th>Class</th>
-        <th>Role</th>
-        <th>ilvl</th>
-        <th>Current Rating</th>
+        <th width="5%">Race</th>
+        <th width="5%">Class</th>
+        <th width="5%">Role</th>
+        <th>iLvl</th>
+        <th>CR</th>
         <th>PVP Power</th>
-        <th width="30%">Description</th>
+        <th width="30%">Additional Info</th>
+        <th width="10%">BattleTag</th>
         <th>Added</th>
       </tr>
     </thead>
@@ -21,7 +22,7 @@
       <%= render @listings %>
     </tbody>
   </table>
-
+<%= will_paginate @listings %>
   <hr>
   <center>
     <%= link_to 'Join List +', new_listing_path, class: "btn btn-primary" %>

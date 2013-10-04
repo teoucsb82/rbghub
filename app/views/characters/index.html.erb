@@ -1,29 +1,29 @@
 <% provide(:title, 'My Roster') %>
 <div class="hero-unit">
-<h1 class="brand"><%= yield(:title)%></h1><hr>
+  <h1 class="brand"><%= yield(:title)%></h1><hr>
 
-<table class="table">
-  <thead>
-    <tr>
-      <th><%= sortable "name", "Character" %></th>
-      <th>Race</th>
-      <th>Class</th>
-      <th><%= sortable "ilvl" %></th>
-      <th><%= sortable "cr", "Current Rating" %></th>
-      <th><%= sortable "pvppower", "PVP Power" %></th>
-      <th></th>
-      <th></th>
-    </tr>
-  </thead>
+  <table class="table">
+    <thead>
+      <tr>
+        <th><%= sortable "name", "Character" %></th>
+        <th>Race</th>
+        <th>Class</th>
+        <th><%= sortable "ilvl" %></th>
+        <th><%= sortable "cr", "Current Rating" %></th>
+        <th><%= sortable "pvppower", "PVP Power" %></th>
+        <th></th>
+        <th></th>
+      </tr>
+    </thead>
 
-  <tbody>
-    <%= render @characters %>
-  </tbody>
-</table>
-  
+    <tbody>
+      <%= render @characters %>
+    </tbody>
+  </table>
+    
 
-<hr>
-<center>
-  <%= link_to 'Add Character +', new_character_path, class: "btn btn-primary" %>
-</center>
+  <hr>
+  <center>
+    <%= link_to 'Add Character +', new_character_path, class: "btn btn-primary" %>
+  </center>
 </div>

@@ -126,11 +126,20 @@
                 <%= image_tag("http://hydra-media.cursecdn.com/wowpedia.org/3/37/Ui-charactercreate-classes_warrior.png", height: '32', width: '32' ) %>
             <% end %>
         </td>
-        <td><%= listing.role %></td>
+        <td>
+            <% if listing.role == 'fc' %>
+                <%= image_tag("http://eu.battle.net/wow/static/images/game/guide/getting-started/icon-class-role-tank.gif", height: '32', width: '32' ) %>
+            <% elsif listing.role == 'healer' %>
+                <%= image_tag("http://eu.battle.net/wow/static/images/game/guide/getting-started/icon-class-role-healer.gif", height: '32', width: '32' ) %>
+            <% elsif listing.role == 'dps' %>
+                <%= image_tag("http://eu.battle.net/wow/static/images/game/guide/getting-started/icon-class-role-dealer.gif", height: '32', width: '32' ) %>                
+            <% end %>
+        </td>
         <td><%= Character.find(listing.toon).ilvl %></td>
         <td><%= Character.find(listing.toon).cr %></td>
         <td><%= Character.find(listing.toon).pvppower %></td>
-        <td><%= listing.description %></td>
+        <td><small><%= listing.description %></small></td>
+        <td><%= listing.btag %></td>
         <td><%= time_ago_in_words(listing.created_at) %> ago</td>
 
       </tr>

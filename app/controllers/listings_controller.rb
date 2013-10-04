@@ -5,7 +5,7 @@ class ListingsController < ApplicationController
   # GET /listings
   # GET /listings.json
   def index
-    @listings = Listing.order("created_at desc")
+    @listings = Listing.order("created_at desc").where('created_at >= ?', 60.minutes.ago).page(params[:page]).per_page(10)
   end
 
   # GET /listings/1
@@ -73,6 +73,6 @@ class ListingsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def listing_params
-      params.require(:listing).permit(:description, :role, :listSkype, :listBattletag, :toon)
+      params.require(:listing).permit(:description, :role, :listSkype, :listBattletag, :toon, :btag)
     end
 end

@@ -6,4 +6,6 @@ class Listing < ActiveRecord::Base
 
 	validates :user_id, presence: true
 	validates :toon, presence: true
+	validates :role, presence: true
+	validates_length_of :description, :maximum => 100, :allow_blank => true
 end
