@@ -1,21 +1,76 @@
 <% provide(:title, @character.name + ' - ' + @character.realm) %>
-<% toon = HTTParty.get("http://us.battle.net/api/wow/character/" + @character.realm + "/" + @character.name + "?fields=stats,pvp,items") %>
 
 <div class="hero-unit">
-	<h1 class="brand"><%= yield(:title)%></h1>
-	<hr>
-
-	<p>
-  		<strong>Armory: </strong><%= link_to @character.name, "http://us.battle.net/wow/en/character/" + @character.realm + "/" + @character.name + "/advanced", :target => "blank" %>
-  	</p>
-	<p>
-  		<strong>Arena Achievements: </strong><%= link_to @character.name, "http://us.battle.net/wow/en/character/" + @character.realm + "/" + @character.name + "/achievement#95:165", :target => "blank" %>
-  	</p>  	
-  	<p>
-  		<strong>Current iLevel: </strong> <%= toon["items"]["averageItemLevelEquipped"] %>
-  	</p>
-
+  <center>
+    <p><h1 class="brand"> <%= render 'race' %><%= link_to yield(:title), "http://us.battle.net/wow/en/character/" + @character.realm + "/" + @character.name + "/advanced", :target => "blank" %></h1></p>
+    <!-- Skill voting, TBD
+    <p><h2>Skill: </strong><%= User.find(Character.find(@character).user_id).skill %></h2>
+    -->
+  </center>
 </div>
+
+
+
+  <div class="row">
+    <div class="span4">
+      <div class="well">
+        <center>          
+          <h3 class="">Core Stats</h3>
+          <hr>
+        </center>
+
+              <p>
+                <strong>Health: </strong><%= number_to_human(@character.health, precision: 4, units: { thousand: "k"}) %><br>
+                <strong>Armor: </strong><%= number_to_human(@character.armor, precision: 4, units: { thousand: "k"}) %>
+              </p>
+
+              <p>
+                <strong>Attack Power: </strong><%= number_to_human(@character.ap, precision: 4, units: { thousand: "k"}) %><br>
+                <strong>Spell Power: </strong><%= number_to_human(@character.sp, precision: 4, units: { thousand: "k"}) %><br>
+                <strong>Crit: </strong><%= @character.crit %> (<%= number_to_human(@character.critp, precision: 4) %>%)<br>
+                <strong>Haste: </strong><%= @character.haste %> (<%= number_to_human(@character.hastep, precision: 4) %>%)<br>
+                <strong>Mastery: </strong><%= @character.mastery %> (<%= number_to_human(@character.masteryp, precision: 4) %>%)<br>
+              </p>
+
+      </div>
+    </div>
+
+
+
+
+    <div class="span4">
+      <div class="well">
+        <center>
+          <h3 class="">PVP Stats</h3>
+          <hr>
+        </center>
+          <p><strong>Resilience: </strong><%= @character.pvpresil %></p>
+          <p><strong>PVP Power: </strong><%= @character.pvppower %></p>
+
+          <p><strong>Current RBG Rating: </strong><%= @character.cr %></p>
+          <p><strong>Current 2s Rating: </strong><%= @character.arena2 %></p>
+          <p><strong>Current 3s Rating: </strong><%= @character.arena3 %></p>
+          <p><strong>Current 5s Rating: </strong><%= @character.arena5 %></p>
+      </div>
+    </div>
+    <div class="span4">
+      <div class="well">
+        <center>
+          <h3 class="">Accountwide PVP Stats</h3>
+          <hr>
+        </center>
+          <p><strong>Total HKs: </strong><%= @character.hk %></p>
+          <p><strong>Best Arena Title: </strong><%= @character.bgtitle %></p>
+          <p><strong>Best 2s Achievement: </strong><%= @character.achv2 %></p>
+          <p><strong>Best 3s Achievement: </strong><%= @character.achv3 %></p>
+          <p><strong>Best 5s Achievement: </strong><%= @character.achv5 %></p>
+          <p><%= link_to @character.name + "\'s Arena Achievements", "http://us.battle.net/wow/en/character/" + @character.realm + "/" + @character.name + "/achievement#95:165", :target => "blank" %></p>
+          
+      </div>
+    </div>
+  </div>
+
+
 <% if current_user == @character.user %>
   <%= render 'edit' %>
 <% end %>

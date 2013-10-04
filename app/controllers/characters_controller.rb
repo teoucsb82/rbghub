@@ -4,19 +4,98 @@ class CharactersController < ApplicationController
 
   # GET /characters
   # GET /characters.json
-  def index
-    @characters = Character.order("name asc")
 
+
+
+  def index
+    @characters = Character.order(sort_column + ' ' + sort_direction).page(params[:page]).per_page(10)
   end
+
+
 
   # GET /characters/1
   # GET /characters/1.json
   def show    
-    @character.ilvl = HTTParty.get("http://us.battle.net/api/wow/character/" + @character.realm + "/" + @character.name + "?fields=stats,pvp,items")["items"]["averageItemLevelEquipped"]    
-    @character.cr = HTTParty.get("http://us.battle.net/api/wow/character/" + @character.realm + "/" + @character.name + "?fields=stats,pvp,items")["pvp"]["brackets"]["ARENA_BRACKET_RBG"]["rating"]
-    @character.pvppower = HTTParty.get("http://us.battle.net/api/wow/character/" + @character.realm + "/" + @character.name + "?fields=stats,pvp,items")["stats"]["pvpPowerRating"]
+
+    armory = HTTParty.get("http://us.battle.net/api/wow/character/" + @character.realm + "/" + @character.name + "?fields=stats,pvp,items,achievements")
+    @character.ilvl = armory["items"]["averageItemLevelEquipped"]    
+    @character.cr = armory["pvp"]["brackets"]["ARENA_BRACKET_RBG"]["rating"]
+    @character.arena2 = armory["pvp"]["brackets"]["ARENA_BRACKET_2v2"]["rating"]
+    @character.arena3 = armory["pvp"]["brackets"]["ARENA_BRACKET_3v3"]["rating"]
+    @character.arena5 = armory["pvp"]["brackets"]["ARENA_BRACKED_5v5"]["rating"]
+    @character.pvppower = armory["stats"]["pvpPowerRating"]
+    @character.pvpresil = armory["stats"]["pvpResilienceRating"]
+    @character.hk = armory["totalHonorableKills"]
+    @character.health = armory["stats"]["health"]
+    @character.armor = armory["stats"]["armor"]
+    @character.str = armory["stats"]["str"]
+    @character.agi = armory["stats"]["agi"]
+    @character.int = armory["stats"]["int"]
+    @character.spr = armory["stats"]["spr"]
+    @character.ap = armory["stats"]["attackPower"]
+    @character.sp = armory["stats"]["spellPower"]
+    @character.mastery = armory["stats"]["masteryRating"]
+    @character.masteryp = armory["stats"]["mastery"]
+    @character.crit = armory["stats"]["critRating"]
+    @character.critp = armory["stats"]["crit"]
+    @character.haste = armory["stats"]["hasteRating"]
+    @character.hastep = armory["stats"]["haste"]
+
+    @achievements = armory["achievements"]["achievementsCompleted"]
     
-    @character.gender = HTTParty.get("http://us.battle.net/api/wow/character/" + @character.realm + "/" + @character.name)["gender"]
+    #2s achieves
+    if @achievements.include? 1159
+      @character.achv2 = 2200
+    elsif @achievements.include? 401
+      @character.achv2 = 2000
+    elsif @achievements.include? 400
+      @character.achv2 = 1750
+    elsif @achievements.include? 399
+      @character.achv2 = 1550
+    end
+    
+    #3s achieves
+    if @achievements.include? 5267
+      @character.achv3 = 2700
+    elsif @achievements.include? 5266
+      @character.achv3 = 2400
+    elsif @achievements.include? 1160
+      @character.achv3 = 2200
+    elsif @achievements.include? 405
+      @character.achv3 = 2000
+    elsif @achievements.include? 403
+      @character.achv3 = 1750
+    elsif @achievements.include? 402
+      @character.achv3 = 1550
+    end
+        
+    #5s achieves
+    if @achievements.include? 1161
+      @character.achv5 = 2200
+    elsif @achievements.include? 404
+      @character.achv5 = 2000
+    elsif @achievements.include? 407
+      @character.achv5 = 1750
+    elsif @achievements.include? 406
+      @character.achv5 = 1550
+    end
+
+    #PVP Titles
+    if @achievements.include? 2091
+      @character.bgtitle = "Gladiator"
+    elsif @achievements.include? 2092
+      @character.bgtitle = "Duelist"
+    elsif @achievements.include? 2093
+      @character.bgtitle = "Rival"
+    elsif @achievements.include? 2090
+      @character.bgtitle = "Challenger"
+    end
+
+    #ArenaMaster Title
+    if @achievements.include? 1174
+      @character.arenamaster = true
+    end
+
     @character.save
   end
 
@@ -36,12 +115,13 @@ class CharactersController < ApplicationController
   def create
     @character = current_user.characters.new(character_params)
     @character.name.capitalize!
-    @character.gender = HTTParty.get("http://us.battle.net/api/wow/character/" + @character.realm + "/" + @character.name)["gender"]
-    @character.cls = HTTParty.get("http://us.battle.net/api/wow/character/" + @character.realm + "/" + @character.name + "?fields=stats,pvp,items")["class"]
-    @character.race = HTTParty.get("http://us.battle.net/api/wow/character/" + @character.realm + "/" + @character.name + "?fields=stats,pvp,items")["race"]
-    @character.ilvl = HTTParty.get("http://us.battle.net/api/wow/character/" + @character.realm + "/" + @character.name + "?fields=stats,pvp,items")["items"]["averageItemLevelEquipped"]
-    @character.cr = HTTParty.get("http://us.battle.net/api/wow/character/" + @character.realm + "/" + @character.name + "?fields=stats,pvp,items")["pvp"]["brackets"]["ARENA_BRACKET_RBG"]["rating"]    
-    @character.pvppower = HTTParty.get("http://us.battle.net/api/wow/character/" + @character.realm + "/" + @character.name + "?fields=stats,pvp,items")["stats"]["pvpPowerRating"]
+    armory = HTTParty.get("http://us.battle.net/api/wow/character/" + @character.realm + "/" + @character.name + "?fields=stats,pvp,items")
+    @character.arenamaster = false
+    @character.gender = armory["gender"]
+    @character.cls = armory["class"]
+    @character.race = armory["race"]
+    @character.ilvl = armory["items"]["averageItemLevelEquipped"]
+    @character.cr = armory["pvp"]["brackets"]["ARENA_BRACKET_RBG"]["rating"]    
     respond_to do |format|
       if @character.save
         format.html { redirect_to @character, notice: 'Character was successfully created.' }
@@ -88,4 +168,15 @@ class CharactersController < ApplicationController
     def character_params
       params.require(:character).permit(:name, :realm)
     end
+
+    private
+      def sort_column
+        Character.column_names.include?(params[:sort]) ? params[:sort] : "name"
+      end
+      
+      def sort_direction
+        %w[asc desc].include?(params[:direction]) ?  params[:direction] : "asc"
+      end
+
+
 end

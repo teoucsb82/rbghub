@@ -5,12 +5,12 @@
 <table class="table">
   <thead>
     <tr>
-      <th><%= link_to "Character", '#' %></th>
+      <th><%= sortable "name", "Character" %></th>
       <th>Race</th>
       <th>Class</th>
-      <th><%= link_to "Gear Level", '#' %></th>
-      <th>Current Rating</th>
-      <th>PVP Power</th>
+      <th><%= sortable "ilvl" %></th>
+      <th><%= sortable "cr", "Current Rating" %></th>
+      <th><%= sortable "pvppower", "PVP Power" %></th>
       <th></th>
       <th></th>
     </tr>
@@ -20,7 +20,7 @@
     <%= render @characters %>
   </tbody>
 </table>
-
+<%= will_paginate @characters %>
 <hr>
 <center>
   <%= link_to 'Add Character +', new_character_path, class: "btn btn-primary" %>

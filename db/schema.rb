@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20131003192255) do
+ActiveRecord::Schema.define(version: 20131004011239) do
 
   create_table "characters", force: true do |t|
     t.string   "name"
@@ -32,6 +32,27 @@ ActiveRecord::Schema.define(version: 20131003192255) do
     t.integer  "pvpresil"
     t.integer  "pvppower"
     t.integer  "gender"
+    t.string   "specialization"
+    t.integer  "achv2"
+    t.integer  "achv3"
+    t.integer  "achv5"
+    t.integer  "hk"
+    t.string   "bgtitle"
+    t.boolean  "arenamaster"
+    t.integer  "health"
+    t.integer  "str"
+    t.integer  "agi"
+    t.integer  "int"
+    t.integer  "spr"
+    t.integer  "ap"
+    t.integer  "sp"
+    t.integer  "mastery"
+    t.float    "masteryp"
+    t.integer  "crit"
+    t.float    "critp"
+    t.integer  "haste"
+    t.float    "hastep"
+    t.integer  "armor"
   end
 
   add_index "characters", ["user_id"], name: "index_characters_on_user_id"

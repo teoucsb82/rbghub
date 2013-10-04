@@ -1,0 +1,24 @@
+
+<% if @character.cls == 6 %>
+    <%= image_tag "http://hydra-media.cursecdn.com/wowpedia.org/e/e5/Ui-charactercreate-classes_deathknight.png", height: '64', width: '64' %>
+<% elsif @character.cls == 11 %>
+    <%= image_tag("http://hydra-media.cursecdn.com/wowpedia.org/6/6f/Ui-charactercreate-classes_druid.png", height: '64', width: '64' ) %>
+<% elsif @character.cls == 3 %>
+    <%= image_tag("http://hydra-media.cursecdn.com/wowpedia.org/4/4e/Ui-charactercreate-classes_hunter.png", height: '64', width: '64' ) %>
+<% elsif @character.cls == 8 %>
+    <%= image_tag("http://hydra-media.cursecdn.com/wowpedia.org/5/56/Ui-charactercreate-classes_mage.png", height: '64', width: '64' ) %>
+<% elsif @character.cls == 10 %>
+    <%= image_tag("http://hydra-media.cursecdn.com/wowpedia.org/2/24/Ui-charactercreate-classes_monk.png", height: '64', width: '64' ) %>
+<% elsif @character.cls == 2 %>
+    <%= image_tag("http://hydra-media.cursecdn.com/wowpedia.org/8/80/Ui-charactercreate-classes_paladin.png", height: '64', width: '64' ) %>
+<% elsif @character.cls == 5 %>
+    <%= image_tag("http://hydra-media.cursecdn.com/wowpedia.org/0/0f/Ui-charactercreate-classes_priest.png", height: '64', width: '64' ) %>
+<% elsif @character.cls == 4 %>
+    <%= image_tag("http://hydra-media.cursecdn.com/wowpedia.org/b/b1/Ui-charactercreate-classes_rogue.png", height: '64', width: '64' ) %>
+<% elsif @character.cls == 7 %>
+    <%= image_tag("http://hydra-media.cursecdn.com/wowpedia.org/3/3e/Ui-charactercreate-classes_shaman.png", height: '64', width: '64' ) %>
+<% elsif @character.cls == 9 %>
+    <%= image_tag("http://hydra-media.cursecdn.com/wowpedia.org/c/cf/Ui-charactercreate-classes_warlock.png", height: '64', width: '64' ) %>
+<% elsif @character.cls == 1 %>
+    <%= image_tag("http://hydra-media.cursecdn.com/wowpedia.org/3/37/Ui-charactercreate-classes_warrior.png", height: '64', width: '64' ) %>
+<% end %>

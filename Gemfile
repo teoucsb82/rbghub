@@ -8,6 +8,7 @@ gem 'bootstrap-sass', '~> 2.3.2.1'
 gem 'devise'
 gem 'simple_form', '~> 3.0.0.rc'
 gem 'httparty'
+gem 'will_paginate', '3.0.3'
 
 # Use SCSS for stylesheets
 gem 'sass-rails', '~> 4.0.0'
