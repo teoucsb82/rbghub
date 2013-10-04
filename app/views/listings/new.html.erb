@@ -1,7 +1,9 @@
 <% provide(:title, 'Join List') %>
 
-<h2 class="brand"><%= yield(:title)%></h2>
+<div class="hero-unit">
+	<h2 class="brand"><%= yield(:title)%></h2><hr>
 
-<%= render 'form' %>
+	<%= render 'form' %>
+</div>
 
 <%= render 'back' %>

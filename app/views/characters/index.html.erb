@@ -1,6 +1,6 @@
 <% provide(:title, 'My Roster') %>
-
-<h1 class="brand"><%= yield(:title)%></h1>
+<div class="hero-unit">
+<h1 class="brand"><%= yield(:title)%></h1><hr>
 
 <table class="table">
   <thead>
@@ -20,8 +20,10 @@
     <%= render @characters %>
   </tbody>
 </table>
-<%= will_paginate @characters %>
+  
+
 <hr>
 <center>
   <%= link_to 'Add Character +', new_character_path, class: "btn btn-primary" %>
 </center>
+</div>

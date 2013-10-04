@@ -5,12 +5,9 @@ class CharactersController < ApplicationController
   # GET /characters
   # GET /characters.json
 
-
-
   def index
-    @characters = Character.order(sort_column + ' ' + sort_direction).page(params[:page]).per_page(10)
+    @characters = Character.order(sort_column + ' ' + sort_direction)
   end
-
 
 
   # GET /characters/1

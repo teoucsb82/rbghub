@@ -9,6 +9,7 @@ gem 'devise'
 gem 'simple_form', '~> 3.0.0.rc'
 gem 'httparty'
 gem 'will_paginate', '3.0.3'
+gem 'whenever', :require => false
 
 # Use SCSS for stylesheets
 gem 'sass-rails', '~> 4.0.0'

@@ -1,34 +1,37 @@
 class ListingsController < ApplicationController
+  before_filter :authenticate_user!, except: [:index]
   before_action :set_listing, only: [:show, :edit, :update, :destroy]
 
   # GET /listings
   # GET /listings.json
   def index
-    @listings = Listing.all
+    @listings = Listing.order("created_at desc")
   end
 
   # GET /listings/1
   # GET /listings/1.json
   def show
+    @listing = current_user.listings.find(params[:id])
   end
 
   # GET /listings/new
   def new
-    @listing = Listing.new
+    @listing = current_user.listings.new
   end
 
   # GET /listings/1/edit
   def edit
+    @listing = current_user.listings.find(params[:id])
   end
 
   # POST /listings
   # POST /listings.json
   def create
-    @listing = Listing.new(listing_params)
+    @listing = current_user.listings.new(listing_params)
 
     respond_to do |format|
       if @listing.save
-        format.html { redirect_to @listing, notice: 'Listing was successfully created.' }
+        format.html { redirect_to listings_url, notice: 'Listing was successfully created.' }
         format.json { render action: 'show', status: :created, location: @listing }
       else
         format.html { render action: 'new' }
@@ -54,6 +57,7 @@ class ListingsController < ApplicationController
   # DELETE /listings/1
   # DELETE /listings/1.json
   def destroy
+    @listins = current_user.listings.find(params[:id])
     @listing.destroy
     respond_to do |format|
       format.html { redirect_to listings_url }

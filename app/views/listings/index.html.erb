@@ -1,27 +1,29 @@
 <% provide(:title, 'Live Listings') %>
+<div class="hero-unit">
+  <h1 class="brand"><%= yield(:title)%></h1><hr>
 
-<h1 class="brand"><%= yield(:title)%></h1>
+  <table class="table">
+    <thead>
+      <tr>
+        <th>Character</th>
+        <th>Race</th>
+        <th>Class</th>
+        <th>Role</th>
+        <th>ilvl</th>
+        <th>Current Rating</th>
+        <th>PVP Power</th>
+        <th width="30%">Description</th>
+        <th>Added</th>
+      </tr>
+    </thead>
 
-<table class="table">
-  <thead>
-    <tr>
-      <th>Description</th>
-      <th>Role</th>
-      <th>Listskype</th>
-      <th>Listbattletag</th>
-      <th>Toon</th>
-      <th></th>
-      <th></th>
-      <th></th>
-    </tr>
-  </thead>
+    <tbody>
+      <%= render @listings %>
+    </tbody>
+  </table>
 
-  <tbody>
-    <%= render @listings %>
-  </tbody>
-</table>
-
-<hr>
-<center>
-  <%= link_to 'Join List +', new_listing_path, class: "btn btn-primary" %>
-</center>
+  <hr>
+  <center>
+    <%= link_to 'Join List +', new_listing_path, class: "btn btn-primary" %>
+  </center>
+</div>
