@@ -1,5 +1,7 @@
 Rbghub::Application.routes.draw do
 
+  resources :teams
+
   resources :listings
 
   resources :characters

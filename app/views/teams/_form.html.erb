@@ -1,0 +1,33 @@
+<%= simple_form_for(@team, html: { class: "form-horizontal"}) do |f| %>
+  <%= f.error_notification %>
+
+  <div class="form-inputs">
+    <%= f.input :name %>
+    <%= f.input :role1 %>
+    <%= f.input :role2 %>
+    <%= f.input :role3 %>
+    <%= f.input :role4 %>
+    <%= f.input :role5 %>
+    <%= f.input :role6 %>
+    <%= f.input :role7 %>
+    <%= f.input :role8 %>
+    <%= f.input :role9 %>
+    <%= f.input :role10 %>
+    <%= f.input :rbgdate %>
+    <%= f.input :rbghour %>
+    <%= f.input :rbgmin %>
+    <%= f.input :rbgzone %>
+    <%= f.input :rbgdurationHour %>
+    <%= f.input :rbgdurationMin %>
+    <%= f.input :isAvailable %>
+    <%= f.input :recurs %>
+    <%= f.input :rolesNeeded %>
+    <%= f.input :classesNeeded %>
+    <%= f.input :listed %>
+    <%= f.input :description, as: :text, input_html: { rows: "3" } %>
+  </div>
+
+  <div class="form-actions">
+    <%= f.button :submit, class: "btn btn-primary" %>
+  </div>
+<% end %>
