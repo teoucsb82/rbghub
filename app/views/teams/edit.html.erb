@@ -1,6 +1,10 @@
-<h1>Editing team</h1>
+<% provide(:title, 'Edit Team') %>
+<div class="hero-unit">
+  <h2 class="brand"><%= yield(:title)%></h2><hr>
+
+  <table class="table">
 
 <%= render 'form' %>
-
+</div>
 <%= link_to 'Show', @team %> |
 <%= link_to 'Back', teams_path %>

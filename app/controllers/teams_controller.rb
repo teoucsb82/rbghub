@@ -1,4 +1,5 @@
 class TeamsController < ApplicationController
+  before_filter :authenticate_user!, except: [:index, :show]
   before_action :set_team, only: [:show, :edit, :update, :destroy]
 
   # GET /teams
@@ -14,17 +15,18 @@ class TeamsController < ApplicationController
 
   # GET /teams/new
   def new
-    @team = Team.new
+    @team = current_user.teams.new
   end
 
   # GET /teams/1/edit
   def edit
+    @team = current_user.teams.find(params[:id])
   end
 
   # POST /teams
   # POST /teams.json
   def create
-    @team = Team.new(team_params)
+    @team = current_user.teams.new(team_params)
 
     respond_to do |format|
       if @team.save
@@ -40,6 +42,7 @@ class TeamsController < ApplicationController
   # PATCH/PUT /teams/1
   # PATCH/PUT /teams/1.json
   def update
+    @team = current_user.teams.find(params[:id])
     respond_to do |format|
       if @team.update(team_params)
         format.html { redirect_to @team, notice: 'Team was successfully updated.' }
@@ -54,6 +57,7 @@ class TeamsController < ApplicationController
   # DELETE /teams/1
   # DELETE /teams/1.json
   def destroy
+    @team = current_user.teams.find(params[:id])
     @team.destroy
     respond_to do |format|
       format.html { redirect_to teams_url }
@@ -69,6 +73,6 @@ class TeamsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def team_params
-      params.require(:team).permit(:name, :role1, :role2, :role3, :role4, :role5, :role6, :role7, :role8, :role9, :role10, :rbgdate, :rbghour, :rbgmin, :rbgzone, :rbgdurationHour, :rbgdurationMin, :isAvailable, :recurs, :rolesNeeded, :classesNeeded, :listed, :description)
+      params.require(:team).permit(:name, :role1, :role2, :role3, :role4, :role5, :role6, :role7, :role8, :role9, :role10, :rbgdate, :rbghour, :rbgmin, :rbgzone, :rbgdurationHour, :rbgdurationMin, :isAvailable, :recurs, :rolesNeeded, :classesNeeded, :listed, :description, :mincr, :minilvl, :min2s, :min3s, :min5s, :mintitle)
     end
 end

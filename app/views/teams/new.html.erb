@@ -1,8 +1,10 @@
-<% provide(:title, 'Create New Team') %>
+<% provide(:title, 'Create Team') %>
 <div class="hero-unit">
-  <h1 class="brand"><%= yield(:title)%></h1><hr>
+  <h2 class="brand"><%= yield(:title)%></h2><hr>
+
+  <table class="table">
 
 <%= render 'form' %>
+</div>
 
 <%= link_to 'Back', teams_path %>
-</div>

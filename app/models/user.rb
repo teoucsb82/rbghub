@@ -13,5 +13,6 @@ class User < ActiveRecord::Base
 
     has_many :characters, :dependent => :destroy
     has_many :listings, :dependent => :destroy
-
+    has_many :teams, :dependent => :destroy
+    
 end

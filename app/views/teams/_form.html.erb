@@ -3,7 +3,7 @@
 
   <div class="form-inputs">
     <%= f.input :name %>
-    <%= f.input :role1 %>
+    <%= f.input :role1, :include_blank => "-- Select Slot #1 --", label: "Role #1", collection: Character.all  %>
     <%= f.input :role2 %>
     <%= f.input :role3 %>
     <%= f.input :role4 %>
@@ -17,6 +17,12 @@
     <%= f.input :rbghour %>
     <%= f.input :rbgmin %>
     <%= f.input :rbgzone %>
+    <%= f.input :mincr %>
+    <%= f.input :minilvl %>
+    <%= f.input :mintitle %>
+    <%= f.input :min2s %>
+    <%= f.input :min3s %>
+    <%= f.input :min5s %>
     <%= f.input :rbgdurationHour %>
     <%= f.input :rbgdurationMin %>
     <%= f.input :isAvailable %>
@@ -24,10 +30,10 @@
     <%= f.input :rolesNeeded %>
     <%= f.input :classesNeeded %>
     <%= f.input :listed %>
-    <%= f.input :description, as: :text, input_html: { rows: "3" } %>
+    <%= f.input :description %>
   </div>
 
   <div class="form-actions">
-    <%= f.button :submit, class: "btn btn-primary" %>
+    <%= f.button :submit %>
   </div>
 <% end %>

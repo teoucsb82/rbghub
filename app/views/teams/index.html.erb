@@ -5,29 +5,12 @@
   <table class="table">
   <thead>
     <tr>
-      <th>Name</th>
-      <th>Role1</th>
-      <th>Role2</th>
-      <th>Role3</th>
-      <th>Role4</th>
-      <th>Role5</th>
-      <th>Role6</th>
-      <th>Role7</th>
-      <th>Role8</th>
-      <th>Role9</th>
-      <th>Role10</th>
-      <th>Rbgdate</th>
-      <th>Rbghour</th>
-      <th>Rbgmin</th>
-      <th>Rbgzone</th>
-      <th>Rbgdurationhour</th>
-      <th>Rbgdurationmin</th>
-      <th>Isavailable</th>
-      <th>Recurs</th>
-      <th>Rolesneeded</th>
-      <th>Classesneeded</th>
-      <th>Listed</th>
-      <th>Description</th>
+      <th>Team Name</th>
+      <th>Game Time</th>
+      <th></th>
+      <th>Min CR</th>
+      <th>Min ilvl</th>
+      <th></th>
       <th></th>
       <th></th>
       <th></th>
@@ -35,11 +18,11 @@
   </thead>
 
   <tbody>
-    <%= render @teams %>
+      <%= render @teams %>
   </tbody>
 </table>
 
-<br>
+<hr>
 
 <%= link_to 'New Team', new_team_path %>
 </div>

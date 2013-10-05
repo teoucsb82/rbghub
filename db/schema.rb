@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20131005020114) do
+ActiveRecord::Schema.define(version: 20131005025700) do
 
   create_table "characters", force: true do |t|
     t.string   "name"
@@ -97,7 +97,16 @@ ActiveRecord::Schema.define(version: 20131005020114) do
     t.string   "description"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.integer  "user_id"
+    t.integer  "mincr"
+    t.integer  "minilvl"
+    t.integer  "mintitle"
+    t.integer  "min2s"
+    t.integer  "min3s"
+    t.integer  "min5s"
   end
+
+  add_index "teams", ["user_id"], name: "index_teams_on_user_id"
 
   create_table "users", force: true do |t|
     t.string   "email",                  default: "", null: false
