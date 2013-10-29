@@ -7,6 +7,7 @@ class CharactersController < ApplicationController
 
   def index
     @characters = Character.order(sort_column + ' ' + sort_direction)
+    
   end
 
 
