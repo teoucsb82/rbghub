@@ -2,7 +2,7 @@
 <% arr = @comp.listplayers.split(',') %>
 <% arr.pop %>
 <% arr.sort_by! { |k, v| k.capitalize! } %>
-
+<span style="font-size: .9em">
 <table class="table">
   <thead>
     <tr>
@@ -18,7 +18,12 @@
 	<% arr.each do |x| %>
 		<% character_name = x.split('-')[0] %>
 		<% realm = x.split('-')[1] %>
-		<% armory = HTTParty.get("http://us.battle.net/api/wow/character/" + realm + "/" + character_name + "?fields=stats,pvp,items,achievements,talents").to_h %>
+		<% realm = "Area-52" if realm=="area52" %>
+		<% realm = "Khaz-modan" if realm=="khazmodan" %>
+		<% encoded_url = URI.encode("http://us.battle.net/api/wow/character/" + realm + "/" + character_name + "?fields=stats,pvp,items,achievements,talents") %>
+		<% URI.parse(encoded_url) %>
+		<% armory = HTTParty.get(encoded_url).to_h %>
+
 		<% thumbnail = armory["thumbnail"] %>		
 		<% ilvl = armory["items"]["averageItemLevelEquipped"] %>
 		<% cr = armory["pvp"]["brackets"]["ARENA_BRACKET_RBG"]["rating"] %>
@@ -292,11 +297,12 @@
 
 			</td>
 	    </tr>
+
 	    <% end %>
-	<br>
+
   </tbody>
 </table>
-
+</span>
 
 <hr>
 
