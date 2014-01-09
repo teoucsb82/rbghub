@@ -1,6 +1,7 @@
 <% provide(:title, 'Team Stats') %>
 <% arr = @comp.listplayers.split(',') %>
-<% arr.pop %>
+
+<% arr.pop if arr[-1]=="\r\n"%>
 <% arr.sort_by! { |k, v| k.capitalize! } %>
 <span style="font-size: .9em">
 <table class="table">
@@ -20,10 +21,11 @@
 		<% realm = x.split('-')[1] %>
 		<% realm = "Area-52" if realm=="area52" %>
 		<% realm = "Khaz-modan" if realm=="khazmodan" %>
-		<% realm = "Black-Dragonflight" if realm.downcase=="blackdragonflight" %>
+		<% realm = "Black-Dragonflight" if realm=="blackdragonflight" %>
 		<% encoded_url = URI.encode("http://us.battle.net/api/wow/character/" + realm + "/" + character_name + "?fields=stats,pvp,items,achievements,talents") %>
 		<% URI.parse(encoded_url) %>
 		<% armory = HTTParty.get(encoded_url).to_h %>
+
 
 		<% thumbnail = armory["thumbnail"] %>		
 		<% ilvl = armory["items"]["averageItemLevelEquipped"] %>
@@ -298,7 +300,7 @@
 
 			</td>
 	    </tr>
-
+	    
 	    <% end %>
 
   </tbody>
