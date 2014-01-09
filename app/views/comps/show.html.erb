@@ -21,12 +21,26 @@
 		<% realm = x.split('-')[1] %>
 		<% realm = "Area-52" if realm=="area52" %>
 		<% realm = "Khaz-modan" if realm=="khazmodan" %>
+		<% realm = "Aerie-Peak" if realm=="aeriepeak" %>
+		<% realm = "Altar-of-storms" if realm=="altarofstorms" %>
+		<% realm = "Argent-Dawn" if realm=="argentdawn" %>
+		<% realm = "Azjol-Nerub" if realm=="azjolnerub" %>
 		<% realm = "Black-Dragonflight" if realm=="blackdragonflight" %>
+		<% realm = "Blackwater-Raiders" if realm=="blackwaterraiders" %>
+		<% realm = "Blackwing-Lair" if realm=="blackwinglair" %>
+		<% realm = "Bleeding-Hollow" if realm=="bleedinghollow" %>
+		<% realm = "Blood-Furnace" if realm=="bloodfurnace" %>
+		<% realm = "Borean-Tundra" if realm=="boreantundra" %>
+		<% realm = "Burning-Blade" if realm=="burningblade" %>
+		<% realm = "Burning-Legion" if realm=="burninglegion" %>
+
+
 		<% encoded_url = URI.encode("http://us.battle.net/api/wow/character/" + realm + "/" + character_name + "?fields=stats,pvp,items,achievements,talents") %>
 		<% URI.parse(encoded_url) %>
 		<% armory = HTTParty.get(encoded_url).to_h %>
 
-
+		<% unless armory["status"]=="nok" %>
+		
 		<% thumbnail = armory["thumbnail"] %>		
 		<% ilvl = armory["items"]["averageItemLevelEquipped"] %>
 		<% cr = armory["pvp"]["brackets"]["ARENA_BRACKET_RBG"]["rating"] %>
@@ -300,7 +314,7 @@
 
 			</td>
 	    </tr>
-	    
+	    <% end %>
 	    <% end %>
 
   </tbody>
