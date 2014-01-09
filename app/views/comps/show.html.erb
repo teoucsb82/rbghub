@@ -20,6 +20,7 @@
 		<% realm = x.split('-')[1] %>
 		<% realm = "Area-52" if realm=="area52" %>
 		<% realm = "Khaz-modan" if realm=="khazmodan" %>
+		<% realm = "Black-Dragonflight" if realm.downcase=="blackdragonflight" %>
 		<% encoded_url = URI.encode("http://us.battle.net/api/wow/character/" + realm + "/" + character_name + "?fields=stats,pvp,items,achievements,talents") %>
 		<% URI.parse(encoded_url) %>
 		<% armory = HTTParty.get(encoded_url).to_h %>
