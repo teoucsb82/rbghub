@@ -96,7 +96,15 @@
 		    		Arena Master<br>
 		    	<% end %>
 		    	<small><%= "#{[achv2, achv3, achv5].sort[-1]} Arena Exp" %></small><br>
-		    	<strong><%= "#{ilvl} iLvl" %></strong>
+		    	<% if ilvl <= 496 %>
+		    		<span style="color:red">
+		    	<% elsif ilvl >= 522 %>
+		    		<span style="color:green">
+    			<% else %>
+    				<span>
+		    	<% end %>
+		    	<strong><%= "#{ilvl} iLvl" %></strong></span>
+
 			</td>
 
 			<td><!-- Icons -->
