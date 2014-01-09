@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20131005025700) do
+ActiveRecord::Schema.define(version: 20140108211933) do
 
   create_table "characters", force: true do |t|
     t.string   "name"
@@ -56,6 +56,12 @@ ActiveRecord::Schema.define(version: 20131005025700) do
   end
 
   add_index "characters", ["user_id"], name: "index_characters_on_user_id"
+
+  create_table "comps", force: true do |t|
+    t.string   "listplayers"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
 
   create_table "listings", force: true do |t|
     t.string   "description"

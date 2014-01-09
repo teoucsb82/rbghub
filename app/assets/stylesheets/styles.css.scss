@@ -16,12 +16,13 @@ $baseBGcolor: #010131;
 $btnInfoBackground: #83AEC4; 
 
 @import 'bootstrap';
+@import 'bootstrap-responsive';
+
 body{
     padding-top: 60px;
     padding-bottom: 60px;
 }
 
-@import 'bootstrap-responsive';
 
 .navbar-inner{
     @include box-shadow(none !important);

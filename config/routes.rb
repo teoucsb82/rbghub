@@ -1,14 +1,15 @@
 Rbghub::Application.routes.draw do
 
-  resources :teams
+  resources :comps
 
   resources :listings
 
   resources :characters
 
   devise_for :users
-get 'home' => 'pages#home'
-get 'about' => 'pages#about'
+  get 'home' => 'pages#home'
+  get 'about' => 'pages#about'
+  get 'roster' => 'characters#index'
 
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
