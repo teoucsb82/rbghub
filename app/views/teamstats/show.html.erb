@@ -364,13 +364,14 @@
 				<% score_cr = (cr/220.0).round(2) %> <!--0-10 scale, 2200 is perfect -->
 				<% score_cr = 10 if score_cr > 10 %>
 				<% score_rbg_exp = (achvrbg / 220.0).round(1) %>
+				<% score_rbg = 10 if score_rbg > 10 %>
 				<% score_games_played = (rbgw + rbgl)/30.0 %>
 				<% score_games_played = 10 if score_games_played > 10 %>
 				<% score_rbg = ((score_cr * 0.4) + (score_rbg_exp * 0.5) + (score_games_played * 0.1)).round(1) %><!-- weighted rbg score on 0-10 scale. -->
 				<% score_rbg += 0.5 if hoth %>
 				<% score_rbg = 10 if score_rbg > 10 %>
 
-				<% score_arena_exp = ([achv2, achv3, achv5].sort[-1] / 240.0).round(1) %>
+				<% score_arena_exp = ([achv2, achv3, achv5].sort[-1] / 220.0).round(1) %>
 				<% score_arena_exp = 10 if score_arena_exp > 10 %>
 				<% score_arena_title = 10 if title=="Gladiator" %>
 				<% score_arena_title = 9 if title=="Duelist" %>
