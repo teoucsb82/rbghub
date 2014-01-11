@@ -331,7 +331,7 @@
 				<% score_gems = (20-(missingenchants + missinggems))/2.0 %>
 				<% score_gear = ((score_ilvl * 0.8) + (score_gems * 0.2)).round(1) %><!-- weighted gear score on 0-10 scale. Gear is worth 80%, Gems and Enchants 10% each-->
 
-				<% score_cr = (cr/240.0).round(2) %> <!--0-10 scale, 2400 is perfect -->
+				<% score_cr = (cr/220.0).round(2) %> <!--0-10 scale, 2400 is perfect -->
 				<% score_cr = 10 if score_cr > 10 %>
 				<% score_games_played = (rbgw + rbgl)/30.0 %>
 				<% score_games_played = 10 if score_games_played > 10 %>
@@ -344,7 +344,7 @@
 				<% score_arena_title = 7 if title=="Rival" %>
 				<% score_arena_title = 5 if title=="Challenger" %>
 				<% score_arena_title = 0 if title=="Scrub" %>
-				<% score_arena_games_played = (arena2w+arena2l+arena3w+arena3l+arena5w+arena5l)/20.0 %>
+				<% score_arena_games_played = (arena2w+arena2l+arena3w+arena3l+arena5w+arena5l)/4.0 %>
 				<% score_arena_games_played = 10 if score_arena_games_played > 10 %>
 				<% score_arena = ((score_arena_exp * 0.65) + (score_arena_title * 0.25) + (score_arena_games_played * 0.1)).round(1) %>
 				<% score_arena += 0.5 if arena_master %>
@@ -379,13 +379,13 @@
 	<% avg_ilvl = ilvl_array.inject(0) { |result, sum| result + sum} %>
 	<% avg_arena = arena_array.inject(0) { |result, sum| result + sum} %>
 	<% avg_score = score_array.inject(0) { |result, sum| result + sum} %>
-	<% if avg_score >= 9 %>
+	<% if (avg_score.to_f/score_array.count).round(2) >= 9 %>
 		<span style="color: green">
-	<% elsif avg_score <9 && avg_score >=7 %>
+	<% elsif (avg_score.to_f/score_array.count).round(2) <9 && (avg_score.to_f/score_array.count).round(2) >=7 %>
 		<span style="color: yellow">
-	<% elsif avg_score <7 && avg_score >=5 %>
+	<% elsif (avg_score.to_f/score_array.count).round(2) <7 && (avg_score.to_f/score_array.count).round(2) >=5 %>
 		<span style="color: orange">
-	<% elsif avg_score <5 %>
+	<% elsif (avg_score.to_f/score_array.count).round(2) <5 %>
 		<span style="color: red">
 	<% end %>
 	<h1><%="#{(avg_score.to_f/score_array.count).round(2)} Avg Score" %></h1><hr>
