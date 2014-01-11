@@ -418,7 +418,8 @@
 </table>
 </span>
 
-<div class="well">
+	<center>
+<div class="well span11">
 	<% avg_cr = cr_array.inject(0) { |result, sum| result + sum} %>
 	<% avg_ilvl = ilvl_array.inject(0) { |result, sum| result + sum} %>
 	<% avg_arena = arena_array.inject(0) { |result, sum| result + sum} %>
@@ -442,3 +443,5 @@
 	<%="#{(avg_rbg.to_f/rbg_array.count).round(2)} Avg RBG Exp" %></h2>
 
 </div>	
+	</center>
+
