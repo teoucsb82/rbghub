@@ -14,8 +14,8 @@
   <thead>
     <tr>
       <th width="10%">Toon</th>
-      <th width="10%"></th>
       <th width="8%"></th>
+      <th width="10%"></th>
       <th width="15%">RBG Stats</th>
       <th width="25%">Arena Stats</th>
       <th width="10%">Gems/Enchants</th>
@@ -174,10 +174,20 @@
 		    	
 
 			</td>
+			
+			<td><!-- Icons -->
+			    <%= link_to image_tag("http://us.battle.net/static-render/us/" + thumbnail), "http://us.battle.net/wow/en/character/#{realm}/#{character_name}/advanced", :target => "_blank" %><br>
+
+			</td>
+
 			<td>	
-		    	<% if ilvl <= 496 %>
+		    	<% if ilvl <= 504 %>
 		    		<span style="color:red">
-		    	<% elsif ilvl >= 522 %>
+		    	<% elsif ilvl > 504 && ilvl <= 513 %>
+		    		<span style="color:orange">
+		    	<% elsif ilvl > 513 && ilvl <= 520 %>
+		    		<span style="color:yellow">
+		    	<% elsif ilvl > 520 %>
 		    		<span style="color:green">
     			<% else %>
     				<span>
@@ -199,10 +209,6 @@
 			    </span>
 		    	<small><%= "#{[achv2, achv3, achv5].sort[-1]} Arena Exp" %></small><br>
 		    	<small><%= "#{achvrbg} RBG Exp" %></small>    
-
-			</td>
-			<td><!-- Icons -->
-			    <%= link_to image_tag("http://us.battle.net/static-render/us/" + thumbnail), "http://us.battle.net/wow/en/character/#{realm}/#{character_name}/advanced", :target => "_blank" %><br>
 
 			</td>
 
@@ -318,9 +324,42 @@
 				<td>
 				
 				<small>
-						<%= "Gear  : #{score_gear}" %><br>
-						<%= "RBG   : #{score_rbg}" %><br>
-						<%= "Arena : #{score_arena}" %>
+						Gear: 
+						<% if score_gear >= 9 %>
+								<span style="color: green">
+							<% elsif score_gear <9 && score_gear >=7 %>
+								<span style="color: yellow">
+							<% elsif score_gear <7 && score_gear >=5 %>
+								<span style="color: orange">
+							<% elsif score_gear <5 %>
+								<span style="color: red">
+							<% end %>
+								<%= score_gear %><br>
+							</span>
+						RBG: 
+						<% if score_rbg >= 9 %>
+								<span style="color: green">
+							<% elsif score_rbg <9 && score_rbg >=7 %>
+								<span style="color: yellow">
+							<% elsif score_rbg <7 && score_rbg >=5 %>
+								<span style="color: orange">
+							<% elsif score_rbg <5 %>
+								<span style="color: red">
+							<% end %>
+								<%= score_rbg %><br>
+							</span>
+						Arena: 
+						<% if score_arena >= 9 %>
+								<span style="color: green">
+							<% elsif score_arena <9 && score_arena >=7 %>
+								<span style="color: yellow">
+							<% elsif score_arena <7 && score_arena >=5 %>
+								<span style="color: orange">
+							<% elsif score_arena <5 %>
+								<span style="color: red">
+							<% end %>
+								<%= score_arena %>
+							</span>
 					</small>
 			<td>
 	    </tr>
