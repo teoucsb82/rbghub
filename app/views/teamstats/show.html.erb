@@ -6,6 +6,7 @@
 <% cr_array = [] %>
 <% ilvl_array = [] %>
 <% arena_array = [] %>
+<% rbg_array = [] %>
 <% score_array = [] %>
 
 <span style="font-size: .9em">
@@ -15,9 +16,9 @@
       <th width="10%">Toon</th>
       <th width="12%"></th>
       <th width="18%">RBG Stats</th>
-      <th width="30%">Arena Stats</th>
+      <th width="25%">Arena Stats</th>
       <th width="20%">Gems/Enchants</th>
-      <th width="10%"><span style="font-size: 1.5em">RBGHub Score</span></th>
+      <th width="15%"><span style="font-size: 1.5em">RBGHub Score</span></th>
     </tr>
   </thead>
 
@@ -97,8 +98,10 @@
 	    <% achv2 = 0 %>
 	    <% achv3 = 0 %>
 	    <% achv5 = 0 %>
-	    <% title = "Scrub" %>
+	    <% achvrbg = 0 %>
+	    <% title = "" %>
 	    <% arena_master = false %>
+	    <% hoth = false %>
 	    <% achv2 = 1550 if achievements.include? 399 %>
 	    <% achv2 = 1750 if achievements.include? 400 %>
 	    <% achv2 = 2000 if achievements.include? 401 %>
@@ -113,21 +116,48 @@
 	    <% achv5 = 1750 if achievements.include? 407 %>
 	    <% achv5 = 2000 if achievements.include? 404 %>
 	    <% achv5 = 2200 if achievements.include? 1161 %>
+	    <% achvrbg = 1100 if achievements.include?(5345) || achievements.include?(5330) %>
+	    <% achvrbg = 1200 if achievements.include?(5346) || achievements.include?(5331) %>
+	    <% achvrbg = 1300 if achievements.include?(5347) || achievements.include?(5332) %>
+	    <% achvrbg = 1400 if achievements.include?(5348) || achievements.include?(5333) %>
+	    <% achvrbg = 1500 if achievements.include?(5349) || achievements.include?(5334) %>
+	    <% achvrbg = 1600 if achievements.include?(5350) || achievements.include?(5335) %>
+	    <% achvrbg = 1700 if achievements.include?(5351) || achievements.include?(5336) %>
+	    <% achvrbg = 1800 if achievements.include?(5352) || achievements.include?(5337) %>
+	    <% achvrbg = 1900 if achievements.include?(5338) || achievements.include?(5359) %>
+	    <% achvrbg = 2000 if achievements.include?(5353) || achievements.include?(5339) %>
+	    <% achvrbg = 2100 if achievements.include?(5354) || achievements.include?(5340) %>
+	    <% achvrbg = 2200 if achievements.include?(5355) || achievements.include?(5341) %>
+	    <% achvrbg = 2300 if achievements.include?(5342) || achievements.include?(5357) %>
+	    <% achvrbg = 2400 if achievements.include?(5356) || achievements.include?(5343) %>
+	    <% rbg_array << achvrbg %>
 	    <% arena_array << [achv2, achv3, achv5].sort[-1] %>
 	    <% title = "Challenger" if achievements.include? 2090 %>
 	    <% title = "Rival" if achievements.include? 2093 %>
 	    <% title = "Duelist" if achievements.include? 2092 %>
 	    <% title = "Gladiator" if achievements.include? 2091 %>
 	    <% arena_master = true if achievements.include? 1174 %>
+	    <% hoth = true if achievements.include?(6941) || achievements.include?(6942) %>
 
 		<tr>
 		    <td><!-- Toon -->
 		    	<h4><%= link_to character_name, "http://us.battle.net/wow/en/character/#{realm}/#{character_name}/advanced", :target => "_blank"  %></h4>
-		    	<%= title unless title=="Scrub" %><br>
+		    	<% unless title=="" %>
+		    		<%= title %><br>
+		    	<% end %>
+		    	<span style="color:green">
 		    	<% if arena_master %>
 		    		Arena Master<br>
 		    	<% end %>
+		    	<% if hoth && achievements.include?(6941)%>
+		    		Hero of the Horde<br>
+		    	<% end %>
+		    	<% if hoth && achievements.include?(6942)%>
+		    		Hero of the Horde<br>
+		    	<% end %>
+			    </span>
 		    	<small><%= "#{[achv2, achv3, achv5].sort[-1]} Arena Exp" %></small><br>
+		    	<small><%= "#{achvrbg} RBG Exp" %></small><br>
 		    	<% if ilvl <= 496 %>
 		    		<span style="color:red">
 		    	<% elsif ilvl >= 522 %>
@@ -331,19 +361,22 @@
 				<% score_gems = (20-(missingenchants + missinggems))/2.0 %>
 				<% score_gear = ((score_ilvl * 0.8) + (score_gems * 0.2)).round(1) %><!-- weighted gear score on 0-10 scale. Gear is worth 80%, Gems and Enchants 10% each-->
 
-				<% score_cr = (cr/220.0).round(2) %> <!--0-10 scale, 2400 is perfect -->
+				<% score_cr = (cr/220.0).round(2) %> <!--0-10 scale, 2200 is perfect -->
 				<% score_cr = 10 if score_cr > 10 %>
+				<% score_rbg_exp = (achvrbg / 220.0).round(1) %>
 				<% score_games_played = (rbgw + rbgl)/30.0 %>
 				<% score_games_played = 10 if score_games_played > 10 %>
-				<% score_rbg = ((score_cr * 0.9) + (score_games_played * 0.1)).round(1) %><!-- weighted rbg score on 0-10 scale. CR = 90%, games played 10%-->
+				<% score_rbg = ((score_cr * 0.4) + (score_rbg_exp * 0.5) + (score_games_played * 0.1)).round(1) %><!-- weighted rbg score on 0-10 scale. -->
+				<% score_rbg += 0.5 if hoth %>
+				<% score_rbg = 10 if score_rbg > 10 %>
 
 				<% score_arena_exp = ([achv2, achv3, achv5].sort[-1] / 240.0).round(1) %>
 				<% score_arena_exp = 10 if score_arena_exp > 10 %>
 				<% score_arena_title = 10 if title=="Gladiator" %>
-				<% score_arena_title = 8 if title=="Duelist" %>
-				<% score_arena_title = 7 if title=="Rival" %>
-				<% score_arena_title = 5 if title=="Challenger" %>
-				<% score_arena_title = 0 if title=="Scrub" %>
+				<% score_arena_title = 9 if title=="Duelist" %>
+				<% score_arena_title = 8 if title=="Rival" %>
+				<% score_arena_title = 6 if title=="Challenger" %>
+				<% score_arena_title = 0 if title=="" %>
 				<% score_arena_games_played = (arena2w+arena2l+arena3w+arena3l+arena5w+arena5l)/4.0 %>
 				<% score_arena_games_played = 10 if score_arena_games_played > 10 %>
 				<% score_arena = ((score_arena_exp * 0.65) + (score_arena_title * 0.25) + (score_arena_games_played * 0.1)).round(1) %>
@@ -351,20 +384,30 @@
 				<% score_arena = 10 if score_arena > 10 %>
 
 				<% score_final = ((score_gear * 0.3) + (score_rbg * 0.4) + (score_arena * 0.3)).round(2) %>
-				<center><strong>
-					<% if score_final >= 9 %>
-						<span style="color: green; font-size: 3em">
-					<% elsif score_final <9 && score_final >=7 %>
-						<span style="color: yellow; font-size: 3em">
-					<% elsif score_final <7 && score_final >=5 %>
-						<span style="color: orange; font-size: 3em">
-					<% elsif score_final <5 %>
-						<span style="color: red; font-size: 3em">
-					<% end %>
-						<%= score_final %>
-					</span>
-						<% score_array << score_final %>
-				</strong></center>
+
+				<center>
+					<div>
+						<h2>
+							<% if score_final >= 9 %>
+								<span style="color: green">
+							<% elsif score_final <9 && score_final >=7 %>
+								<span style="color: yellow">
+							<% elsif score_final <7 && score_final >=5 %>
+								<span style="color: orange">
+							<% elsif score_final <5 %>
+								<span style="color: red">
+							<% end %>
+								<%= score_final %>
+							</span>
+								<% score_array << score_final %>
+						</h2>
+					</div>
+					<small>
+						<%= "Gear Score: #{score_gear}" %><br>
+						<%= "RBG Score: #{score_rbg}" %><br>
+						<%= "Arena Score: #{score_arena}" %>
+					</small>
+				</center>
 			<td>
 	    </tr>
 	    <% end %>
@@ -379,6 +422,7 @@
 	<% avg_ilvl = ilvl_array.inject(0) { |result, sum| result + sum} %>
 	<% avg_arena = arena_array.inject(0) { |result, sum| result + sum} %>
 	<% avg_score = score_array.inject(0) { |result, sum| result + sum} %>
+	<% avg_rbg = rbg_array.inject(0) { |result, sum| result + sum} %>
 	<% if (avg_score.to_f/score_array.count).round(2) >= 9 %>
 		<span style="color: green">
 	<% elsif (avg_score.to_f/score_array.count).round(2) <9 && (avg_score.to_f/score_array.count).round(2) >=7 %>
@@ -393,6 +437,7 @@
 
 	<h2><%="#{(avg_cr.to_f/cr_array.count).round(2)} Avg CR " %><br>
 	<%="#{(avg_ilvl.to_f/ilvl_array.count).round(2)} Avg iLvl" %><br>
-	<%="#{(avg_arena.to_f/arena_array.count).round(2)} Avg Arena Exp" %></h2>
+	<%="#{(avg_arena.to_f/arena_array.count).round(2)} Avg Arena Exp" %><br>
+	<%="#{(avg_rbg.to_f/rbg_array.count).round(2)} Avg RBG Exp" %></h2>
 
 </div>	
