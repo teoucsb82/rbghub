@@ -349,7 +349,7 @@
 				<% score_arena += 0.5 if arena_master %>
 				<% score_arena = 10 if score_arena > 10 %>
 
-				<% score_final = ((score_gear * 0.3) + (score_rbg * 0.4) + (score_arena * 0.3)).round(1) %>
+				<% score_final = ((score_gear * 0.3) + (score_rbg * 0.4) + (score_arena * 0.3)).round(2) %>
 				<center><strong>
 					<% if score_final >= 9 %>
 						<span style="color: green; font-size: 3em">
