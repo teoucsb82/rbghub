@@ -359,7 +359,7 @@
 				<% score_ilvl = ilvl - 495 <= 0 ? 0 : ((ilvl-496)/2.6).round(1) %>
 				<% score_ilvl = 10 if score_ilvl > 10 %>
 				<% score_gems = (20-(missingenchants + missinggems))/2.0 %>
-				<% score_gear = ((score_ilvl * 0.8) + (score_gems * 0.2)).round(1) %><!-- weighted gear score on 0-10 scale. Gear is worth 80%, Gems and Enchants 10% each-->
+				<% score_gear = ((score_ilvl * 0.75) + (score_gems * 0.25)).round(1) %><!-- weighted gear score on 0-10 scale. Gear is worth 80%, Gems and Enchants 10% each-->
 
 				<% score_cr = (cr/220.0).round(2) %> <!--0-10 scale, 2200 is perfect -->
 				<% score_cr = 10 if score_cr > 10 %>
