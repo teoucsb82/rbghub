@@ -17,7 +17,7 @@
       <th width="18%">RBG Stats</th>
       <th width="30%">Arena Stats</th>
       <th width="20%">Gems/Enchants</th>
-      <th width="10%"><span style="font-size: 1.5em">Weighted Score</span></th>
+      <th width="10%"><span style="font-size: 1.5em">RBGHub Score</span></th>
     </tr>
   </thead>
 
@@ -349,7 +349,7 @@
 				<% score_arena += 0.5 if arena_master %>
 				<% score_arena = 10 if score_arena > 10 %>
 
-				<% score_final = ((score_gear * 0.6) + (score_rbg * 0.3) + (score_arena * 0.1)).round(1) %>
+				<% score_final = ((score_gear * 0.3) + (score_rbg * 0.4) + (score_arena * 0.3)).round(1) %>
 				<center><strong>
 					<% if score_final >= 9 %>
 						<span style="color: green; font-size: 3em">
@@ -390,8 +390,8 @@
 	<h1><%="#{(avg_score.to_f/score_array.count).round(2)} Avg Score" %></h1><hr>
 	</span>
 
-	<h2><%="#{avg_cr.to_f/cr_array.count} Avg CR " %><br>
-	<%="#{avg_ilvl.to_f/ilvl_array.count} Avg iLvl" %><br>
-	<%="#{avg_arena.to_f/arena_array.count} Avg Arena Exp" %></h2>
+	<h2><%="#{(avg_cr.to_f/cr_array.count).round(2)} Avg CR " %><br>
+	<%="#{(avg_ilvl.to_f/ilvl_array.count).round(2)} Avg iLvl" %><br>
+	<%="#{(avg_arena.to_f/arena_array.count).round(2)} Avg Arena Exp" %></h2>
 
 </div>	
