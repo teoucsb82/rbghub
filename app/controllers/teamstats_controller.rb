@@ -1,4 +1,5 @@
 class TeamstatsController < ApplicationController
+  before_filter :authenticate_user!, except: [:index, :show, :new, :create]
   before_action :set_teamstat, only: [:show, :edit, :update, :destroy]
 
   # GET /teamstats

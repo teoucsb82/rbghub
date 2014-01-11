@@ -14,11 +14,13 @@
   <thead>
     <tr>
       <th width="10%">Toon</th>
-      <th width="12%"></th>
-      <th width="18%">RBG Stats</th>
+      <th width="10%"></th>
+      <th width="8%"></th>
+      <th width="15%">RBG Stats</th>
       <th width="25%">Arena Stats</th>
-      <th width="20%">Gems/Enchants</th>
-      <th width="15%"><span style="font-size: 1.5em">RBGHub Score</span></th>
+      <th width="10%">Gems/Enchants</th>
+      <th width="12%"><span style="font-size: 1.2em">RBGHub Score</span></th>
+      <th width="10%"></th>
     </tr>
   </thead>
 
@@ -143,134 +145,7 @@
 		<tr>
 		    <td><!-- Toon -->
 		    	<h4><%= link_to character_name, "http://us.battle.net/wow/en/character/#{realm}/#{character_name}/advanced", :target => "_blank"  %></h4>
-		    	<% unless title=="" %>
-		    		<%= title %><br>
-		    	<% end %>
-		    	<span style="color:green">
-		    	<% if arena_master %>
-		    		Arena Master<br>
-		    	<% end %>
-		    	<% if hoth && achievements.include?(6941)%>
-		    		Hero of the Horde<br>
-		    	<% end %>
-		    	<% if hoth && achievements.include?(6942)%>
-		    		Hero of the Horde<br>
-		    	<% end %>
-			    </span>
-		    	<small><%= "#{[achv2, achv3, achv5].sort[-1]} Arena Exp" %></small><br>
-		    	<small><%= "#{achvrbg} RBG Exp" %></small><br>
-		    	<% if ilvl <= 496 %>
-		    		<span style="color:red">
-		    	<% elsif ilvl >= 522 %>
-		    		<span style="color:green">
-    			<% else %>
-    				<span>
-		    	<% end %>
-		    	<strong><%= "#{ilvl} iLvl" %></strong></span>
-
-			</td>
-
-			<td><!-- Icons -->
-			    <%= link_to image_tag("http://us.battle.net/static-render/us/" + thumbnail), "http://us.battle.net/wow/en/character/#{realm}/#{character_name}/advanced", :target => "_blank" %><br>
-			    <!--Tauren-->
-				<% if race == 6 && gender == 1 %>
-				    <%= image_tag "http://images2.wikia.nocookie.net/__cb20071212064706/wowwiki/images/c/cb/Tauren_Female_32x32.png", height: '32', width: '32' %>
-				<% elsif race == 6 && gender == 0 %>
-					<%= image_tag "http://images4.wikia.nocookie.net/__cb20071212064733/wowwiki/images/b/ba/Tauren_Male_32x32.png", height: '32', width: '32' %>
-				<% end %> 
-
-				<!--Undead-->
-				<% if race == 5 && gender == 1 %>
-				    <%= image_tag "http://images2.wikia.nocookie.net/__cb20071212063253/wowwiki/images/0/02/Forsaken_Female_32x32.png", height: '32', width: '32' %>
-				<% elsif race == 5 && gender == 0 %>
-					<%= image_tag "http://images2.wikia.nocookie.net/__cb20071212063341/wowwiki/images/5/5f/Forsaken_Male_32x32.png", height: '32', width: '32' %>
-				<% end %> 
-
-				<!--Orc-->
-				<% if race == 2 && gender == 1 %>
-				    <%= image_tag "http://images1.wikia.nocookie.net/__cb20071212064612/wowwiki/images/3/35/Orc_Female_32x32.png", height: '32', width: '32' %>
-				<% elsif race == 2 && gender == 0 %>
-					<%= image_tag "http://images1.wikia.nocookie.net/__cb20071212064635/wowwiki/images/4/4c/Orc_Male_32x32.png", height: '32', width: '32' %>
-				<% end %> 
-
-				<!--Gnome-->
-				<% if race == 7 && gender == 1 %>
-				    <%= image_tag "http://images2.wikia.nocookie.net/__cb20071212063423/wowwiki/images/4/43/Gnome_Female_32x32.png", height: '32', width: '32' %>
-				<% elsif race == 7 && gender == 0 %>
-					<%= image_tag "http://images1.wikia.nocookie.net/__cb20071212063553/wowwiki/images/5/56/Gnome_Male_32x32.png", height: '32', width: '32' %>
-				<% end %> 
-
-				<!--Goblin-->
-				<% if race == 9 && gender == 1 %>
-				    <%= image_tag "http://images2.wikia.nocookie.net/__cb20111022221454/wowwiki/images/c/c1/Goblin_Female_32x32.png", height: '32', width: '32' %>
-				<% elsif race == 9 && gender == 0 %>
-					<%= image_tag "http://images1.wikia.nocookie.net/__cb20111022221550/wowwiki/images/5/58/Goblin_Male_32x32.png", height: '32', width: '32' %>
-				<% end %>
-
-				<!--Human-->
-				<% if race == 1 && gender == 1 %>
-				    <%= image_tag "http://images1.wikia.nocookie.net/__cb20071212064339/wowwiki/images/8/80/Human_Female_32x32.png", height: '32', width: '32' %>
-				<% elsif race == 1 && gender == 0 %>
-					<%= image_tag "http://images3.wikia.nocookie.net/__cb20071212064436/wowwiki/images/5/56/Human_Male_32x32.png", height: '32', width: '32' %>
-				<% end %>
-
-				<!--Troll-->
-				<% if race == 8 && gender == 1 %>
-				    <%= image_tag "http://images1.wikia.nocookie.net/__cb20071212064761/wowwiki/images/7/78/Troll_Female_32x32.png", height: '32', width: '32' %>
-				<% elsif race == 8 && gender == 0 %>
-					<%= image_tag "http://images3.wikia.nocookie.net/__cb20071212064850/wowwiki/images/c/ce/Troll_Male_32x32.png", height: '32', width: '32' %>
-				<% end %>
-
-				<!--Draenei-->
-				<% if race == 11 && gender == 1 %>
-				    <%= image_tag "http://images2.wikia.nocookie.net/__cb20071212062732/wowwiki/images/3/3c/Draenei_Female_32x32.png", height: '32', width: '32' %>
-				<% elsif race == 11 && gender == 0 %>
-					<%= image_tag "http://images4.wikia.nocookie.net/__cb20071212062806/wowwiki/images/2/2e/Draenei_Male_32x32.png", height: '32', width: '32' %>
-				<% end %>
-
-				<!--Worgen-->
-				<% if race == 22 && gender == 1 %>
-				    <%= image_tag "http://a.deviantart.net/avatars/h/e/helasz.png?7", height: '32', width: '32' %>
-				<% elsif race == 22 && gender == 0 %>
-					<%= image_tag "http://fc07.deviantart.net/fs70/f/2010/326/d/6/worgen_male_icon_by_murlocaggrob_madmab-d33eq9f.jpg", height: '32', width: '32' %>
-				<% end %>
-
-				<!--Blood Elf-->
-				<% if race == 10 && gender == 1 %>
-				    <%= image_tag "http://images1.wikia.nocookie.net/__cb20071212062610/wowwiki/images/2/26/BloodElf_Female_32x32.png", height: '32', width: '32' %>
-				<% elsif race == 10 && gender == 0 %>
-					<%= image_tag "http://images1.wikia.nocookie.net/__cb20071212062644/wowwiki/images/3/30/BloodElf_Male_32x32.png", height: '32', width: '32' %>
-				<% end %>
-
-				<!--Night Elf-->
-				<% if race == 4 && gender == 1 %>
-				    <%= image_tag "http://images2.wikia.nocookie.net/__cb20071212064510/wowwiki/images/a/ab/NightElf_Female_32x32.png", height: '32', width: '32' %>
-				<% elsif race == 4 && gender == 0 %>
-					<%= image_tag "http://images3.wikia.nocookie.net/__cb20071212064537/wowwiki/images/a/ad/NightElf_Male_32x32.png", height: '32', width: '32' %>
-				<% end %>
-
-				<!--Dwarf-->
-				<% if race == 3 && gender == 1 %>
-				    <%= image_tag "http://images2.wikia.nocookie.net/__cb20071212062905/wowwiki/images/e/e9/Dwarf_Female_32x32.png", height: '32', width: '32' %>
-				<% elsif race == 3 && gender == 0 %>
-					<%= image_tag "http://images1.wikia.nocookie.net/__cb20071212063003/wowwiki/images/f/f7/Dwarf_Male_32x32.png", height: '32', width: '32' %>
-				<% end %>
-
-				<!--Panda Ally-->
-				<% if race == 25 && gender == 1 %>
-				    <%= image_tag "http://images3.wikia.nocookie.net/__cb20120321050448/wowwiki/images/4/48/Pandaren_Female_32x32.png", height: '32', width: '32' %>
-				<% elsif race == 25 && gender == 0 %>
-					<%= image_tag "http://images1.wikia.nocookie.net/__cb20111022221708/wowwiki/images/a/a3/Pandaren_Male_32x32.png", height: '32', width: '32' %>
-				<% end %>
-
-				<!--Panda Horde-->
-				<% if race == 26 && gender == 1 %>
-				    <%= image_tag "http://images3.wikia.nocookie.net/__cb20120321050448/wowwiki/images/4/48/Pandaren_Female_32x32.png", height: '32', width: '32' %>
-				<% elsif race == 26 && gender == 0 %>
-					<%= image_tag "http://images1.wikia.nocookie.net/__cb20111022221708/wowwiki/images/a/a3/Pandaren_Male_32x32.png", height: '32', width: '32' %>
-				<% end %>
-
-				<% if cls == 6 %>
+		    					<% if cls == 6 %>
 			    <%= image_tag "http://hydra-media.cursecdn.com/wowpedia.org/e/e5/Ui-charactercreate-classes_deathknight.png", height: '32', width: '32' %>
 				<% elsif cls == 11 %>
 				    <%= image_tag("http://hydra-media.cursecdn.com/wowpedia.org/6/6f/Ui-charactercreate-classes_druid.png", height: '32', width: '32' ) %>
@@ -292,9 +167,43 @@
 				    <%= image_tag("http://hydra-media.cursecdn.com/wowpedia.org/c/cf/Ui-charactercreate-classes_warlock.png", height: '32', width: '32' ) %>
 				<% elsif cls == 1 %>
 				    <%= image_tag("http://hydra-media.cursecdn.com/wowpedia.org/3/37/Ui-charactercreate-classes_warrior.png", height: '32', width: '32' ) %>
-				 <% end %> 
+				 <% end %>
 
 				 <%= image_tag(spec, height: '32', width: '32' ) %>
+
+		    	
+
+			</td>
+			<td>	
+		    	<% if ilvl <= 496 %>
+		    		<span style="color:red">
+		    	<% elsif ilvl >= 522 %>
+		    		<span style="color:green">
+    			<% else %>
+    				<span>
+		    	<% end %>
+		    	<strong><%= "#{ilvl} iLvl" %></strong></span><br>	
+		    	<% unless title=="" %>
+		    		<%= title %><br>
+		    	<% end %>
+		    	<span style="color:green">
+		    	<% if arena_master %>
+		    		Arena Master<br>
+		    	<% end %>
+		    	<% if hoth && achievements.include?(6941)%>
+		    		Hero of the Horde<br>
+		    	<% end %>
+		    	<% if hoth && achievements.include?(6942)%>
+		    		Hero of the Horde<br>
+		    	<% end %>
+			    </span>
+		    	<small><%= "#{[achv2, achv3, achv5].sort[-1]} Arena Exp" %></small><br>
+		    	<small><%= "#{achvrbg} RBG Exp" %></small>    
+
+			</td>
+			<td><!-- Icons -->
+			    <%= link_to image_tag("http://us.battle.net/static-render/us/" + thumbnail), "http://us.battle.net/wow/en/character/#{realm}/#{character_name}/advanced", :target => "_blank" %><br>
+
 			</td>
 
 		    <td><!-- rbg Stats -->
@@ -386,7 +295,6 @@
 				<% score_arena = 10 if score_arena > 10 %>
 
 				<% score_final = ((score_gear * 0.3) + (score_rbg * 0.4) + (score_arena * 0.3)).round(2) %>
-
 				<center>
 					<div>
 						<h2>
@@ -404,12 +312,16 @@
 								<% score_array << score_final %>
 						</h2>
 					</div>
-					<small>
-						<%= "Gear Score: #{score_gear}" %><br>
-						<%= "RBG Score: #{score_rbg}" %><br>
-						<%= "Arena Score: #{score_arena}" %>
+				</center>	
+
+				</td>
+				<td>
+				
+				<small>
+						<%= "Gear  : #{score_gear}" %><br>
+						<%= "RBG   : #{score_rbg}" %><br>
+						<%= "Arena : #{score_arena}" %>
 					</small>
-				</center>
 			<td>
 	    </tr>
 	    <% end %>
