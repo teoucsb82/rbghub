@@ -1,5 +1,7 @@
 Rbghub::Application.routes.draw do
 
+  resources :teamstats
+
   resources :comps
 
   resources :listings
@@ -10,6 +12,7 @@ Rbghub::Application.routes.draw do
   get 'home' => 'pages#home'
   get 'about' => 'pages#about'
   get 'roster' => 'characters#index'
+  get 'stats' => 'teamstats#new'
 
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".

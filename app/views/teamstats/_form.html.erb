@@ -1,0 +1,8 @@
+<%= simple_form_for(@teamstat, html: { class: "form-horizontal"}) do |f| %>
+
+  <%= f.input :input, label: "List players names formatted by name-realm", placeholder: "Ex: Reckful-Tichondrius", input_html: { rows: "3" } %>
+
+  <div class="form-actions">
+    <%= f.submit "Gather Statistics" , class: "btn btn-primary" %>
+  </div>
+<% end %>

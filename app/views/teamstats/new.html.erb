@@ -1,0 +1,12 @@
+<% provide(:title, 'Team Statistics') %>
+<h1><%= yield(:title) %></h1>
+<hr>
+<p>
+	This feature is meant to be used with the <%= link_to "ListPlayers", "http://www.wowinterface.com/downloads/info22058-ListPlayers.html" %> add on. After installation, type /listplayers while in a raid and copy/paste the contents of the add-on into the field below. You'll see a breakdown of everyone on your team to help you figure out how to improve it.
+</p>
+
+<p>
+	You can also /listenemies while in an RBG group to pull up the enemy team's information, copy/paste below, and then determine who would make the best focus target once the game starts.
+</p>
+<hr>
+<%= render 'form' %>
