@@ -174,23 +174,30 @@
 				 <% end %>
 
 				 <%= image_tag(spec, height: '32', width: '32' ) %>	
-		    	<strong>
-			    	<% if title=="Gladiator" %>
-			        	<br>
-			        	<%= link_to title, "#", class: "btn btn-mini btn-warning"%>
-			    	<% end %>
-			    	<% if ["Duelist", "Rival", "Challenger"].include?(title) %>
-			        	<br>
-			        	<%= link_to title, "#", class: "btn btn-mini btn-inverse"%>
-			    	<% end %>
 
-			        <%= "\n" if arena_master %>
-			        <%= link_to "Arena Master", "#", class: "btn btn-mini btn-success" if arena_master %>
-			        <%= "\n" if hoth && ( achievements.include?(6941) || achievements.include?(6942) ) %>
-			    	<%= link_to "Hero of the Horde", "#", class: "btn btn-mini btn-danger" if hoth && achievements.include?(6941)%>
-			    	<%= link_to "Hero of the Alliance", "#", class: "btn btn-mini btn-primary" if hoth && achievements.include?(6942)%>
-				</strong>
-		    	
+		    	<% if title=="Gladiator" %>
+		        	<br>
+		        	<%= link_to title, "#", class: "btn btn-mini btn-warning"%>
+		    	<% end %>
+		    	<% if ["Duelist", "Rival", "Challenger"].include?(title) %>
+		        	<br>
+		        	<%= link_to title, "#", class: "btn btn-mini btn-inverse"%>
+		    	<% end %>
+
+
+		    	<% if arena_master %>
+		        	<br>
+			        <%= link_to "Arena Master", "#", class: "btn btn-mini btn-success"%>
+		    	<% end %>
+
+
+		    	<% if hoth %>
+		        	<br>
+			    	<%= link_to "Hero of the Horde", "#", class: "btn btn-mini btn-danger" if achievements.include?(6941)%>
+			    	<%= link_to "Hero of the Alliance", "#", class: "btn btn-mini btn-primary" if achievements.include?(6942)%>
+		    	<% end %>
+
+	    	
 
 			</td>
 			
