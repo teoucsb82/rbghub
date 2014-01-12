@@ -8,19 +8,20 @@
 <% arena_array = [] %>
 <% rbg_array = [] %>
 <% score_array = [] %>
+<% ad_counter = 0 %>
+<% tripwire = true %>
 
 <span style="font-size: .9em">
 <table class="table">
   <thead>
     <tr>
       <th width="10%">Toon</th>
-      <th width="8%"></th>
-      <th width="10%"></th>
-      <th width="15%">RBG Stats</th>
+      <th width="9%"></th>
+      <th width="10%">Gear</th>
+      <th width="25%">RBG Stats</th>
       <th width="25%">Arena Stats</th>
-      <th width="10%">Gems/Enchants</th>
-      <th width="12%"><span style="font-size: 1.2em">RBGHub Score</span></th>
-      <th width="10%"></th>
+      <th width="10%"><span style="font-size: 1.2em">RBGHub Score</span></th>
+      <th width="10%">Notes</th>
     </tr>
   </thead>
 
@@ -143,10 +144,12 @@
 	    <% hoth = true if achievements.include?(6941) || achievements.include?(6942) %>
 
 		<tr>
-		    <td><!-- Toon -->
+		    <td><!-- Character Name -->
 		    	<h4><%= link_to character_name, "http://us.battle.net/wow/en/character/#{realm}/#{character_name}/advanced", :target => "_blank"  %></h4>
-		    					<% if cls == 6 %>
-			    <%= image_tag "http://hydra-media.cursecdn.com/wowpedia.org/e/e5/Ui-charactercreate-classes_deathknight.png", height: '32', width: '32' %>
+
+
+		    	<% if cls == 6 %>
+			    	<%= image_tag "http://hydra-media.cursecdn.com/wowpedia.org/e/e5/Ui-charactercreate-classes_deathknight.png", height: '32', width: '32' %>
 				<% elsif cls == 11 %>
 				    <%= image_tag("http://hydra-media.cursecdn.com/wowpedia.org/6/6f/Ui-charactercreate-classes_druid.png", height: '32', width: '32' ) %>
 				<% elsif cls == 3 %>
@@ -169,18 +172,27 @@
 				    <%= image_tag("http://hydra-media.cursecdn.com/wowpedia.org/3/37/Ui-charactercreate-classes_warrior.png", height: '32', width: '32' ) %>
 				 <% end %>
 
-				 <%= image_tag(spec, height: '32', width: '32' ) %>
+				 <%= image_tag(spec, height: '32', width: '32' ) %>		<br>
+		    	<strong>
+			    	<% if ["Gladiator", "Duelist"].include?(title) %>	
+			        	<%= link_to title, "#", class: "btn btn-mini btn-warning"%>
+			        	<br>
+			    	<% end %>
 
+			        <%= link_to "Arena Master", "#", class: "btn btn-mini btn-success" if arena_master %>
+			    	<%= link_to "Hero of the Horde", "#", class: "btn btn-mini btn-danger" if hoth && achievements.include?(6941)%>
+			    	<%= link_to "Hero of the Alliance", "#", class: "btn btn-mini btn-primary" if hoth && achievements.include?(6942)%>
+				</strong>
 		    	
 
 			</td>
 			
-			<td><!-- Icons -->
+			<td><!-- Thumbail Icon -->
 			    <%= link_to image_tag("http://us.battle.net/static-render/us/" + thumbnail), "http://us.battle.net/wow/en/character/#{realm}/#{character_name}/advanced", :target => "_blank" %><br>
 
 			</td>
 
-			<td>	
+			<td><!-- Gear-->	
 		    	<% if ilvl <= 504 %>
 		    		<span style="color:red">
 		    	<% elsif ilvl > 504 && ilvl <= 513 %>
@@ -193,83 +205,82 @@
     				<span>
 		    	<% end %>
 		    	<strong><%= "#{ilvl} iLvl" %></strong></span><br>	
-		    	<% unless title=="" %>
-		    		<%= title %><br>
-		    	<% end %>
-		    	<span style="color:green">
-		    	<% if arena_master %>
-		    		Arena Master<br>
-		    	<% end %>
-		    	<% if hoth && achievements.include?(6941)%>
-		    		Hero of the Horde<br>
-		    	<% end %>
-		    	<% if hoth && achievements.include?(6942)%>
-		    		Hero of the Horde<br>
-		    	<% end %>
-			    </span>
-		    	<small><%= "#{[achv2, achv3, achv5].sort[-1]} Arena Exp" %></small><br>
-		    	<small><%= "#{achvrbg} RBG Exp" %></small>    
+		    	<!--gear -->
+
+				<!-- gems-->
+				<% count = 0 %>
+				<% if gems2["head"]>=2 && gems["shoulder"]>=1 && gems2["chest"]>=2 && gems["hands"]>=1 && gems2["legs"]>=2 && gems2["waist"]>=2 && gems["feet"]>=1 %>
+					<span style="color:green">Fully Gemmed</span>
+				<% else %>
+					<span style="color:red">
+						<% arr = [] %>
+						<% gems.each do |k, v| %>
+							<% if v < 1 %>
+								<% arr << k %>
+								<% count += 1 %>
+							<% end %>
+						<% end %>
+						<% gems2.each do |k, v| %>
+							<% if v < 2 %>
+								<% arr << k %>
+								<% count += (2-v) %>
+							<% end %>
+						<% end %>	
+					<%= "Missing #{count} PVP gems (#{arr.map(&:capitalize).join(', ')})" %>
+					</span>
+				<% end %>
+				<% missinggems = count %>
+				<br>
+
+				<!-- enchants-->
+				<% count = 0 %>
+				<% unless enchant.values.include?(0) %>
+					<span style="color:green">Fully Enchanted</span>
+				<% else %>
+					<span style="color:red">
+						<% arr = [] %>
+						<% enchant.each do |k, v| %>
+							<% if v < 1 %>
+								<% arr << k %>
+								<% count += 1 %>
+							<% end %>
+						<% end %>
+
+					<%= "Missing #{count} PVP enchants (#{arr.map(&:capitalize).join(', ')})" %>
+					</span>
+				<% end %>
+				<% missingenchants = count %>
+
+
+			    </span> 
 
 			</td>
 
-		    <td><!-- rbg Stats -->
-		    	<strong><%= "#{cr} CR" %></strong><br>
-		    	<%= "#{rbgw} Win - #{rbgl} Loss (#{winratio}%)" %>
+		    <td><!-- rbg Stats -->	
+		    	<% if cr <= 1000 %>
+		    		<span style="color:red">
+		    	<% elsif cr > 1000 && cr <= 1500 %>
+		    		<span style="color:orange">
+		    	<% elsif cr > 1500 && cr <= 1899 %>
+		    		<span style="color:yellow">
+		    	<% elsif cr > 1900 %>
+		    		<span style="color:green">
+    			<% else %>
+    				<span>
+		    	<% end %>
+		    	<strong><%= "#{cr} CR" %></strong></span><br>   
+
+		    	<%= "#{rbgw} Win - #{rbgl} Loss (#{winratio}%)" %><br><br>
+
+
+		    	<small><%= "#{achvrbg} RBG Exp" %></small><br>
 		    </td>
 
 		    <td><!--Arena stats -->
 			    <strong><%= "2v2: #{arena2} CR " %></strong> <%= "(#{arena2w}-#{arena2l}), #{achv2} overall exp" %><br>
 			    <strong><%= "3v3: #{arena3} CR " %></strong> <%= "(#{arena3w}-#{arena3l}), #{achv3} overall exp" %><br>
-			    <strong><%= "5v5: #{arena5} CR " %></strong> <%= "(#{arena5w}-#{arena5l}), #{achv5} overall exp" %>
-			</td>
-			<td><!--gear -->
-
-			<!-- gems-->
-			<% count = 0 %>
-			<% if gems2["head"]>=2 && gems["shoulder"]>=1 && gems2["chest"]>=2 && gems["hands"]>=1 && gems2["legs"]>=2 && gems2["waist"]>=2 && gems["feet"]>=1 %>
-				<span style="color:green">Fully Gemmed</span>
-			<% else %>
-				<span style="color:red">
-					<% arr = [] %>
-					<% gems.each do |k, v| %>
-						<% if v < 1 %>
-							<% arr << k %>
-							<% count += 1 %>
-						<% end %>
-					<% end %>
-					<% gems2.each do |k, v| %>
-						<% if v < 2 %>
-							<% arr << k %>
-							<% count += (2-v) %>
-						<% end %>
-					<% end %>	
-				<%= "Missing #{count} PVP gems (#{arr.map(&:capitalize).join(', ')})" %>
-				</span>
-			<% end %>
-			<% missinggems = count %>
-			<br>
-
-			<!-- enchants-->
-			<% count = 0 %>
-			<% unless enchant.values.include?(0) %>
-				<span style="color:green">Fully Enchanted</span>
-			<% else %>
-				<span style="color:red">
-					<% arr = [] %>
-					<% enchant.each do |k, v| %>
-						<% if v < 1 %>
-							<% arr << k %>
-							<% count += 1 %>
-						<% end %>
-					<% end %>
-
-				<%= "Missing #{count} PVP enchants (#{arr.map(&:capitalize).join(', ')})" %>
-				</span>
-			<% end %>
-			<% missingenchants = count %>
-			<br>
-
-
+			    <strong><%= "5v5: #{arena5} CR " %></strong> <%= "(#{arena5w}-#{arena5l}), #{achv5} overall exp" %><br>
+		    	<small><%= "#{[achv2, achv3, achv5].sort[-1]} Arena Exp" %></small>
 			</td>
 			<td><!--Threat Level-->
 				<% score_ilvl = ilvl - 495 <= 0 ? 0 : ((ilvl-496)/2.6).round(1) %>
@@ -301,7 +312,6 @@
 				<% score_arena = 10 if score_arena > 10 %>
 
 				<% score_final = ((score_gear * 0.3) + (score_rbg * 0.4) + (score_arena * 0.3)).round(2) %>
-				<center>
 					<div>
 						<h2>
 							<% if score_final >= 9 %>
@@ -318,7 +328,6 @@
 								<% score_array << score_final %>
 						</h2>
 					</div>
-				</center>	
 
 				</td>
 				<td>
@@ -363,37 +372,84 @@
 					</small>
 			<td>
 	    </tr>
-	    <% end %>
+	    <% ad_counter += 1 %>
+	    <% if ad_counter %5 == 0 && tripwire %><!-- throw ad banner into results -->
+			</tbody>
+			</table>	    	
+	        <center>
+			          <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+			<!-- footer -->
+			<ins class="adsbygoogle"
+			     style="display:inline-block;width:728px;height:90px"
+			     data-ad-client="ca-pub-3325067846211075"
+			     data-ad-slot="6431185577"></ins>
+			<script>
+			(adsbygoogle = window.adsbygoogle || []).push({});
+			</script>
+	        </center>
+	        <% tripwire = false %>
+	        <table class="table">
+ 			 <tbody>
 	    <% end %>
 
+	    <% end %>
+	    <% end %>
+		
+		<% avg_cr = cr_array.inject(0) { |result, sum| result + sum} %>
+		<% avg_ilvl = ilvl_array.inject(0) { |result, sum| result + sum} %>
+		<% avg_arena = arena_array.inject(0) { |result, sum| result + sum} %>
+		<% avg_score = score_array.inject(0) { |result, sum| result + sum} %>
+		<% avg_rbg = rbg_array.inject(0) { |result, sum| result + sum} %>
+	    <tr class="well">
+	    	<td>
+	    		<h4>AVERAGES</h4>
+	    	</td>
+	    	<td></td>
+	    	<td>
+	    		<h4>
+	    		<%="#{(avg_ilvl.to_f/ilvl_array.count).round(2)} iLvl" %>
+		    	</h4>
+	    	</td>
+	    	<td>
+	    		<h4>
+	    		<%="#{(avg_cr.to_f/cr_array.count).round(0)} CR" %><br>
+	    		<%="#{(avg_rbg.to_f/rbg_array.count).round(0)} RBG Exp" %>
+		    	</h4>
+	    	</td>
+	    	<td>
+	    		<h4>
+					<%="#{(avg_arena.to_f/arena_array.count).round(0)} Arena Exp" %>
+				</h4>
+			</td>
+	    	<td>
+	    		<% if (avg_score.to_f/score_array.count).round(2) >= 9 %>
+					<span style="color: green">
+				<% elsif (avg_score.to_f/score_array.count).round(2) <9 && (avg_score.to_f/score_array.count).round(2) >=7 %>
+					<span style="color: yellow">
+				<% elsif (avg_score.to_f/score_array.count).round(2) <7 && (avg_score.to_f/score_array.count).round(2) >=5 %>
+					<span style="color: orange">
+				<% elsif (avg_score.to_f/score_array.count).round(2) <5 %>
+					<span style="color: red">
+				<% end %>
+				<h1><%="#{(avg_score.to_f/score_array.count).round(2)}" %></h1>
+					</span>
+			</td>
+	    	<td></td>
+	    	<td></td>
+	    </tr>
   </tbody>
 </table>
-</span>
-
-	<center>
-<div class="well span11">
-	<% avg_cr = cr_array.inject(0) { |result, sum| result + sum} %>
-	<% avg_ilvl = ilvl_array.inject(0) { |result, sum| result + sum} %>
-	<% avg_arena = arena_array.inject(0) { |result, sum| result + sum} %>
-	<% avg_score = score_array.inject(0) { |result, sum| result + sum} %>
-	<% avg_rbg = rbg_array.inject(0) { |result, sum| result + sum} %>
-	<% if (avg_score.to_f/score_array.count).round(2) >= 9 %>
-		<span style="color: green">
-	<% elsif (avg_score.to_f/score_array.count).round(2) <9 && (avg_score.to_f/score_array.count).round(2) >=7 %>
-		<span style="color: yellow">
-	<% elsif (avg_score.to_f/score_array.count).round(2) <7 && (avg_score.to_f/score_array.count).round(2) >=5 %>
-		<span style="color: orange">
-	<% elsif (avg_score.to_f/score_array.count).round(2) <5 %>
-		<span style="color: red">
-	<% end %>
-	<h1><%="#{(avg_score.to_f/score_array.count).round(2)} Avg Score" %></h1><hr>
-	</span>
-
-	<h2><%="#{(avg_cr.to_f/cr_array.count).round(2)} Avg CR " %><br>
-	<%="#{(avg_ilvl.to_f/ilvl_array.count).round(2)} Avg iLvl" %><br>
-	<%="#{(avg_arena.to_f/arena_array.count).round(2)} Avg Arena Exp" %><br>
-	<%="#{(avg_rbg.to_f/rbg_array.count).round(2)} Avg RBG Exp" %></h2>
-
-</div>	
-	</center>
+<% if tripwire %>
+	        <center>
+			          <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+			<!-- footer -->
+			<ins class="adsbygoogle"
+			     style="display:inline-block;width:728px;height:90px"
+			     data-ad-client="ca-pub-3325067846211075"
+			     data-ad-slot="6431185577"></ins>
+			<script>
+			(adsbygoogle = window.adsbygoogle || []).push({});
+			</script>
+	        </center>
+<% end %>
 

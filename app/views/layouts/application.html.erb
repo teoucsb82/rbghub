@@ -15,19 +15,9 @@
 		<% flash.each do |name, msg| %>
             <% content_tag(:div, msg, class: "alert alert-#{name}") %>
         <% end %>
-        <center>
-          <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
-<!-- footer -->
-<ins class="adsbygoogle"
-     style="display:inline-block;width:728px;height:90px"
-     data-ad-client="ca-pub-3325067846211075"
-     data-ad-slot="6431185577"></ins>
-<script>
-(adsbygoogle = window.adsbygoogle || []).push({});
-</script>
-        </center>
+
 	    <%= yield %>
-	    <%= render 'layouts/footer' %>
+      
 	</div>
 </body>
 </html>
