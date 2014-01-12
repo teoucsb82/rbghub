@@ -14,10 +14,7 @@ Rbghub::Application.routes.draw do
   get 'roster' => 'characters#index'
   get 'stats' => 'teamstats#new'
 
-  map.sitemap "/sitemap.:format",
-     :controller => "pages",
-     :action => "sitemap",
-     :conditions => { :method => :get }
+  get 'sitemap.xml' => "pages#sitemap"
 
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
