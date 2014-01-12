@@ -15,7 +15,7 @@
 <table class="table">
   <thead>
     <tr>
-      <th width="10%">Toon</th>
+      <th width="11%">Toon</th>
       <th width="9%"></th>
       <th width="10%">Gear</th>
       <th width="25%">RBG Stats</th>
@@ -45,6 +45,7 @@
 		<% realm = "Burning-Legion" if realm=="burninglegion" %>
 		<% realm = "Emerald-Dream" if realm=="emeralddream" %>
 		<% realm = "Dark-Iron" if realm=="darkiron" %>
+		<% realm = "The-Forgotten-Coast" if realm=="theforgottencoast" %>
 
 
 		<% encoded_url = URI.encode("http://us.battle.net/api/wow/character/" + realm + "/" + character_name + "?fields=stats,pvp,items,achievements,talents") %>
@@ -172,14 +173,20 @@
 				    <%= image_tag("http://hydra-media.cursecdn.com/wowpedia.org/3/37/Ui-charactercreate-classes_warrior.png", height: '32', width: '32' ) %>
 				 <% end %>
 
-				 <%= image_tag(spec, height: '32', width: '32' ) %>		<br>
+				 <%= image_tag(spec, height: '32', width: '32' ) %>	
 		    	<strong>
-			    	<% if ["Gladiator", "Duelist"].include?(title) %>	
-			        	<%= link_to title, "#", class: "btn btn-mini btn-warning"%>
+			    	<% if title=="Gladiator" %>
 			        	<br>
+			        	<%= link_to title, "#", class: "btn btn-mini btn-warning"%>
+			    	<% end %>
+			    	<% if ["Duelist", "Rival", "Challenger"].include?(title) %>
+			        	<br>
+			        	<%= link_to title, "#", class: "btn btn-mini btn-inverse"%>
 			    	<% end %>
 
+			        <%= "\n" if arena_master %>
 			        <%= link_to "Arena Master", "#", class: "btn btn-mini btn-success" if arena_master %>
+			        <%= "\n" if hoth && ( achievements.include?(6941) || achievements.include?(6942) ) %>
 			    	<%= link_to "Hero of the Horde", "#", class: "btn btn-mini btn-danger" if hoth && achievements.include?(6941)%>
 			    	<%= link_to "Hero of the Alliance", "#", class: "btn btn-mini btn-primary" if hoth && achievements.include?(6942)%>
 				</strong>
@@ -373,7 +380,7 @@
 			<td>
 	    </tr>
 	    <% ad_counter += 1 %>
-	    <% if ad_counter %5 == 0 && tripwire %><!-- throw ad banner into results -->
+	    <% if ad_counter %6 == 0 && tripwire %><!-- throw ad banner into results -->
 			</tbody>
 			</table>	    	
 	        <center>
