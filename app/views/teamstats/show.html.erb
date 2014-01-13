@@ -44,9 +44,15 @@
 		<% realm = "Borean-Tundra" if realm=="boreantundra" %>
 		<% realm = "Burning-Blade" if realm=="burningblade" %>
 		<% realm = "Burning-Legion" if realm=="burninglegion" %>
-		<% realm = "Emerald-Dream" if realm=="emeralddream" %>
+		<% realm = "Cenarion-Circle" if realm=="cenarioncircle" %>
 		<% realm = "Dark-Iron" if realm=="darkiron" %>
 		<% realm = "Demon-Soul" if realm=="demonsoul" %>
+		<% realm = "Earthen-Ring" if realm=="earthenring" %>
+		<% realm = "Echo-Isles" if realm=="echoisles" %>
+		<% realm = "Emerald-Dream" if realm=="emeralddream" %>
+		<% realm = "Grizzly-Hills" if realm=="grizzlyhills" %>
+		<% realm = "Khaz-Modan" if realm=="khazmodan" %>
+		<% realm = "Kirin-Tor" if realm=="kirin-tor" %>
 		<% realm = "The-Forgotten-Coast" if realm=="theforgottencoast" %>
 
 
@@ -78,7 +84,8 @@
     	<% gender = armory["gender"] %>
     	<% race = armory["race"] %>
     	<% cls = armory["class"] %>
-    	<% spec = "http://media.blizzard.com/wow/icons/36/" + armory["talents"][1]["spec"]["icon"] + ".jpg" %>
+    	<% spec = armory["talents"][1]["selected"] ? "http://media.blizzard.com/wow/icons/36/" + armory["talents"][1]["spec"]["icon"] + ".jpg" :
+    												 "http://media.blizzard.com/wow/icons/36/" + armory["talents"][0]["spec"]["icon"] + ".jpg"	 %>
 
     	<% gems = {} %>
     	<% gems2 = {} %>
