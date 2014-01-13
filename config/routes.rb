@@ -13,6 +13,7 @@ Rbghub::Application.routes.draw do
   get 'about' => 'pages#about'
   get 'roster' => 'characters#index'
   get 'stats' => 'teamstats#new'
+  
 
   get 'sitemap.xml' => "pages#sitemap.xml"
 

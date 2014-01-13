@@ -29,7 +29,7 @@
   <tbody>
 	<% arr.each do |x| %>
 		<% character_name = x.split('-')[0] %>
-		<% realm = x.split('-')[1] %>
+		<% realm = x.split('-')[1].downcase %>
 		<% realm = "Area-52" if realm=="area52" %>
 		<% realm = "Khaz-modan" if realm=="khazmodan" %>
 		<% realm = "Aerie-Peak" if realm=="aeriepeak" %>
