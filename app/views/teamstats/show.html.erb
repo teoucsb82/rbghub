@@ -1,5 +1,6 @@
 <% provide(:title, 'Team Stats') %>
 <% arr = @teamstat.input.split(',') %>
+<% arr.first.capitalize! %>
 
 <% arr.pop if arr[-1]=="\r\n"%>
 <% arr.sort_by! { |k, v| k.capitalize! } %>
@@ -77,7 +78,7 @@
     	<% gender = armory["gender"] %>
     	<% race = armory["race"] %>
     	<% cls = armory["class"] %>
-    	<% spec = "http://media.blizzard.com/wow/icons/36/" + armory["talents"][0]["spec"]["icon"] + ".jpg" %>
+    	<% spec = "http://media.blizzard.com/wow/icons/36/" + armory["talents"][1]["spec"]["icon"] + ".jpg" %>
 
     	<% gems = {} %>
     	<% gems2 = {} %>
@@ -319,7 +320,7 @@
 				<% score_arena_title = 9 if title=="Duelist" %>
 				<% score_arena_title = 8 if title=="Rival" %>
 				<% score_arena_title = 6 if title=="Challenger" %>
-				<% score_arena_title = 0 if title=="" %>
+				<% score_arena_title = 3 if title=="" %>
 				<% score_arena_games_played = (arena2w+arena2l+arena3w+arena3l+arena5w+arena5l)/4.0 %>
 				<% score_arena_games_played = 10 if score_arena_games_played > 10 %>
 				<% score_arena = ((score_arena_exp * 0.65) + (score_arena_title * 0.25) + (score_arena_games_played * 0.1)).round(1) %>
