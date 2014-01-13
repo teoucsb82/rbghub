@@ -3,7 +3,7 @@
 <% arr.first.capitalize! %>
 
 <% arr.pop if arr[-1]=="\r\n"%>
-<% arr.sort_by! { |k, v| k.capitalize! } %>
+<% arr.sort_by! { |k, v| k } %>
 <% cr_array = [] %>
 <% ilvl_array = [] %>
 <% arena_array = [] %>
