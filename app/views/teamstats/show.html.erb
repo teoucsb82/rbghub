@@ -310,7 +310,7 @@
 				<% score_games_played = 10 if score_games_played > 10 %>
 				<% score_rbg = ((score_cr * 0.4) + (score_rbg_exp * 0.5) + (score_games_played * 0.1)).round(1) %><!-- weighted rbg score on 0-10 scale. -->
 				<% score_rbg += 0.5 if hoth %>
-				<% score_rbg = 10 if score_rbg > 10 %>
+				<% score_rbg = 10 if score_rbg > 10 || hoth %>
 
 				<% score_arena_exp = ([achv2, achv3, achv5].sort[-1] / 220.0).round(1) %>
 				<% score_arena_exp = 10 if score_arena_exp > 10 %>
@@ -323,7 +323,7 @@
 				<% score_arena_games_played = 10 if score_arena_games_played > 10 %>
 				<% score_arena = ((score_arena_exp * 0.65) + (score_arena_title * 0.25) + (score_arena_games_played * 0.1)).round(1) %>
 				<% score_arena += 0.5 if arena_master %>
-				<% score_arena = 10 if score_arena > 10 %>
+				<% score_arena = 10 if score_arena > 10 || title=="Gladiator"%>
 
 				<% score_final = ((score_gear * 0.3) + (score_rbg * 0.4) + (score_arena * 0.3)).round(2) %>
 					<div>
