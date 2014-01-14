@@ -441,18 +441,18 @@
 	    	<td></td>
 	    	<td>
 	    		<h4>
-	    		<%="#{(avg_ilvl.to_f/ilvl_array.count).round(2)} iLvl" unless ilvl_array.empty? %>
+	    		<%="#{(avg_ilvl.to_f/ilvl_array.count).round(2)} iLvl" %>
 		    	</h4>
 	    	</td>
 	    	<td>
 	    		<h4>
-	    		<%="#{(avg_cr.to_f/cr_array.count).round(0)} CR"  unless cr_array.empty? %><br>
-	    		<%="#{(avg_rbg.to_f/rbg_array.count).round(0)} RBG Exp"  unless rbg_array.empty? %>
+	    		<%="#{(avg_cr.to_f/cr_array.count).round(0)} CR" %><br>
+	    		<%="#{(avg_rbg.to_f/rbg_array.count).round(0)} RBG Exp" %>
 		    	</h4>
 	    	</td>
 	    	<td>
 	    		<h4>
-					<%="#{(avg_arena.to_f/arena_array.count).round(0)} Arena Exp"  unless arena_array.empty? %>
+					<%="#{(avg_arena.to_f/arena_array.count).round(0)} Arena Exp" %>
 				</h4>
 			</td>
 	    	<td>
@@ -465,7 +465,7 @@
 				<% elsif (avg_score.to_f/score_array.count).round(2) <5 %>
 					<span style="color: red">
 				<% end %>
-				<h1><%="#{(avg_score.to_f/score_array.count).round(2)}" unless score_array.empty? %></h1>
+				<h1><%="#{(avg_score.to_f/score_array.count).round(2)}" %></h1>
 					</span>
 			</td>
 	    	<td></td>
