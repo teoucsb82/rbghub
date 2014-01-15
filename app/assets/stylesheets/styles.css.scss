@@ -80,6 +80,9 @@ body{
   -webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.05);
   -moz-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.05);
   box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.05);
+    a{
+        color: black;
+    }
 }
 
 .well-druid {
@@ -93,6 +96,9 @@ body{
   -webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.05);
   -moz-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.05);
   box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.05);
+    a{
+        color: black;
+    }
 }
 
 .well-hunter {
@@ -106,6 +112,9 @@ body{
   -webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.05);
   -moz-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.05);
   box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.05);
+    a{
+        color: black;
+    }
 }
 
 .well-mage {
@@ -119,6 +128,9 @@ body{
   -webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.05);
   -moz-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.05);
   box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.05);
+    a{
+        color: black;
+    }
 }
 
 .well-monk {
@@ -132,6 +144,9 @@ body{
   -webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.05);
   -moz-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.05);
   box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.05);
+    a{
+        color: black;
+    }
 }
 
 .well-paladin {
@@ -145,6 +160,9 @@ body{
   -webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.05);
   -moz-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.05);
   box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.05);
+    a{
+        color: black;
+    }
 }
 
 .well-priest {
@@ -158,6 +176,9 @@ body{
   -webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.05);
   -moz-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.05);
   box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.05);
+    a{
+        color: black;
+    }
 }
 
 .well-rogue {
@@ -171,6 +192,9 @@ body{
   -webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.05);
   -moz-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.05);
   box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.05);
+    a{
+        color: black;
+    }
 }
 
 .well-shaman {
@@ -184,6 +208,9 @@ body{
   -webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.05);
   -moz-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.05);
   box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.05);
+    a{
+        color: black;
+    }
 }
 
 .well-warlock {
@@ -197,6 +224,9 @@ body{
   -webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.05);
   -moz-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.05);
   box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.05);
+    a{
+        color: black;
+    }
 }
 
 .well-warrior {
@@ -210,4 +240,177 @@ body{
   -webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.05);
   -moz-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.05);
   box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.05);
+    a{
+        color: black;
+    }
+}
+
+div.appear {
+    width: 250px; 
+    border: #000 2px solid;
+    background:#F8F8F8;
+    position: relative;
+    top: 5px;
+    left: 5px;
+    display:none;
+    padding: 0 0px 00px 10px;
+    z-index: 1000000;
+}
+div.hover  {
+    cursor:pointer;
+    width: 5px;
+}
+div.hover:hover div.appear {
+    display:block;
+}
+
+
+/* Ribbons */
+.ribbon {
+    width: 90%;
+    position: relative;
+    background: #7ECAAD;
+    color: #fff;
+    text-align: center;
+    padding: 1em 1em;
+    margin: 2em auto 2em
+}
+
+.ribbon:before, .ribbon:after {
+    content: "";
+    position: absolute;
+    display: block;
+    bottom: -1em;
+    border: 1.5em solid #65A58B;
+    z-index: -1
+}
+
+.ribbon:before {
+    left: -2em;
+    border-right-width: 1.5em;
+    border-left-color: transparent
+}
+
+.ribbon:after {
+    right: -2em;
+    border-left-width: 1.5em;
+    border-right-color: transparent
+}
+
+.ribbon .ribbon-content:before, .ribbon .ribbon-content:after {
+    content: "";
+    position: absolute;
+    display: block;
+    border-style: solid;
+    border-color: #538C73 transparent transparent transparent;
+    bottom: -1em
+}
+
+.ribbon .ribbon-content:before {
+    left: 0;
+    border-width: 1em 0 0 1em
+}
+
+.ribbon .ribbon-content:after {
+    right: 0;
+    border-width: 1em 1em 0 0
+}
+
+.ribbon-corner-holder {
+    position: absolute;
+    overflow: hidden;
+    height: 10em;
+    top: 0
+}
+
+.right.ribbon-corner-holder {
+    right: 0
+}
+
+.left.ribbon-corner-holder {
+    left: 0
+}
+
+.ribbon-corner, .ribbon-corner:hover {
+    text-decoration: none !important
+}
+
+.ribbon-corner {
+    font-family: 'Helvetiva Neue', Helvetica, Arial, sans-serif;
+    letter-spacing: -.1px;opacity:1;padding:0.25em 0.5em 0.25em 2.25em;text-align: center;
+    position: relative;
+    display: block;
+    top: 2.5em;
+    color: #FFF
+}
+
+.ribbon-corner .text {
+    padding: 0.3em 3em
+}
+
+.right .ribbon-corner {
+    -webkit-transform: rotate(45deg);
+    -moz-transform: rotate(45deg);
+    -ms-transform: rotate(45deg);
+    -o-transform: rotate(45deg);
+    transform: rotate(45deg);
+    right: -3.75em
+}
+
+.left .ribbon-corner {
+    -webkit-transform: rotate(-45deg);
+    -moz-transform: rotate(-45deg);
+    -ms-transform: rotate(-45deg);
+    -o-transform: rotate(-45deg);
+    transform: rotate(-45deg);
+    left: -2.5em
+}
+
+.white.ribbon-corner {
+    color: #111
+}
+
+.white.ribbon-corner .text {
+    border: 1px solid #cecece
+}
+
+.red.ribbon-corner {
+    background-color: #9a0000
+}
+
+.red.ribbon-corner .text {
+    border: 1px solid #bf6060
+}
+
+.green.ribbon-corner {
+    background-color: #006e00
+}
+
+.green.ribbon-corner .text {
+    border: 1px solid #6bac6b
+}
+
+.darkblue.ribbon-corner {
+    background-color: #121621;
+    color: #ecedee
+}
+
+.darkblue.ribbon-corner .text {
+    border: 1px solid #53565e
+}
+
+.orange.ribbon-corner {
+    background-color: #E57504
+}
+
+.orange.ribbon-corner .text {
+    border: 1px solid #ebaa65
+}
+
+.gray.ribbon-corner {
+    background-color: #6d6d6d
+}
+
+.gray.ribbon-corner .text {
+    border: 1px solid #a4a4a4
 }

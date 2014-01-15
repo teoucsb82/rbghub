@@ -1,6 +1,7 @@
 <%= simple_form_for(@teamstat, html: { class: "form-horizontal"}) do |f| %>
 
   <%= f.input :input, label: "List players names formatted by name-realm", :input_html => { :rows => 5, :placeholder => "Ex: Reckful-Tichondrius, Swifty-Darkspear", :class => "span9"} %>
+  <%= f.input :european, :as => :select, :collection => [['US',false],['EU',true]], :include_blank => false, :label => "Server"%>
 
 
 		<p>

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140110231328) do
+ActiveRecord::Schema.define(version: 20140115015259) do
 
   create_table "characters", force: true do |t|
     t.string   "name"
@@ -118,6 +118,9 @@ ActiveRecord::Schema.define(version: 20140110231328) do
     t.text     "input"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.text     "toon_db"
+    t.boolean  "european"
+    t.string   "server"
   end
 
   create_table "users", force: true do |t|

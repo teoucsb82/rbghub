@@ -9,16 +9,12 @@
 
 			<%= link_to "RBG Hub", root_path, class: "brand" %>
 			<div class="nav-collapse">
-				<% if user_signed_in? %>
-					<ul class="nav">    
-						<li><%= link_to "My Roster", characters_path %></li>
-										
-					</ul>
-				<% end %>
+				
+				<!--
 				<ul class="nav"> 
-					<li><%= link_to 'Team Analyzer',  root_path %></li>	
-					<!--<li><%= link_to 'Live Listings',  listings_path %></li>	-->
+					<li></li>
 				</ul>
+				-->
 				
 				<ul class="nav pull-right">
 					<%= link_to "Download ListPlayers", "http://www.curse.com/addons/wow/listplayers", :target => "_blank", class: "btn btn-small btn-inverse" %>

@@ -2,10 +2,6 @@ Rbghub::Application.routes.draw do
 
   resources :teamstats
 
-  resources :comps
-
-  resources :listings
-
   resources :characters
 
   devise_for :users

@@ -5,7 +5,7 @@ class TeamstatsController < ApplicationController
   # GET /teamstats
   # GET /teamstats.json
   def index
-    @teamstats = Teamstat.all
+    @teamstat = Teamstat.new
   end
 
   # GET /teamstats/1
@@ -22,10 +22,33 @@ class TeamstatsController < ApplicationController
   def edit
   end
 
+  def add_toon(toonrealm)
+    toon = toonrealm.split('-')[0].downcase
+    realm = toonrealm.split('-')[1].nil? ? "" : toonrealm.split('-')[1].downcase
+
+
+      encoded_url = @teamstat.european? ? URI.encode("http://eu.battle.net/api/wow/character/" + realm + "/" + toon + "?fields=stats,pvp,items,achievements,talents") : URI.encode("http://us.battle.net/api/wow/character/" + realm + "/" + toon + "?fields=stats,pvp,items,achievements,talents")
+      URI.parse(encoded_url)
+      armory = HTTParty.get(encoded_url).to_h
+      
+
+    unless @teamstat.toon_db.include?(armory) || realm == ""
+      @teamstat.toon_db[@counter] = armory
+      @counter += 1
+    end
+
+  end
+
   # POST /teamstats
   # POST /teamstats.json
   def create
+    @counter = 0
     @teamstat = Teamstat.new(teamstat_params)
+
+    @teamstat.toon_db = @teamstat.input.strip.split(/[\r\n ,]+/)
+    @teamstat.toon_db.pop if @teamstat.toon_db[-1]=="\r\n"
+    
+    @teamstat.toon_db.each { |toonrealm| add_toon(toonrealm)}
 
     respond_to do |format|
       if @teamstat.save
@@ -70,6 +93,6 @@ class TeamstatsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def teamstat_params
-      params.require(:teamstat).permit(:input)
+      params.require(:teamstat).permit(:input, :european, :toon_db)
     end
 end
