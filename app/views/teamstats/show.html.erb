@@ -268,7 +268,7 @@
 										<!-- CR -->
 
 								    <% achvrbg = 0 %>
-										<% hoth = true if achievements.include?(6941) || achievements.include?(6942) %>
+									<% hoth = true if achievements.include?(6941) || achievements.include?(6942) %>
 								    <% achvrbg = 1100 if achievements.include?(5345) || achievements.include?(5330) %>
 								    <% achvrbg = 1200 if achievements.include?(5346) || achievements.include?(5331) %>
 								    <% achvrbg = 1300 if achievements.include?(5347) || achievements.include?(5332) %>
@@ -380,6 +380,7 @@
 									</td>
 								</tr>	
 						    </table>
+								    <% title = "" %>
 						    	    <% arena_master = achievements.include?(1174) ? true : false %>
 								    	<% if arena_master %>
 								        	<br>									    	
