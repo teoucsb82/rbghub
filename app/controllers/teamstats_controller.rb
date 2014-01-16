@@ -48,9 +48,26 @@ class TeamstatsController < ApplicationController
     realm = "Emerald-Dream" if realm=="emeralddream"
     realm = "Grizzly-Hills" if realm=="grizzlyhills"
     realm = "Khaz-Modan" if realm=="khazmodan"
-    realm = "Kirin-Tor" if realm=="kirin-tor"
+    realm = "Kirin-Tor" if realm=="kirintor"
+    realm = "Kul-Tiras" if realm=="kultiras"
+    realm = "Laughing-Skull" if realm=="laughinskull"
+    realm = "Lightning\'s-Blade" if realm=="lightningsblade"
+    realm = "Moon-Guard" if realm=="moonguard"
+    realm = "Scarlet-Crusade" if realm=="scarletcrusade"
+    realm = "Shadow-Council" if realm=="shadowcouncil"
+    realm = "Shattered Halls" if realm=="shatteredhalls"
+    realm = "Shattered Hand" if realm=="shatteredhand"
+    realm = "Sisters-of-Elune" if realm=="sistersofelune"
+    realm = "Silver-Hand" if realm=="silverhand"
+    realm = "Steamwheedle-Cartel" if realm=="steamwheedlecartel"
     realm = "The-Forgotten-Coast" if realm=="theforgottencoast"
-
+    realm = "The-Scryers" if realm=="thescryers"
+    realm = "The-Underbog" if realm=="theunderbog"
+    realm = "The-Venture-Co" if realm=="theventureco"
+    realm = "Thorium-Brotherhood" if realm=="thoriumbrotherhood"
+    realm = "Tol-Barad" if realm=="tolbarad"
+    realm = "Twisting-Nether" if realm=="twistingnether"
+    realm = "Wyrmwrest-Accord" if realm=="wyrmwrestaccord"
 
     encoded_url = @teamstat.european? ? URI.encode("http://eu.battle.net/api/wow/character/" + realm + "/" + toon + "?fields=stats,pvp,items,achievements,talents") : URI.encode("http://us.battle.net/api/wow/character/" + realm + "/" + toon + "?fields=stats,pvp,items,achievements,talents")
     URI.parse(encoded_url)
