@@ -13,11 +13,11 @@
   <thead>
     <tr>
       <th width="11%"><h3>Toon</h3></th>
-      <th width="9%"></th>
+      <th width="8%"></th>
       <th width="14%"><h3>Gear</h3></th>
-      <th width="22%"><h3>RBG Stats</h3></th>
+      <th width="20%"><h3>RBG Stats</h3></th>
       <th width="20%"><h3>Arena Stats</h3></th>
-      <th width="15%"><h3>RBG Score</h3></th>
+      <th width="17%"><h3><center>RBG Score</center></h3></th>
       <th width="8%"><h3>Notes</h3></th>
     </tr>
   </thead>
@@ -406,7 +406,7 @@
 								<% score_array << score_final %>
 								
 						    <center>
-									<h2>
+									<strong style="font-size: 2em">
 									<% if score_final >= 9 %>
 										<span style="color: green">
 									<% elsif score_final <9 && score_final >=7 %>
@@ -419,7 +419,7 @@
 										<%= score_final %>
 									</span>
 										<% score_array << score_final %>
-								</h2>				
+								</strong><br>				
 						<small>
 						Gear: 
 						<% if score_gear >= 9 %>
@@ -507,12 +507,12 @@
 			        <% end %>
 					<table class="table">
 						<thead>
-				          <th width="11%"><h3>Toon</h3></th>
+					      <th width="11%"><h3>Toon</h3></th>
 					      <th width="9%"></th>
 					      <th width="14%"><h3>Gear</h3></th>
-					      <th width="22%"><h3>RBG Stats</h3></th>
+					      <th width="20%"><h3>RBG Stats</h3></th>
 					      <th width="20%"><h3>Arena Stats</h3></th>
-					      <th width="15%"><h3>RBG Score</h3></th>
+					      <th width="17%"><h3><center>RBG Score</center></h3></th>
 					      <th width="8%"><h3>Notes</h3></th>
 						</thead>
 						<tbody>
@@ -545,13 +545,13 @@
 <table class="table">    
 	<thead>
 		<tr>
-      <th width="11%"></th>
-      <th width="9%"></th>
-      <th width="14%"></th>
-      <th width="22%"></th>
-      <th width="20%"></th>
-      <th width="15%"></th>
-      <th width="8%"></th>
+	      <th width="11%"><h3>Toon</h3></th>
+	      <th width="9%"></th>
+	      <th width="14%"><h3>Gear</h3></th>
+	      <th width="20%"><h3>RBG Stats</h3></th>
+	      <th width="20%"><h3>Arena Stats</h3></th>
+	      <th width="17%"><h3><center>RBG Score</center></h3></th>
+	      <th width="8%"><h3>Notes</h3></th>
     </tr>
   </thead>
   <tbody>
@@ -574,6 +574,7 @@
 				</h4>
 			</td>
 	    	<td>
+	    		<center>
 	    		<% if (avg_score.to_f/score_array.count).round(2) >= 9 %>
 					<span style="color: green">
 				<% elsif (avg_score.to_f/score_array.count).round(2) <9 && (avg_score.to_f/score_array.count).round(2) >=7 %>
@@ -583,7 +584,7 @@
 				<% elsif (avg_score.to_f/score_array.count).round(2) <5 %>
 					<span style="color: red">
 				<% end %>
-				<h1><%="#{(avg_score.to_f/score_array.count).round(2)}" %></h1>
+				<h1><%="#{(avg_score.to_f/score_array.count).round(2)}" %></h1></center>
 					</span>
 			</td>
 	    	<td></td>
