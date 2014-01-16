@@ -1,7 +1,6 @@
 <% provide(:title, "Team ##{@teamstat.id}") %>
 <% toon_counter = 0 %>
 <% ideal_ilvl = 522 %>
-<% columns = @teamstat.toon_db.count / 2 > 0 ? @teamstat.toon_db.count / 2 : 1 %>
 <% columns = 5 %>
 <% ilvl_array = [] %>
 <% cr_array = [] %>
@@ -9,125 +8,133 @@
 <% arena_array = [] %>
 <% score_array = [] %>
 
- <table class="table">
-   <thead>
-     <tr>
-       <% columns.times do %>
-       		<%= content_tag :th, width: "#{100/columns}%" do -%>
-       		<% end %>
-       <% end %>
-     </tr>
-   </thead>
+<table class="table">
+  <thead>
+    <tr>
+      <th width="11%"><h3>Toon</h3></th>
+      <th width="9%"></th>
+      <th width="14%"><h3>Gear</h3></th>
+      <th width="22%"><h3>RBG Stats</h3></th>
+      <th width="20%"><h3>Arena Stats</h3></th>
+      <th width="15%"><h3>RBG Score</h3></th>
+      <th width="8%"><h3>Notes</h3></th>
+    </tr>
+  </thead>
 
     <tbody>
     	<% @teamstat.toon_db.each do |armory| %>
     		<% unless armory["status"] == "nok" %>
         		<!-- Set Achievements -->
 			    <% achievements = armory["achievements"]["achievementsCompleted"] %>
-
-			    <% if @teamstat.toon_db.find_index(armory) == 0 || @teamstat.toon_db.find_index(armory) % columns == 0 %>
-			    	<tr>
-			    <% end %> 
-	 
-			    <td style="border:none; outline:none">
-			    	<!-- set div color by class -->
-			    	<% if armory["class"] == 6 %>
-			    		<div class="well-dk">
-	    			<% end %>
-			    	<% if armory["class"] == 11 %>
-			    		<div class="well-druid">
-	    			<% end %>
-			    	<% if armory["class"] == 3 %>
-			    		<div class="well-hunter">
-	    			<% end %>
-			    	<% if armory["class"] == 8 %>
-			    		<div class="well-mage">
-	    			<% end %>
-			    	<% if armory["class"] == 10 %>
-			    		<div class="well-monk">
-	    			<% end %>
-			    	<% if armory["class"] == 2 %>
-			    		<div class="well-paladin">
-	    			<% end %>
-			    	<% if armory["class"] == 5 %>
-			    		<div class="well-priest">
-	    			<% end %>
-			    	<% if armory["class"] == 4 %>
-			    		<div class="well-rogue">
-	    			<% end %>
-			    	<% if armory["class"] == 7 %>
-			    		<div class="well-shaman">
-	    			<% end %>
-			    	<% if armory["class"] == 9 %>
-			    		<div class="well-warlock">
-	    			<% end %>
-			    	<% if armory["class"] == 1 %>
-			    		<div class="well-warrior">
-	    			<% end %>
-	    				<span style="color:black">
-		    				<center>
-
-		    					<!-- Name / Smallcaps style -->
-					    		<h3>
-					    			<%= link_to armory["name"].upcase, "http://us.battle.net/wow/en/character/#{armory["realm"]}/#{armory["name"]}/advanced", :target => "_blank", class: "brand" %>
-					    		</h3>
-
-					    		<!-- Thumbnail -->
-					    		<% if @teamstat.european %> 
-						    		<%= link_to image_tag("http://eu.battle.net/static-render/eu/" + armory["thumbnail"], height: '96', width: '96' ), "http://eu.battle.net/wow/en/character/#{armory["realm"]}/#{armory["name"]}/advanced", :target => "_blank" %>
-					    		<% else %>
-						    		<%= link_to image_tag("http://us.battle.net/static-render/us/" + armory["thumbnail"], height: '96', width: '96' ), "http://us.battle.net/wow/en/character/#{armory["realm"]}/#{armory["name"]}/advanced", :target => "_blank" %>
-					    		<% end %>
-					    		<br><br>
+			    <tr>
+		    	<% if armory["class"] == 6 %>
+		    		<td class="dk">
+		    	<% elsif armory["class"] == 11 %>
+		    		<td class=" druid">
+		    	<% elsif armory["class"] == 3 %>
+		    		<td class=" hunter">
+		    	<% elsif armory["class"] == 8 %>
+		    		<td class=" mage">
+		    	<% elsif armory["class"] == 10 %>
+		    		<td class=" monk">
+		    	<% elsif armory["class"] == 2 %>
+		    		<td class=" paladin">
+		    	<% elsif armory["class"] == 5 %>
+		    		<td class=" priest">
+		    	<% elsif armory["class"] == 4 %>
+		    		<td class=" rogue">
+		    	<% elsif armory["class"] == 7 %>
+		    		<td class=" shaman">
+		    	<% elsif armory["class"] == 9 %>
+		    		<td class=" warlock">
+		    	<% elsif armory["class"] == 1 %>
+		    		<td class=" warrior">
+    			<% end %>
+						<span style="color:black">
+	    				<center>
+	    					<!-- Name / Smallcaps style -->
+				    		<h4 style="background-color: black">
+				    			<%= link_to armory["name"].upcase, "http://us.battle.net/wow/en/character/#{armory["realm"]}/#{armory["name"]}/advanced", :target => "_blank"%>
+				    		</h4>
 
 								<!-- Class Icon -->
-			        			<%= image_tag("http://hydra-media.cursecdn.com/wowpedia.org/e/e5/Ui-charactercreate-classes_deathknight.png", height: '32', width: '32' ) if armory["class"] == 6 %>
-							    <%= image_tag("http://hydra-media.cursecdn.com/wowpedia.org/6/6f/Ui-charactercreate-classes_druid.png", height: '32', width: '32' ) if armory["class"] == 11 %>
-							    <%= image_tag("http://hydra-media.cursecdn.com/wowpedia.org/4/4e/Ui-charactercreate-classes_hunter.png", height: '32', width: '32' ) if armory["class"] == 3 %>
-							    <%= image_tag("http://hydra-media.cursecdn.com/wowpedia.org/5/56/Ui-charactercreate-classes_mage.png", height: '32', width: '32' ) if armory["class"] == 8 %>
-							    <%= image_tag("http://hydra-media.cursecdn.com/wowpedia.org/2/24/Ui-charactercreate-classes_monk.png", height: '32', width: '32' ) if armory["class"] == 10 %>
-							    <%= image_tag("http://hydra-media.cursecdn.com/wowpedia.org/8/80/Ui-charactercreate-classes_paladin.png", height: '32', width: '32' ) if armory["class"] == 2 %>
-							    <%= image_tag("http://hydra-media.cursecdn.com/wowpedia.org/0/0f/Ui-charactercreate-classes_priest.png", height: '32', width: '32' ) if armory["class"] == 5 %>
-							    <%= image_tag("http://hydra-media.cursecdn.com/wowpedia.org/b/b1/Ui-charactercreate-classes_rogue.png", height: '32', width: '32' ) if armory["class"] == 4 %>
-							    <%= image_tag("http://hydra-media.cursecdn.com/wowpedia.org/3/3e/Ui-charactercreate-classes_shaman.png", height: '32', width: '32' ) if armory["class"] == 7 %>
-							    <%= image_tag("http://hydra-media.cursecdn.com/wowpedia.org/c/cf/Ui-charactercreate-classes_warlock.png", height: '32', width: '32' ) if armory["class"] == 9 %>
-							    <%= image_tag("http://hydra-media.cursecdn.com/wowpedia.org/3/37/Ui-charactercreate-classes_warrior.png", height: '32', width: '32' ) if armory["class"] == 1 %>
+		        		<%= image_tag("http://hydra-media.cursecdn.com/wowpedia.org/e/e5/Ui-charactercreate-classes_deathknight.png", height: '32', width: '32' ) if armory["class"] == 6 %>
+						    <%= image_tag("http://hydra-media.cursecdn.com/wowpedia.org/6/6f/Ui-charactercreate-classes_druid.png", height: '32', width: '32' ) if armory["class"] == 11 %>
+						    <%= image_tag("http://hydra-media.cursecdn.com/wowpedia.org/4/4e/Ui-charactercreate-classes_hunter.png", height: '32', width: '32' ) if armory["class"] == 3 %>
+						    <%= image_tag("http://hydra-media.cursecdn.com/wowpedia.org/5/56/Ui-charactercreate-classes_mage.png", height: '32', width: '32' ) if armory["class"] == 8 %>
+						    <%= image_tag("http://hydra-media.cursecdn.com/wowpedia.org/2/24/Ui-charactercreate-classes_monk.png", height: '32', width: '32' ) if armory["class"] == 10 %>
+						    <%= image_tag("http://hydra-media.cursecdn.com/wowpedia.org/8/80/Ui-charactercreate-classes_paladin.png", height: '32', width: '32' ) if armory["class"] == 2 %>
+						    <%= image_tag("http://hydra-media.cursecdn.com/wowpedia.org/0/0f/Ui-charactercreate-classes_priest.png", height: '32', width: '32' ) if armory["class"] == 5 %>
+						    <%= image_tag("http://hydra-media.cursecdn.com/wowpedia.org/b/b1/Ui-charactercreate-classes_rogue.png", height: '32', width: '32' ) if armory["class"] == 4 %>
+						    <%= image_tag("http://hydra-media.cursecdn.com/wowpedia.org/3/3e/Ui-charactercreate-classes_shaman.png", height: '32', width: '32' ) if armory["class"] == 7 %>
+						    <%= image_tag("http://hydra-media.cursecdn.com/wowpedia.org/c/cf/Ui-charactercreate-classes_warlock.png", height: '32', width: '32' ) if armory["class"] == 9 %>
+						    <%= image_tag("http://hydra-media.cursecdn.com/wowpedia.org/3/37/Ui-charactercreate-classes_warrior.png", height: '32', width: '32' ) if armory["class"] == 1 %>
 
-							    <!-- Spec Icon -->
-							    <% spec = armory["talents"][1]["selected"] ? "http://media.blizzard.com/wow/icons/36/" + armory["talents"][1]["spec"]["icon"] + ".jpg" :
-			    												 			 "http://media.blizzard.com/wow/icons/36/" + armory["talents"][0]["spec"]["icon"] + ".jpg"	 %>
-							    <%= image_tag(spec, height: '32', width: '32' ) %>	
+						    <!-- Spec Icon -->
+						    <% spec = armory["talents"][1]["selected"] ? "http://media.blizzard.com/wow/icons/36/" + armory["talents"][1]["spec"]["icon"] + ".jpg" :
+		    												 			 "http://media.blizzard.com/wow/icons/36/" + armory["talents"][0]["spec"]["icon"] + ".jpg"	 %>
+						    <%= image_tag(spec, height: '32', width: '32' ) %>	
 
-							    <!-- Role Icon -->
-							    <% if role = armory["talents"][1]["selected"] %>
-							    	<% role_icon = "icon-class-role-dealer.gif" if armory["talents"][1]["spec"]["role"] == "DPS" %>
-							    	<% role_icon = "icon-class-role-healer.gif" if armory["talents"][1]["spec"]["role"] == "HEALING" %>
-							    	<% role_icon = "icon-class-role-tank.gif" if armory["talents"][1]["spec"]["role"] == "TANK" %>
-						    	<% else %>
-							    	<% role_icon = "icon-class-role-dealer.gif" if armory["talents"][0]["spec"]["role"] == "DPS" %>
-							    	<% role_icon = "icon-class-role-healer.gif" if armory["talents"][0]["spec"]["role"] == "HEALING" %>
-							    	<% role_icon = "icon-class-role-tank.gif" if armory["talents"][0]["spec"]["role"] == "TANK" %>
-					    		<% end %>
+						    <!-- Role Icon -->
+						    <% if role = armory["talents"][1]["selected"] %>
+						    	<% role_icon = "icon-class-role-dealer.gif" if armory["talents"][1]["spec"]["role"] == "DPS" %>
+						    	<% role_icon = "icon-class-role-healer.gif" if armory["talents"][1]["spec"]["role"] == "HEALING" %>
+						    	<% role_icon = "icon-class-role-tank.gif" if armory["talents"][1]["spec"]["role"] == "TANK" %>
+					    	<% else %>
+						    	<% role_icon = "icon-class-role-dealer.gif" if armory["talents"][0]["spec"]["role"] == "DPS" %>
+						    	<% role_icon = "icon-class-role-healer.gif" if armory["talents"][0]["spec"]["role"] == "HEALING" %>
+						    	<% role_icon = "icon-class-role-tank.gif" if armory["talents"][0]["spec"]["role"] == "TANK" %>
+				    		<% end %>
 
-						    	<% role = "http://www.blizzpro.com/wp-content/uploads/2013/07/" + role_icon %>
-							    <%= image_tag(role, height: '32', width: '32' ) %>	
-					    	</center>
+					    	<% role = "http://www.blizzpro.com/wp-content/uploads/2013/07/" + role_icon %>
+						    <%= image_tag(role, height: '32', width: '32' ) %>	
+				    	</center>
+					    </td>
 
-					    	<!-- Break -->
-					    	<hr style="display: block; height: 1px; border: 0; border-top: 1px solid black; margin: 1em 0; padding: 0;">
+					    <!--Thumbnail -->
+							<% if armory["class"] == 6 %>
+				    		<td class="dk">
+				    	<% elsif armory["class"] == 11 %>
+				    		<td class=" druid">
+				    	<% elsif armory["class"] == 3 %>
+				    		<td class=" hunter">
+				    	<% elsif armory["class"] == 8 %>
+				    		<td class=" mage">
+				    	<% elsif armory["class"] == 10 %>
+				    		<td class=" monk">
+				    	<% elsif armory["class"] == 2 %>
+				    		<td class=" paladin">
+				    	<% elsif armory["class"] == 5 %>
+				    		<td class=" priest">
+				    	<% elsif armory["class"] == 4 %>
+				    		<td class=" rogue">
+				    	<% elsif armory["class"] == 7 %>
+				    		<td class=" shaman">
+				    	<% elsif armory["class"] == 9 %>
+				    		<td class=" warlock">
+				    	<% elsif armory["class"] == 1 %>
+				    		<td class=" warrior">
+		    			<% end %>
 
+				    		<!-- Thumbnail -->
+				    		<% if @teamstat.european %> 
+					    		<%= link_to image_tag("http://eu.battle.net/static-render/eu/" + armory["thumbnail"], height: '96', width: '96' ), "http://eu.battle.net/wow/en/character/#{armory["realm"]}/#{armory["name"]}/advanced", :target => "_blank" %>
+				    		<% else %>
+					    		<%= link_to image_tag("http://us.battle.net/static-render/us/" + armory["thumbnail"], height: '96', width: '96' ), "http://us.battle.net/wow/en/character/#{armory["realm"]}/#{armory["name"]}/advanced", :target => "_blank" %>
+				    		<% end %>
+				    	</td>
+
+
+					    <td>
 					    	<!-- Gear -->
 							<table width="100%" style="background-color:black; color:white" >
 								<tr>
-									<td style="border:none; outline:none" width="10%">
-										<strong>Gear</strong>
-									</td>
-									<td  style="border:none; outline:none; font-size: .8em" width="70%" class="pull-right">
+									<td style="border:none; outline:none" width="70%">
 										<%= "#{armory["items"]["averageItemLevelEquipped"]} iLvl" %>
 										<% ilvl_array << armory["items"]["averageItemLevelEquipped"] %>
 										<br>
 
-										<!-- PVP Gear Check --> 
+										<!-- Check for PVP gear --> 
 										<% pvp_gear = {} %>
 								    	<% pvp_gear["head"] = armory["items"]["head"] %>
 								    	<% pvp_gear["neck"] = armory["items"]["neck"] %>
@@ -153,7 +160,7 @@
 									    <%= pvp_counter == 0 ? "PVP Gear" : "#{pvp_counter} PvE pieces" %>
 									    <br>
 
-									    <!-- gems-->
+									    <!-- check gems-->
 								    	<% gems = {} %>
 								    	<% gems2 = {} %>
 								    	<% gems2["head"] = armory["items"]["head"]["tooltipParams"].to_a.join(' ').scan("gem").count %>
@@ -213,7 +220,7 @@
 									<!-- Checkmarks Column -->
 
 									<!-- ilvl Check -->
-									<td  style="border:none; outline:none; font-size: .8em" width="10%" >
+									<td  style="border:none; outline:none" width="10%" >
 										<% if armory["items"]["averageItemLevelEquipped"] >= ideal_ilvl - 2 %>
 											<span class="icon-ok" style="background-color:green"></span>
 										<% elsif armory["items"]["averageItemLevelEquipped"] <= ideal_ilvl - 22 %>
@@ -247,50 +254,49 @@
 
 									</td>
 								</tr>
+							</table>
+						</td>
+
+			    <td >
+			    	<table>
 
 								<!-- RBGs -->
 								<tr>
-									<td style="border:none; outline:none" width="10%">
-										<strong>RBGs</strong>
 
-									</td>
-									<td  style="border:none; outline:none; font-size: .8em" width="70%" class="pull-right">
+									<td  style="border:none; outline:none; " >
 										
 										<!-- CR -->
-										<%= "#{armory["pvp"]["brackets"]["ARENA_BRACKET_RBG"]["rating"]} CR " %>
+
+								    <% achvrbg = 0 %>
+										<% hoth = true if achievements.include?(6941) || achievements.include?(6942) %>
+								    <% achvrbg = 1100 if achievements.include?(5345) || achievements.include?(5330) %>
+								    <% achvrbg = 1200 if achievements.include?(5346) || achievements.include?(5331) %>
+								    <% achvrbg = 1300 if achievements.include?(5347) || achievements.include?(5332) %>
+								    <% achvrbg = 1400 if achievements.include?(5348) || achievements.include?(5333) %>
+								    <% achvrbg = 1500 if achievements.include?(5349) || achievements.include?(5334) %>
+								    <% achvrbg = 1600 if achievements.include?(5350) || achievements.include?(5335) %>
+								    <% achvrbg = 1700 if achievements.include?(5351) || achievements.include?(5336) %>
+								    <% achvrbg = 1800 if achievements.include?(5352) || achievements.include?(5337) %>
+								    <% achvrbg = 1900 if achievements.include?(5338) || achievements.include?(5359) %>
+								    <% achvrbg = 2000 if achievements.include?(5353) || achievements.include?(5339) %>
+								    <% achvrbg = 2100 if achievements.include?(5354) || achievements.include?(5340) %>
+								    <% achvrbg = 2200 if achievements.include?(5355) || achievements.include?(5341) %>
+								    <% achvrbg = 2300 if achievements.include?(5342) || achievements.include?(5357) %>
+								    <% achvrbg = 2400 if achievements.include?(5356) || achievements.include?(5343) %>	
+
+				    				<small><%= "#{achvrbg} Exp" %></small><br>
+										<% rbgw = armory["pvp"]["brackets"]["ARENA_BRACKET_RBG"]["seasonWon"] %>
+										<% rbgl = armory["pvp"]["brackets"]["ARENA_BRACKET_RBG"]["seasonLost"] %>
+										<% winratio = (rbgw.to_f / (rbgw + rbgl) * 100).round(2) %>
+										<strong><%= "#{armory["pvp"]["brackets"]["ARENA_BRACKET_RBG"]["rating"]} CR " %></strong><br>
+										<%= rbgw + rbgl <= 0 ? "No RBGs played" : "#{rbgw} Win - #{rbgl} Loss (#{winratio}%)" %>
+
 										<% cr_array << armory["pvp"]["brackets"]["ARENA_BRACKET_RBG"]["rating"]%>
 										<br>
-
-										<% hoth = true if achievements.include?(6941) || achievements.include?(6942) %>
-									    <% achvrbg = 1100 if achievements.include?(5345) || achievements.include?(5330) %>
-									    <% achvrbg = 1200 if achievements.include?(5346) || achievements.include?(5331) %>
-									    <% achvrbg = 1300 if achievements.include?(5347) || achievements.include?(5332) %>
-									    <% achvrbg = 1400 if achievements.include?(5348) || achievements.include?(5333) %>
-									    <% achvrbg = 1500 if achievements.include?(5349) || achievements.include?(5334) %>
-									    <% achvrbg = 1600 if achievements.include?(5350) || achievements.include?(5335) %>
-									    <% achvrbg = 1700 if achievements.include?(5351) || achievements.include?(5336) %>
-									    <% achvrbg = 1800 if achievements.include?(5352) || achievements.include?(5337) %>
-									    <% achvrbg = 1900 if achievements.include?(5338) || achievements.include?(5359) %>
-									    <% achvrbg = 2000 if achievements.include?(5353) || achievements.include?(5339) %>
-									    <% achvrbg = 2100 if achievements.include?(5354) || achievements.include?(5340) %>
-									    <% achvrbg = 2200 if achievements.include?(5355) || achievements.include?(5341) %>
-									    <% achvrbg = 2300 if achievements.include?(5342) || achievements.include?(5357) %>
-									    <% achvrbg = 2400 if achievements.include?(5356) || achievements.include?(5343) %>	
-
-				    					<%= "#{achvrbg} Exp" %></small>
 										<% rbg_array << achvrbg %>
 									</td>
 									<!-- Checkmarks Column -->
-									<td  style="border:none; outline:none; font-size: .8em" width="10%" >
-
-										<!-- CR Check -->
-										<% if armory["pvp"]["brackets"]["ARENA_BRACKET_RBG"]["rating"] >= 1800 %>
-											<span class="icon-ok" style="background-color:green"></span>
-										<% elsif armory["pvp"]["brackets"]["ARENA_BRACKET_RBG"]["rating"] < 1000 %>
-											<span class="icon-ban-circle" style="background-color:red"></span>
-										<% end %>
-										<br>
-
+									<td  style="border:none; outline:none;" width="10%" >
 										<!-- Exp Check -->
 										<% if achvrbg >= 1800 %>
 											<span class="icon-ok" style="background-color:green"></span>
@@ -298,33 +304,43 @@
 											<span class="icon-ban-circle" style="background-color:red"></span>
 										<% end %>
 										<br>
-										
+
+										<!-- CR Check -->
+										<% if armory["pvp"]["brackets"]["ARENA_BRACKET_RBG"]["rating"] >= 1800 %>
+											<span class="icon-ok" style="background-color:green"></span>
+										<% elsif armory["pvp"]["brackets"]["ARENA_BRACKET_RBG"]["rating"] < 1000 %>
+											<span class="icon-ban-circle" style="background-color:red"></span>
+										<% end %>			
 
 									</td>
-								</tr>							
+								</tr>	
+								</table>
+								<% hoth = achievements.include?(6941) || achievements.include?(6942) ? true : false %>
+					    	<% if hoth %>
+					        	<br>									    	
+						    	<%= button_tag "RBG Hero", class: "btn btn btn-info" %>
+					    	<% end %>
+								</td>
 
-
+			    <td>
+				    <table>	
 								<!-- Arenas -->
 								<tr>
-									<td style="border:none; outline:none" width="10%">
-										<strong>Arenas</strong>
-
-									</td>
-									<td  style="border:none; outline:none; font-size: .8em" width="70%" class="pull-right">
+									<td  style="border:none; outline:none;">
 										
 										<!-- PVP Titles -->
 									    <% achv2 = 0 %>
 									    <% achv3 = 0 %>
 									    <% achv5 = 0 %>
-									    <% achvrbg = 0 %>
-									    <% title = "" %>
-									    <% arena_master = false %>
-
-							 		    <% title = "Challenger" if achievements.include? 2090 %>
-									    <% title = "Rival" if achievements.include? 2093 %>
-									    <% title = "Duelist" if achievements.include? 2092 %>
-									    <% title = "Gladiator" if achievements.include? 2091 %>
-									    <% arena_master = true if achievements.include? 1174 %>
+									    <% arena2 = armory["pvp"]["brackets"]["ARENA_BRACKET_2v2"]["rating"] %>
+											<% arena2w = armory["pvp"]["brackets"]["ARENA_BRACKET_2v2"]["seasonWon"] %>
+											<% arena2l = armory["pvp"]["brackets"]["ARENA_BRACKET_2v2"]["seasonLost"] %>
+										  <% arena3 = armory["pvp"]["brackets"]["ARENA_BRACKET_3v3"]["rating"] %>
+											<% arena3w = armory["pvp"]["brackets"]["ARENA_BRACKET_3v3"]["seasonWon"] %>
+											<% arena3l = armory["pvp"]["brackets"]["ARENA_BRACKET_3v3"]["seasonLost"] %>
+										  <% arena5 = armory["pvp"]["brackets"]["ARENA_BRACKED_5v5"]["rating"] %>
+											<% arena5w = armory["pvp"]["brackets"]["ARENA_BRACKED_5v5"]["seasonWon"] %>
+											<% arena5l = armory["pvp"]["brackets"]["ARENA_BRACKED_5v5"]["seasonLost"] %>
 									    
 									    <% achv2 = 1550 if achievements.include? 399 %>
 									    <% achv2 = 1750 if achievements.include? 400 %>
@@ -340,16 +356,17 @@
 									    <% achv5 = 1750 if achievements.include? 407 %>
 									    <% achv5 = 2000 if achievements.include? 404 %>
 								  		<% achv5 = 2200 if achievements.include? 1161 %>
+											<small><%= "#{[achv2, achv3, achv5].sort[-1]} Exp " %></small><br>
+											<strong><%= "2v2: #{arena2} CR " %></strong> <small><%= "(#{achv2} exp)" %></small><br>
+									    <strong><%= "3v3: #{arena3} CR " %></strong> <small><%= "(#{achv3} exp)" %></small><br>
+									    <strong><%= "5v5: #{arena5} CR " %></strong> <small><%= "(#{achv5} exp)" %></small>
 
 										<!-- Exp -->
-										<%= "#{[achv2, achv3, achv5].sort[-1]} Exp " %>
 										<% arena_array << [achv2, achv3, achv5].sort[-1]%>
-										<br>
-
 
 									</td>
 									<!-- Checkmarks Column -->
-									<td  style="border:none; outline:none; font-size: .8em" width="10%" >
+									<td  style="border:none; outline:none;" width="10%" >
 
 										<!-- CR Check -->
 										<% if [achv2, achv3, achv5].sort[-1] >= 2000 %>
@@ -363,50 +380,122 @@
 									</td>
 								</tr>	
 						    </table>
-					    	<!-- Break -->
-					    	<hr style="display: block; height: 1px; border: 0; border-top: 1px solid black; margin: 1em 0; padding: 0;">
-						    
+						    	    <% arena_master = achievements.include?(1174) ? true : false %>
+								    	<% if arena_master %>
+								        	<br>									    	
+									    	<%= button_tag "Arena Master", class: "btn btn btn-success" %>
+								    	<% end %>
+
+									    <% title = "Challenger" if achievements.include? 2090 %>
+									    <% title = "Rival" if achievements.include? 2093 %>
+									    <% title = "Duelist" if achievements.include? 2092 %>
+									    <% title = "Gladiator" if achievements.include? 2091 %>
+
+								    	<% if title=="Gladiator" %>
+								        	<br>
+								        	<%= link_to title, "#", class: "btn btn btn-warning"%>
+								    	<% end %>
+								    	<% if ["Duelist", "Rival", "Challenger"].include?(title) %>
+								        	<br>
+								        	<%= link_to title, "#", class: "btn btn btn-inverse"%>
+								    	<% end %>
+					    	
+					    	</td>
+
+					    	<td>
 						    <!-- Score -->
 
-							<% score_ilvl = armory["items"]["averageItemLevelEquipped"] - (ideal_ilvl - 27) <= 0 ? 0 : ((armory["items"]["averageItemLevelEquipped"]-(ideal_ilvl - 26))/2.6).round(1) %>
-							<% score_ilvl = 10 if score_ilvl > 10 %>
-				
-							<% score_gems = (20-(missingenchants + missinggems))/2.0 %>
-							<% score_gear = ((score_ilvl * 0.75) + (score_gems * 0.25)).round(1) %><!-- weighted gear score on 0-10 scale. Gear is worth 80%, Gems and Enchants 10% each-->
+								<% score_ilvl = armory["items"]["averageItemLevelEquipped"] - (ideal_ilvl - 27) <= 0 ? 0 : ((armory["items"]["averageItemLevelEquipped"]-(ideal_ilvl - 26))/2.6).round(1) %>
+								<% score_ilvl = 10 if score_ilvl > 10 %>
+					
+								<% score_gems = (20-(missingenchants + missinggems))/2.0 %>
+								<% score_gear = ((score_ilvl * 0.75) + (score_gems * 0.25)).round(1) %><!-- weighted gear score on 0-10 scale. Gear is worth 80%, Gems and Enchants 10% each-->
 
-							<% score_cr = (armory["pvp"]["brackets"]["ARENA_BRACKET_RBG"]["rating"]/220.0).round(2) %> <!--0-10 scale, 2200 is perfect -->
-							<% score_cr = 10 if score_cr > 10 %>
-							<% score_rbg_exp = (achvrbg / 220.0).round(1) %>
-							<% score_rbg_exp = 10 if score_rbg_exp > 10 %>							
+								<% score_cr = (armory["pvp"]["brackets"]["ARENA_BRACKET_RBG"]["rating"]/220.0).round(2) %> <!--0-10 scale, 2200 is perfect -->
+								<% score_cr = 10 if score_cr > 10 %>
+								<% score_rbg_exp = (achvrbg / 220.0).round(1) %>
+								<% score_rbg_exp = 10 if score_rbg_exp > 10 %>	
 
-							<% score_rbg = score_cr >= score_rbg_exp ? score_cr : (score_rbg_exp * 0.9) %><!-- weighted rbg score on 0-10 scale. -->
-							<% score_rbg = 10 if score_rbg > 10 || hoth %>
+								<% score_rbg = score_rbg_exp >= score_cr ? score_rbg_exp : score_cr %>
+								<% score_rbg = 10 if score_rbg > 10 || hoth %>
 
-							<% score_arena_exp = ([achv2, achv3, achv5].sort[-1] / 240.0).round(1) %>
-							<% score_arena_exp = 10 if score_arena_exp > 10 %>
-				
-							<% score_arena_title = 4 if title=="Gladiator" %>
-							<% score_arena_title = 3 if title=="Duelist" %>
-							<% score_arena_title = 2 if title=="Rival" %>
-							<% score_arena_title = 1 if title=="Challenger" %>
-							<% score_arena_title = 0 if title=="" %>
+								<% score_arena_exp = ([achv2, achv3, achv5].sort[-1] / 240.0).round(1) %>
+								<% score_arena_exp = 10 if score_arena_exp > 10 %>
+					
+								<% score_arena_title = 4 if title=="Gladiator" %>
+								<% score_arena_title = 3 if title=="Duelist" %>
+								<% score_arena_title = 2 if title=="Rival" %>
+								<% score_arena_title = 1 if title=="Challenger" %>
+								<% score_arena_title = 0 if title=="" %>
 
-							<% score_arena = score_arena_exp + score_arena_title %>
-							<% score_arena += 2 if arena_master %>
-							<% score_arena = 10 if score_arena > 10 || title=="Gladiator"%>
+								<% score_arena = score_arena_exp + score_arena_title %>
+								<% score_arena += 2 if arena_master %>
+								<% score_arena = 10 if score_arena > 10 || title=="Gladiator"%>
 
-							<% score_final = ((score_gear * 0.2) + (score_rbg * 0.5) + (score_arena * 0.3)).round(2) %>
-							<% score_array << score_final %>
+								<% score_final = ((score_gear * 0.2) + (score_rbg * 0.5) + (score_arena * 0.3)).round(2) %>
+								<% score_array << score_final %>
 								
 						    <center>
-							    <h4>
-							    	<%= "RBGHub Score: #{score_final}" %>
-							    </h4>
+									<h2>
+									<% if score_final >= 9 %>
+										<span style="color: green">
+									<% elsif score_final <9 && score_final >=7 %>
+										<span style="color: yellow">
+									<% elsif score_final <7 && score_final >=5 %>
+										<span style="color: orange">
+									<% elsif score_final <5 %>
+										<span style="color: red">
+									<% end %>
+										<%= score_final %>
+									</span>
+										<% score_array << score_final %>
+								</h2>
 							</center>
 
 						</span>
-				    </div> <!--close toon box -->
 			    </td>
+
+			    <td>
+				
+				<small>
+						Gear: 
+						<% if score_gear >= 9 %>
+								<span style="color: green">
+							<% elsif score_gear <9 && score_gear >=7 %>
+								<span style="color: yellow">
+							<% elsif score_gear <7 && score_gear >=5 %>
+								<span style="color: orange">
+							<% elsif score_gear <5 %>
+								<span style="color: red">
+							<% end %>
+								<%= score_gear %><br>
+							</span>
+						RBG: 
+						<% if score_rbg >= 9 %>
+								<span style="color: green">
+							<% elsif score_rbg <9 && score_rbg >=7 %>
+								<span style="color: yellow">
+							<% elsif score_rbg <7 && score_rbg >=5 %>
+								<span style="color: orange">
+							<% elsif score_rbg <5 %>
+								<span style="color: red">
+							<% end %>
+								<%= score_rbg %><br>
+							</span>
+						Arena: 
+						<% if score_arena >= 9 %>
+								<span style="color: green">
+							<% elsif score_arena <9 && score_arena >=7 %>
+								<span style="color: yellow">
+							<% elsif score_arena <7 && score_arena >=5 %>
+								<span style="color: orange">
+							<% elsif score_arena <5 %>
+								<span style="color: red">
+							<% end %>
+								<%= score_arena %>
+							</span>
+					</small>
+			<td>
 
 			    <% if (@teamstat.toon_db.find_index(armory)+1) % columns == 0 %>
 			    	</tr></tbody></table>
@@ -426,12 +515,15 @@
 			        <% end %>
 					<table class="table">
 						<thead>
-							<tr>
-							<% columns.times do %>
-								<%= content_tag :th, width: "#{100/columns}%" do -%>
-								<% end %>
-							<% end %>
-							</tr>
+					    <tr>
+					      <th width="11%"><h3>Toon</h3></th>
+					      <th width="9%"></th>
+					      <th width="14%"><h3>Gear</h3></th>
+					      <th width="22%"><h3>RBG Stats</h3></th>
+					      <th width="23%"><h3>Arena Stats</h3></th>
+					      <th width="10%"><h3>RBGHub Score</h3></th>
+					      <th width="10%"><h3>Notes</h3></th>
+					    </tr>
 						</thead>
 						<tbody>
 
@@ -444,25 +536,6 @@
 					    <div class="appear">
 					       <%= "#{arr.map(&:capitalize).join(', ')}" %>
 					    </div>
-					</div>
-
-			    	<% if hoth %>
-			        	<br>									    	
-				    	<%= button_tag "Hero", class: "btn btn-mini btn-danger" if achievements.include?(6941)%>
-				    	<%= button_tag "Hero", class: "btn btn-mini btn-primary" if achievements.include?(6942)%>
-			    	<% end %>
-
-			    	<% if arena_master %>
-			        	<br>									    	
-				    	<%= button_tag "Arena Master", class: "btn btn-mini btn-success" %>
-			    	<% end %>
-
-
-    				<span style="color:black">
-    					<div class="right ribbon-corner-holder" style="margin-top:80px;">
-					  <span class="red ribbon-corner">
-					    <span class="text">Updated for Rails 4</span>
-					  </span>
 					</div>
        	
         		<% end %> <!-- unless false -->
@@ -479,23 +552,51 @@
 <% avg_score = score_array.inject(0) { |result, sum| result + sum} %>
 <% avg_rbg = rbg_array.inject(0) { |result, sum| result + sum} %>
 
-<div class="hero-unit">
-	<h2>Team Results</h2>
-	<hr>
-	<%="#{(avg_ilvl.to_f/ilvl_array.count).round(2)} iLvl" %><br>
-	<%="#{(avg_cr.to_f/cr_array.count).round(0)} CR" %><br>
-	<%="#{(avg_rbg.to_f/rbg_array.count).round(0)} RBG Exp" %><br>
-	<%="#{(avg_arena.to_f/arena_array.count).round(0)} Arena Exp" %><br>
+<table class="table">    
+	<thead>
+		<tr>
+      <th width="11%"></th>
+      <th width="9%"></th>
+      <th width="14%"></th>
+      <th width="22%"></th>
+      <th width="23%"></th>
+      <th width="10%"></th>
+      <th width="10%"></th>
+    </tr>
+  </thead>
+  <tbody>
+	    	<td><h4>AVERAGES</h4></td>
+	    	<td></td>
+	    	<td>
+	    		<h4>
+	    		<%="#{(avg_ilvl.to_f/ilvl_array.count).round(2)} iLvl" %>
+		    	</h4>
+	    	</td>
+	    	<td>
+	    		<h4>
+	    		<%="#{(avg_cr.to_f/cr_array.count).round(0)} CR" %><br>
+	    		<%="#{(avg_rbg.to_f/rbg_array.count).round(0)} RBG Exp" %>
+		    	</h4>
+	    	</td>
+	    	<td>
+	    		<h4>
+					<%="#{(avg_arena.to_f/arena_array.count).round(0)} Arena Exp" %>
+				</h4>
+			</td>
+	    	<td>
+	    		<% if (avg_score.to_f/score_array.count).round(2) >= 9 %>
+					<span style="color: green">
+				<% elsif (avg_score.to_f/score_array.count).round(2) <9 && (avg_score.to_f/score_array.count).round(2) >=7 %>
+					<span style="color: yellow">
+				<% elsif (avg_score.to_f/score_array.count).round(2) <7 && (avg_score.to_f/score_array.count).round(2) >=5 %>
+					<span style="color: orange">
+				<% elsif (avg_score.to_f/score_array.count).round(2) <5 %>
+					<span style="color: red">
+				<% end %>
+				<h1><%="#{(avg_score.to_f/score_array.count).round(2)}" %></h1>
+					</span>
+			</td>
+	    	<td></td>
 
-	<% if (avg_score.to_f/score_array.count).round(2) >= 9 %>
-		<span style="color: green">
-	<% elsif (avg_score.to_f/score_array.count).round(2) <9 && (avg_score.to_f/score_array.count).round(2) >=7 %>
-		<span style="color: yellow">
-	<% elsif (avg_score.to_f/score_array.count).round(2) <7 && (avg_score.to_f/score_array.count).round(2) >=5 %>
-		<span style="color: orange">
-	<% elsif (avg_score.to_f/score_array.count).round(2) <5 %>
-		<span style="color: red">
-	<% end %>
-	<h1><%="#{(avg_score.to_f/score_array.count).round(2)}" %></h1>
-		</span>
-</div>
+  </tbody>
+</table>

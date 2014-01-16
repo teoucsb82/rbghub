@@ -25,12 +25,37 @@ class TeamstatsController < ApplicationController
   def add_toon(toonrealm)
     toon = toonrealm.split('-')[0].downcase
     realm = toonrealm.split('-')[1].nil? ? "" : toonrealm.split('-')[1].downcase
+  
+    realm = "Area-52" if realm=="area52"
+    realm = "Khaz-modan" if realm=="khazmodan"
+    realm = "Aerie-Peak" if realm=="aeriepeak"
+    realm = "Altar-of-storms" if realm=="altarofstorms"
+    realm = "Argent-Dawn" if realm=="argentdawn"
+    realm = "Azjol-Nerub" if realm=="azjolnerub"
+    realm = "Black-Dragonflight" if realm=="blackdragonflight"
+    realm = "Blackwater-Raiders" if realm=="blackwaterraiders"
+    realm = "Blackwing-Lair" if realm=="blackwinglair"
+    realm = "Bleeding-Hollow" if realm=="bleedinghollow"
+    realm = "Blood-Furnace" if realm=="bloodfurnace"
+    realm = "Borean-Tundra" if realm=="boreantundra"
+    realm = "Burning-Blade" if realm=="burningblade"
+    realm = "Burning-Legion" if realm=="burninglegion"
+    realm = "Cenarion-Circle" if realm=="cenarioncircle"
+    realm = "Dark-Iron" if realm=="darkiron"
+    realm = "Demon-Soul" if realm=="demonsoul"
+    realm = "Earthen-Ring" if realm=="earthenring"
+    realm = "Echo-Isles" if realm=="echoisles"
+    realm = "Emerald-Dream" if realm=="emeralddream"
+    realm = "Grizzly-Hills" if realm=="grizzlyhills"
+    realm = "Khaz-Modan" if realm=="khazmodan"
+    realm = "Kirin-Tor" if realm=="kirin-tor"
+    realm = "The-Forgotten-Coast" if realm=="theforgottencoast"
 
 
-      encoded_url = @teamstat.european? ? URI.encode("http://eu.battle.net/api/wow/character/" + realm + "/" + toon + "?fields=stats,pvp,items,achievements,talents") : URI.encode("http://us.battle.net/api/wow/character/" + realm + "/" + toon + "?fields=stats,pvp,items,achievements,talents")
-      URI.parse(encoded_url)
-      armory = HTTParty.get(encoded_url).to_h
-      
+    encoded_url = @teamstat.european? ? URI.encode("http://eu.battle.net/api/wow/character/" + realm + "/" + toon + "?fields=stats,pvp,items,achievements,talents") : URI.encode("http://us.battle.net/api/wow/character/" + realm + "/" + toon + "?fields=stats,pvp,items,achievements,talents")
+    URI.parse(encoded_url)
+    armory = HTTParty.get(encoded_url).to_h
+
 
     unless @teamstat.toon_db.include?(armory) || realm == ""
       @teamstat.toon_db[@counter] = armory
