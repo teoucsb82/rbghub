@@ -139,10 +139,22 @@
 
 					    <td>
 					    	<!-- Gear -->
-							<table width="100%" style="background-color:black; color:white" >
-								<tr>
-									<td style="border:none; outline:none" width="70%">
-										<%= "#{armory["items"]["averageItemLevelEquipped"]} iLvl" %>
+
+										<% if armory["items"]["averageItemLevelEquipped"] >= ideal_ilvl - 2 %>
+											<span style="color:green">
+										<% elsif armory["items"]["averageItemLevelEquipped"] < ideal_ilvl - 2 && armory["items"]["averageItemLevelEquipped"] >= ideal_ilvl - 10 %>
+											<span style="color:yellow">
+										<% elsif armory["items"]["averageItemLevelEquipped"] < ideal_ilvl - 10 && armory["items"]["averageItemLevelEquipped"] >= ideal_ilvl - 21 %>
+											<span style="color:orange">
+										<% elsif armory["items"]["averageItemLevelEquipped"] <= ideal_ilvl - 22 %>
+											<span style="color:red">
+										<% else %>
+											<span style="color:white">
+										<% end %>
+
+										<strong><%= "#{armory["items"]["averageItemLevelEquipped"]} iLvl" %></strong>
+										</span>
+
 										<% ilvl_array << armory["items"]["averageItemLevelEquipped"] %>
 										<br>
 
@@ -169,7 +181,20 @@
 									    	<% pvp_counter += 1 unless v["name"].include?("Gladiator") && v["itemLevel"] >= ideal_ilvl %>
 									    	<% pvp_counter -= 1 if v["name"].include?("Gladiator") && v["itemLevel"] < ideal_ilvl %>
 									    <% end %>
+									    <% if pvp_counter == 0 %>
+											<span style="color:green">
+										<% elsif pvp_counter >=1 && pvp_counter < 4 %>
+											<span style="color:yellow">
+										<% elsif pvp_counter >=4 && pvp_counter < 7 %>
+											<span style="color:orange">
+										<% elsif pvp_counter >=7 %>
+											<span style="color:red">
+										<% else %>
+											<span style="color:white">
+										<% end %>
+
 									    <%= pvp_counter == 0 ? "PVP Gear" : "#{pvp_counter} PvE pieces" %>
+										</span>
 									    <br>
 
 									    <!-- check gems-->
@@ -196,201 +221,156 @@
 
 										<% count, missinggems, missingenchants = 0, 0, 0 %>
 										<% if gems2["head"]>=2 && gems["shoulder"]>=1 && gems2["chest"]>=2 && gems["hands"]>=1 && gems2["legs"]>=2 && gems2["waist"]>=2 && gems["feet"]>=1 %>
-											Gemmed
+											<span style="color:green">Fully Gemmed</span>
 										<% else %>
+											<span style="color:red">
+												<% arr = [] %>
 												<% gems.each do |k, v| %>
 													<% if v < 1 %>
+														<% arr << k %>
 														<% count += 1 %>
 													<% end %>
 												<% end %>
 												<% gems2.each do |k, v| %>
 													<% if v < 2 %>
+														<% arr << k %>
 														<% count += (2-v) %>
 													<% end %>
 												<% end %>	
-											<% missinggems = count %>
-											<%= "- #{missinggems} gems" %>
+											<%= "Missing #{count} PVP gems (#{arr.map(&:capitalize).join(', ')})" %>
+											</span>
 										<% end %>
+										<% missinggems = count %>
 										<br>
 
 										<!-- enchants-->
 										<% count = 0 %>
 										<% unless enchant.values.include?(0) %>
-											Enchanted
+											<span style="color:green">Fully Enchanted</span>
 										<% else %>
+											<span style="color:red">
+												<% arr = [] %>
 												<% enchant.each do |k, v| %>
 													<% if v < 1 %>
+														<% arr << k %>
 														<% count += 1 %>
 													<% end %>
 												<% end %>
-											<% missingenchants = count %>
-											<%= "- #{missingenchants} enchants" %>
+
+											<%= "Missing #{count} PVP enchants (#{arr.map(&:capitalize).join(', ')})" %>
 											</span>
 										<% end %>
-
-									</td>
-									<!-- Checkmarks Column -->
-
-									<!-- ilvl Check -->
-									<td  style="border:none; outline:none" width="10%" >
-										<% if armory["items"]["averageItemLevelEquipped"] >= ideal_ilvl - 2 %>
-											<span class="icon-ok" style="background-color:green"></span>
-										<% elsif armory["items"]["averageItemLevelEquipped"] <= ideal_ilvl - 22 %>
-											<span class="icon-ban-circle" style="background-color:red"></span>
-										<% end %>
-										<br>
-
-										<!-- PVP Gear Check -->
-										<% if pvp_counter <= 2 %>
-											<span class="icon-ok" style="background-color:green"></span>
-										<% elsif pvp_counter >= 6 %>
-											<span class="icon-ban-circle" style="background-color:red"></span>
-										<% end %>
-										<br>
-
-										<!-- Gems Check -->
-										<% if missinggems <= 1 %>
-											<span class="icon-ok" style="background-color:green"></span>
-										<% elsif missinggems >= 4 %>
-											<span class="icon-ban-circle" style="background-color:red"></span>
-										<% end %>
-										<br>
-
-										<!-- Enchants Check -->
-										<% if missingenchants <= 1 %>
-											<span class="icon-ok" style="background-color:green"></span>
-										<% elsif missingenchants >= 4 %>
-											<span class="icon-ban-circle" style="background-color:red"></span>
-										<% end %>
-										<br>
-
-									</td>
-								</tr>
-							</table>
+										<% missingenchants = count %>
 						</td>
 
-			    <td >
-			    	<table>
+			    <td>		
+				    <% achvrbg = 0 %>
+					<% hoth = true if achievements.include?(6941) || achievements.include?(6942) %>
+				    <% achvrbg = 1100 if achievements.include?(5345) || achievements.include?(5330) %>
+				    <% achvrbg = 1200 if achievements.include?(5346) || achievements.include?(5331) %>
+				    <% achvrbg = 1300 if achievements.include?(5347) || achievements.include?(5332) %>
+				    <% achvrbg = 1400 if achievements.include?(5348) || achievements.include?(5333) %>
+				    <% achvrbg = 1500 if achievements.include?(5349) || achievements.include?(5334) %>
+				    <% achvrbg = 1600 if achievements.include?(5350) || achievements.include?(5335) %>
+				    <% achvrbg = 1700 if achievements.include?(5351) || achievements.include?(5336) %>
+				    <% achvrbg = 1800 if achievements.include?(5352) || achievements.include?(5337) %>
+				    <% achvrbg = 1900 if achievements.include?(5338) || achievements.include?(5359) %>
+				    <% achvrbg = 2000 if achievements.include?(5353) || achievements.include?(5339) %>
+				    <% achvrbg = 2100 if achievements.include?(5354) || achievements.include?(5340) %>
+				    <% achvrbg = 2200 if achievements.include?(5355) || achievements.include?(5341) %>
+				    <% achvrbg = 2300 if achievements.include?(5342) || achievements.include?(5357) %>
+				    <% achvrbg = 2400 if achievements.include?(5356) || achievements.include?(5343) %>	
 
-								<!-- RBGs -->
-								<tr>
 
-									<td  style="border:none; outline:none; " >
-										
-										<!-- CR -->
+						<% rbgw = armory["pvp"]["brackets"]["ARENA_BRACKET_RBG"]["seasonWon"] %>
+						<% rbgl = armory["pvp"]["brackets"]["ARENA_BRACKET_RBG"]["seasonLost"] %>
+						<% winratio = (rbgw.to_f / (rbgw + rbgl) * 100).round(2) %>
+						<% cr = armory["pvp"]["brackets"]["ARENA_BRACKET_RBG"]["rating"] %>
+						<strong>
+							<% if cr >= 2000 %>
+								<span style="color:green">
+	    					<% elsif cr < 2000  && cr >=1750 %>
+								<span style="color:yellow">
+	    					<% elsif cr < 1750  && cr >= 1550 %>
+								<span style="color:orange">
+	    					<% elsif cr < 1550  && cr >= 1000 %>
+								<span style="color:white">
+							<% elsif cr < 1000 %>
+								<span style="color:red">
+							<% end %>
+							<%= "#{armory["pvp"]["brackets"]["ARENA_BRACKET_RBG"]["rating"]} CR " %>
+						</strong><br>
+						<%= rbgw + rbgl <= 0 ? "No RBGs played" : "#{rbgw} Win - #{rbgl} Loss (#{winratio}%)" %>
 
-								    <% achvrbg = 0 %>
-									<% hoth = true if achievements.include?(6941) || achievements.include?(6942) %>
-								    <% achvrbg = 1100 if achievements.include?(5345) || achievements.include?(5330) %>
-								    <% achvrbg = 1200 if achievements.include?(5346) || achievements.include?(5331) %>
-								    <% achvrbg = 1300 if achievements.include?(5347) || achievements.include?(5332) %>
-								    <% achvrbg = 1400 if achievements.include?(5348) || achievements.include?(5333) %>
-								    <% achvrbg = 1500 if achievements.include?(5349) || achievements.include?(5334) %>
-								    <% achvrbg = 1600 if achievements.include?(5350) || achievements.include?(5335) %>
-								    <% achvrbg = 1700 if achievements.include?(5351) || achievements.include?(5336) %>
-								    <% achvrbg = 1800 if achievements.include?(5352) || achievements.include?(5337) %>
-								    <% achvrbg = 1900 if achievements.include?(5338) || achievements.include?(5359) %>
-								    <% achvrbg = 2000 if achievements.include?(5353) || achievements.include?(5339) %>
-								    <% achvrbg = 2100 if achievements.include?(5354) || achievements.include?(5340) %>
-								    <% achvrbg = 2200 if achievements.include?(5355) || achievements.include?(5341) %>
-								    <% achvrbg = 2300 if achievements.include?(5342) || achievements.include?(5357) %>
-								    <% achvrbg = 2400 if achievements.include?(5356) || achievements.include?(5343) %>	
+						<% cr_array << armory["pvp"]["brackets"]["ARENA_BRACKET_RBG"]["rating"]%>
+						<br><br>
+						<% rbg_array << achvrbg %>
 
-				    				<small><%= "#{achvrbg} Exp" %></small><br>
-										<% rbgw = armory["pvp"]["brackets"]["ARENA_BRACKET_RBG"]["seasonWon"] %>
-										<% rbgl = armory["pvp"]["brackets"]["ARENA_BRACKET_RBG"]["seasonLost"] %>
-										<% winratio = (rbgw.to_f / (rbgw + rbgl) * 100).round(2) %>
-										<strong><%= "#{armory["pvp"]["brackets"]["ARENA_BRACKET_RBG"]["rating"]} CR " %></strong><br>
-										<%= rbgw + rbgl <= 0 ? "No RBGs played" : "#{rbgw} Win - #{rbgl} Loss (#{winratio}%)" %>
-
-										<% cr_array << armory["pvp"]["brackets"]["ARENA_BRACKET_RBG"]["rating"]%>
-										<br>
-										<% rbg_array << achvrbg %>
-									</td>
-									<!-- Checkmarks Column -->
-									<td  style="border:none; outline:none;" width="10%" >
-										<!-- Exp Check -->
-										<% if achvrbg >= 1800 %>
-											<span class="icon-ok" style="background-color:green"></span>
-										<% elsif achvrbg <= 1500 %>
-											<span class="icon-ban-circle" style="background-color:red"></span>
-										<% end %>
-										<br>
-
-										<!-- CR Check -->
-										<% if armory["pvp"]["brackets"]["ARENA_BRACKET_RBG"]["rating"] >= 1800 %>
-											<span class="icon-ok" style="background-color:green"></span>
-										<% elsif armory["pvp"]["brackets"]["ARENA_BRACKET_RBG"]["rating"] < 1000 %>
-											<span class="icon-ban-circle" style="background-color:red"></span>
-										<% end %>			
-
-									</td>
-								</tr>	
-								</table>
-							</td>
+	    				<small>
+	    					<% if achvrbg >= 2000 %>
+								<span style="color:green">
+	    					<% elsif achvrbg < 2000  && achvrbg >=1750 %>
+								<span style="color:yellow">
+	    					<% elsif achvrbg < 1750  && achvrbg >= 1550 %>
+								<span style="color:orange">
+	    					<% elsif achvrbg < 1550  && achvrbg >= 1000 %>
+								<span style="color:white">
+							<% elsif achvrbg < 1000 %>
+								<span style="color:red">
+							<% end %>
+							<%= "#{achvrbg} RBG Experience" %>
+						</small><br>
+				</td>
 
 			    <td>
-				    <table>	
-								<!-- Arenas -->
-								<tr>
-									<td  style="border:none; outline:none;">
-										
-										<!-- PVP Titles -->
-									    <% achv2 = 0 %>
-									    <% achv3 = 0 %>
-									    <% achv5 = 0 %>
-									    <% arena2 = armory["pvp"]["brackets"]["ARENA_BRACKET_2v2"]["rating"] %>
-											<% arena2w = armory["pvp"]["brackets"]["ARENA_BRACKET_2v2"]["seasonWon"] %>
-											<% arena2l = armory["pvp"]["brackets"]["ARENA_BRACKET_2v2"]["seasonLost"] %>
-										  <% arena3 = armory["pvp"]["brackets"]["ARENA_BRACKET_3v3"]["rating"] %>
-											<% arena3w = armory["pvp"]["brackets"]["ARENA_BRACKET_3v3"]["seasonWon"] %>
-											<% arena3l = armory["pvp"]["brackets"]["ARENA_BRACKET_3v3"]["seasonLost"] %>
-										  <% arena5 = armory["pvp"]["brackets"]["ARENA_BRACKED_5v5"]["rating"] %>
-											<% arena5w = armory["pvp"]["brackets"]["ARENA_BRACKED_5v5"]["seasonWon"] %>
-											<% arena5l = armory["pvp"]["brackets"]["ARENA_BRACKED_5v5"]["seasonLost"] %>
-									    
-									    <% achv2 = 1550 if achievements.include? 399 %>
-									    <% achv2 = 1750 if achievements.include? 400 %>
-									    <% achv2 = 2000 if achievements.include? 401 %>
-									    <% achv2 = 2200 if achievements.include? 1159 %>
-									    <% achv3 = 1550 if achievements.include? 402 %>
-									    <% achv3 = 1750 if achievements.include? 403 %>
-									    <% achv3 = 2000 if achievements.include? 405 %>
-									    <% achv3 = 2200 if achievements.include? 1160 %>
-									    <% achv3 = 2400 if achievements.include? 5266 %>
-									    <% achv3 = 2700 if achievements.include? 5267 %>
-									    <% achv5 = 1550 if achievements.include? 406 %>
-									    <% achv5 = 1750 if achievements.include? 407 %>
-									    <% achv5 = 2000 if achievements.include? 404 %>
-								  		<% achv5 = 2200 if achievements.include? 1161 %>
-											<small><%= "#{[achv2, achv3, achv5].sort[-1]} Exp " %></small><br>
-											<strong><%= "2v2: #{arena2} CR " %></strong> <small><%= "(#{achv2} exp)" %></small><br>
-									    <strong><%= "3v3: #{arena3} CR " %></strong> <small><%= "(#{achv3} exp)" %></small><br>
-									    <strong><%= "5v5: #{arena5} CR " %></strong> <small><%= "(#{achv5} exp)" %></small>
+				    
+					<!-- PVP Titles -->
+				    <% achv2 = 0 %>
+				    <% achv3 = 0 %>
+				    <% achv5 = 0 %>
+				    <% arena2 = armory["pvp"]["brackets"]["ARENA_BRACKET_2v2"]["rating"] %>
+						<% arena2w = armory["pvp"]["brackets"]["ARENA_BRACKET_2v2"]["seasonWon"] %>
+						<% arena2l = armory["pvp"]["brackets"]["ARENA_BRACKET_2v2"]["seasonLost"] %>
+					  <% arena3 = armory["pvp"]["brackets"]["ARENA_BRACKET_3v3"]["rating"] %>
+						<% arena3w = armory["pvp"]["brackets"]["ARENA_BRACKET_3v3"]["seasonWon"] %>
+						<% arena3l = armory["pvp"]["brackets"]["ARENA_BRACKET_3v3"]["seasonLost"] %>
+					  <% arena5 = armory["pvp"]["brackets"]["ARENA_BRACKED_5v5"]["rating"] %>
+						<% arena5w = armory["pvp"]["brackets"]["ARENA_BRACKED_5v5"]["seasonWon"] %>
+						<% arena5l = armory["pvp"]["brackets"]["ARENA_BRACKED_5v5"]["seasonLost"] %>
+				    
+				    <% achv2 = 1550 if achievements.include? 399 %>
+				    <% achv2 = 1750 if achievements.include? 400 %>
+				    <% achv2 = 2000 if achievements.include? 401 %>
+				    <% achv2 = 2200 if achievements.include? 1159 %>
+				    <% achv3 = 1550 if achievements.include? 402 %>
+				    <% achv3 = 1750 if achievements.include? 403 %>
+				    <% achv3 = 2000 if achievements.include? 405 %>
+				    <% achv3 = 2200 if achievements.include? 1160 %>
+				    <% achv3 = 2400 if achievements.include? 5266 %>
+				    <% achv3 = 2700 if achievements.include? 5267 %>
+				    <% achv5 = 1550 if achievements.include? 406 %>
+				    <% achv5 = 1750 if achievements.include? 407 %>
+				    <% achv5 = 2000 if achievements.include? 404 %>
+			  		<% achv5 = 2200 if achievements.include? 1161 %>
+					<strong><%= "2v2: #{arena2} CR " %></strong> <small><%= "(#{achv2} exp)" %></small><br>
+				    <strong><%= "3v3: #{arena3} CR " %></strong> <small><%= "(#{achv3} exp)" %></small><br>
+				    <strong><%= "5v5: #{arena5} CR " %></strong> <small><%= "(#{achv5} exp)" %></small><br>
+					
+					<% if [achv2, achv3, achv5].sort[-1] >= 2000 %>
+						<span style="color:green">
+					<% elsif [achv2, achv3, achv5].sort[-1] < 2000 && [achv2, achv3, achv5].sort[-1] >= 1750 %>
+						<span style="color:yellow">
+					<% elsif [achv2, achv3, achv5].sort[-1] < 1750 && [achv2, achv3, achv5].sort[-1] >= 1550 %>
+						<span style="color:orange">
+					<% elsif [achv2, achv3, achv5].sort[-1] < 1550 %>
+						<span style="color:red">
+					<% end %>
+					<small><%= "#{[achv2, achv3, achv5].sort[-1]} Exp " %></small>
+					</span>
 
-										<!-- Exp -->
-										<% arena_array << [achv2, achv3, achv5].sort[-1]%>
-
-									</td>
-									<!-- Checkmarks Column -->
-									<td  style="border:none; outline:none;" width="10%" >
-
-										<!-- CR Check -->
-										<% if [achv2, achv3, achv5].sort[-1] >= 2000 %>
-											<span class="icon-ok" style="background-color:green"></span>
-										<% elsif [achv2, achv3, achv5].sort[-1] < 1550 %>
-											<span class="icon-ban-circle" style="background-color:red"></span>
-										<% end %>
-										<br>
-									
-
-									</td>
-								</tr>	
-						    </table>
-
-
-					    	
-					    	</td>
+					<!-- Exp -->
+					<% arena_array << [achv2, achv3, achv5].sort[-1]%>
+		    	</td>
 
 					    	<td>
 						    <!-- Score -->
@@ -610,3 +590,18 @@
 
   </tbody>
 </table>
+
+
+<% if tripwire %>
+	        <center>
+			          <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+			<!-- footer -->
+			<ins class="adsbygoogle"
+			     style="display:inline-block;width:728px;height:90px"
+			     data-ad-client="ca-pub-3325067846211075"
+			     data-ad-slot="6431185577"></ins>
+			<script>
+			(adsbygoogle = window.adsbygoogle || []).push({});
+			</script>
+	        </center>
+<% end %>
