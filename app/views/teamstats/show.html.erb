@@ -7,6 +7,7 @@
 <% rbg_array = [] %>
 <% arena_array = [] %>
 <% score_array = [] %>
+<% tripwire = true %>
 
 <table class="table">
   <thead>
@@ -26,6 +27,14 @@
     		<% unless armory["status"] == "nok" %>
         		<!-- Set Achievements -->
 			    <% achievements = armory["achievements"]["achievementsCompleted"] %>
+			    <% title = "" %>
+			    <% title = "Challenger" if achievements.include? 2090 %>
+			    <% title = "Rival" if achievements.include? 2093 %>
+			    <% title = "Duelist" if achievements.include? 2092 %>
+			    <% title = "Gladiator" if achievements.include? 2091 %>
+	    	    <% arena_master = achievements.include?(1174) ? true : false %>
+				<% hoth = achievements.include?(6941) || achievements.include?(6942) ? true : false %>
+
 			    <tr>
 		    	<% if armory["class"] == 6 %>
 		    		<td class="dk">
@@ -51,48 +60,25 @@
 		    		<td class=" warrior">
     			<% end %>
 						<span style="color:black">
-	    				<center>
+	    				<center>				    		
+	    					<!-- Thumbnail -->
+				    		<% if @teamstat.european %> 
+					    		<%= link_to image_tag("http://eu.battle.net/static-render/eu/" + armory["thumbnail"], height: '96', width: '96' ), "http://eu.battle.net/wow/en/character/#{armory["realm"]}/#{armory["name"]}/advanced", :target => "_blank" %>
+				    		<% else %>
+					    		<%= link_to image_tag("http://us.battle.net/static-render/us/" + armory["thumbnail"], height: '96', width: '96' ), "http://us.battle.net/wow/en/character/#{armory["realm"]}/#{armory["name"]}/advanced", :target => "_blank" %>
+				    		<% end %>
+
 	    					<!-- Name / Smallcaps style -->
 				    		<h4 style="background-color: black">
 				    			<%= link_to armory["name"].upcase, "http://us.battle.net/wow/en/character/#{armory["realm"]}/#{armory["name"]}/advanced", :target => "_blank"%>
 				    		</h4>
 
-								<!-- Class Icon -->
-		        		<%= image_tag("http://hydra-media.cursecdn.com/wowpedia.org/e/e5/Ui-charactercreate-classes_deathknight.png", height: '32', width: '32' ) if armory["class"] == 6 %>
-						    <%= image_tag("http://hydra-media.cursecdn.com/wowpedia.org/6/6f/Ui-charactercreate-classes_druid.png", height: '32', width: '32' ) if armory["class"] == 11 %>
-						    <%= image_tag("http://hydra-media.cursecdn.com/wowpedia.org/4/4e/Ui-charactercreate-classes_hunter.png", height: '32', width: '32' ) if armory["class"] == 3 %>
-						    <%= image_tag("http://hydra-media.cursecdn.com/wowpedia.org/5/56/Ui-charactercreate-classes_mage.png", height: '32', width: '32' ) if armory["class"] == 8 %>
-						    <%= image_tag("http://hydra-media.cursecdn.com/wowpedia.org/2/24/Ui-charactercreate-classes_monk.png", height: '32', width: '32' ) if armory["class"] == 10 %>
-						    <%= image_tag("http://hydra-media.cursecdn.com/wowpedia.org/8/80/Ui-charactercreate-classes_paladin.png", height: '32', width: '32' ) if armory["class"] == 2 %>
-						    <%= image_tag("http://hydra-media.cursecdn.com/wowpedia.org/0/0f/Ui-charactercreate-classes_priest.png", height: '32', width: '32' ) if armory["class"] == 5 %>
-						    <%= image_tag("http://hydra-media.cursecdn.com/wowpedia.org/b/b1/Ui-charactercreate-classes_rogue.png", height: '32', width: '32' ) if armory["class"] == 4 %>
-						    <%= image_tag("http://hydra-media.cursecdn.com/wowpedia.org/3/3e/Ui-charactercreate-classes_shaman.png", height: '32', width: '32' ) if armory["class"] == 7 %>
-						    <%= image_tag("http://hydra-media.cursecdn.com/wowpedia.org/c/cf/Ui-charactercreate-classes_warlock.png", height: '32', width: '32' ) if armory["class"] == 9 %>
-						    <%= image_tag("http://hydra-media.cursecdn.com/wowpedia.org/3/37/Ui-charactercreate-classes_warrior.png", height: '32', width: '32' ) if armory["class"] == 1 %>
-
-						    <!-- Spec Icon -->
-						    <% spec = armory["talents"][1]["selected"] ? "http://media.blizzard.com/wow/icons/36/" + armory["talents"][1]["spec"]["icon"] + ".jpg" :
-		    												 			 "http://media.blizzard.com/wow/icons/36/" + armory["talents"][0]["spec"]["icon"] + ".jpg"	 %>
-						    <%= image_tag(spec, height: '32', width: '32' ) %>	
-
-						    <!-- Role Icon -->
-						    <% if role = armory["talents"][1]["selected"] %>
-						    	<% role_icon = "icon-class-role-dealer.gif" if armory["talents"][1]["spec"]["role"] == "DPS" %>
-						    	<% role_icon = "icon-class-role-healer.gif" if armory["talents"][1]["spec"]["role"] == "HEALING" %>
-						    	<% role_icon = "icon-class-role-tank.gif" if armory["talents"][1]["spec"]["role"] == "TANK" %>
-					    	<% else %>
-						    	<% role_icon = "icon-class-role-dealer.gif" if armory["talents"][0]["spec"]["role"] == "DPS" %>
-						    	<% role_icon = "icon-class-role-healer.gif" if armory["talents"][0]["spec"]["role"] == "HEALING" %>
-						    	<% role_icon = "icon-class-role-tank.gif" if armory["talents"][0]["spec"]["role"] == "TANK" %>
-				    		<% end %>
-
-					    	<% role = "http://www.blizzpro.com/wp-content/uploads/2013/07/" + role_icon %>
-						    <%= image_tag(role, height: '32', width: '32' ) %>	
+								
 				    	</center>
 					    </td>
 
-					    <!--Thumbnail -->
-							<% if armory["class"] == 6 %>
+					    <!--Icons -->
+						<% if armory["class"] == 6 %>
 				    		<td class="dk">
 				    	<% elsif armory["class"] == 11 %>
 				    		<td class=" druid">
@@ -115,13 +101,39 @@
 				    	<% elsif armory["class"] == 1 %>
 				    		<td class=" warrior">
 		    			<% end %>
+						
+					    <!-- Role Icon -->
+					    <% if role = armory["talents"][1]["selected"] %>
+					    	<% role_icon = "icon-class-role-dealer.gif" if armory["talents"][1]["spec"]["role"] == "DPS" %>
+					    	<% role_icon = "icon-class-role-healer.gif" if armory["talents"][1]["spec"]["role"] == "HEALING" %>
+					    	<% role_icon = "icon-class-role-tank.gif" if armory["talents"][1]["spec"]["role"] == "TANK" %>
+				    	<% else %>
+					    	<% role_icon = "icon-class-role-dealer.gif" if armory["talents"][0]["spec"]["role"] == "DPS" %>
+					    	<% role_icon = "icon-class-role-healer.gif" if armory["talents"][0]["spec"]["role"] == "HEALING" %>
+					    	<% role_icon = "icon-class-role-tank.gif" if armory["talents"][0]["spec"]["role"] == "TANK" %>
+			    		<% end %>
 
-				    		<!-- Thumbnail -->
-				    		<% if @teamstat.european %> 
-					    		<%= link_to image_tag("http://eu.battle.net/static-render/eu/" + armory["thumbnail"], height: '96', width: '96' ), "http://eu.battle.net/wow/en/character/#{armory["realm"]}/#{armory["name"]}/advanced", :target => "_blank" %>
-				    		<% else %>
-					    		<%= link_to image_tag("http://us.battle.net/static-render/us/" + armory["thumbnail"], height: '96', width: '96' ), "http://us.battle.net/wow/en/character/#{armory["realm"]}/#{armory["name"]}/advanced", :target => "_blank" %>
-				    		<% end %>
+				    	<% role = "http://www.blizzpro.com/wp-content/uploads/2013/07/" + role_icon %>
+					    <%= image_tag(role, height: '64', width: '64' ) %>	<br><br>
+
+						<!-- Class Icon -->
+		        		<%= image_tag("http://hydra-media.cursecdn.com/wowpedia.org/e/e5/Ui-charactercreate-classes_deathknight.png", height: '32', width: '32' ) if armory["class"] == 6 %>
+						    <%= image_tag("http://hydra-media.cursecdn.com/wowpedia.org/6/6f/Ui-charactercreate-classes_druid.png", height: '32', width: '32' ) if armory["class"] == 11 %>
+						    <%= image_tag("http://hydra-media.cursecdn.com/wowpedia.org/4/4e/Ui-charactercreate-classes_hunter.png", height: '32', width: '32' ) if armory["class"] == 3 %>
+						    <%= image_tag("http://hydra-media.cursecdn.com/wowpedia.org/5/56/Ui-charactercreate-classes_mage.png", height: '32', width: '32' ) if armory["class"] == 8 %>
+						    <%= image_tag("http://hydra-media.cursecdn.com/wowpedia.org/2/24/Ui-charactercreate-classes_monk.png", height: '32', width: '32' ) if armory["class"] == 10 %>
+						    <%= image_tag("http://hydra-media.cursecdn.com/wowpedia.org/8/80/Ui-charactercreate-classes_paladin.png", height: '32', width: '32' ) if armory["class"] == 2 %>
+						    <%= image_tag("http://hydra-media.cursecdn.com/wowpedia.org/0/0f/Ui-charactercreate-classes_priest.png", height: '32', width: '32' ) if armory["class"] == 5 %>
+						    <%= image_tag("http://hydra-media.cursecdn.com/wowpedia.org/b/b1/Ui-charactercreate-classes_rogue.png", height: '32', width: '32' ) if armory["class"] == 4 %>
+						    <%= image_tag("http://hydra-media.cursecdn.com/wowpedia.org/3/3e/Ui-charactercreate-classes_shaman.png", height: '32', width: '32' ) if armory["class"] == 7 %>
+						    <%= image_tag("http://hydra-media.cursecdn.com/wowpedia.org/c/cf/Ui-charactercreate-classes_warlock.png", height: '32', width: '32' ) if armory["class"] == 9 %>
+						    <%= image_tag("http://hydra-media.cursecdn.com/wowpedia.org/3/37/Ui-charactercreate-classes_warrior.png", height: '32', width: '32' ) if armory["class"] == 1 %>
+
+						    <!-- Spec Icon -->
+						    <% spec = armory["talents"][1]["selected"] ? "http://media.blizzard.com/wow/icons/36/" + armory["talents"][1]["spec"]["icon"] + ".jpg" :
+		    												 			 "http://media.blizzard.com/wow/icons/36/" + armory["talents"][0]["spec"]["icon"] + ".jpg"	 %>
+						    <%= image_tag(spec, height: '32', width: '32' ) %>	
+
 				    	</td>
 
 
@@ -315,12 +327,7 @@
 									</td>
 								</tr>	
 								</table>
-								<% hoth = achievements.include?(6941) || achievements.include?(6942) ? true : false %>
-					    	<% if hoth %>
-					        	<br>									    	
-						    	<%= button_tag "RBG Hero", class: "btn btn btn-info" %>
-					    	<% end %>
-								</td>
+							</td>
 
 			    <td>
 				    <table>	
@@ -380,26 +387,8 @@
 									</td>
 								</tr>	
 						    </table>
-								    <% title = "" %>
-						    	    <% arena_master = achievements.include?(1174) ? true : false %>
-								    	<% if arena_master %>
-								        	<br>									    	
-									    	<%= button_tag "Arena Master", class: "btn btn btn-success" %>
-								    	<% end %>
 
-									    <% title = "Challenger" if achievements.include? 2090 %>
-									    <% title = "Rival" if achievements.include? 2093 %>
-									    <% title = "Duelist" if achievements.include? 2092 %>
-									    <% title = "Gladiator" if achievements.include? 2091 %>
 
-								    	<% if title=="Gladiator" %>
-								        	<br>
-								        	<%= link_to title, "#", class: "btn btn btn-warning"%>
-								    	<% end %>
-								    	<% if ["Duelist", "Rival", "Challenger"].include?(title) %>
-								        	<br>
-								        	<%= link_to title, "#", class: "btn btn btn-inverse"%>
-								    	<% end %>
 					    	
 					    	</td>
 
@@ -450,15 +439,8 @@
 										<%= score_final %>
 									</span>
 										<% score_array << score_final %>
-								</h2>
-							</center>
-
-						</span>
-			    </td>
-
-			    <td>
-				
-				<small>
+								</h2>				
+						<small>
 						Gear: 
 						<% if score_gear >= 9 %>
 								<span style="color: green">
@@ -496,9 +478,38 @@
 								<%= score_arena %>
 							</span>
 					</small>
+							</center>
+
+						</span>
+			    </td>
+
+			    <!-- notes -->
+			    <td>
+			    	<center>
+
+			    	<% if hoth %>
+			        	<br>									    	
+				    	<%= button_tag "RBG Hero", class: "btn btn btn-info" %>
+			    	<% end %>
+
+					<% if arena_master %>
+			        	<br>									    	
+				    	<%= button_tag "Arena Master", class: "btn btn btn-success" %>
+			    	<% end %>
+
+			    	<% if title=="Gladiator" %>
+			        	<br>
+			        	<%= link_to title, "#", class: "btn btn btn-warning"%>
+			    	<% end %>
+			    	<% if ["Duelist", "Rival", "Challenger"].include?(title) %>
+			        	<br>
+			        	<%= link_to title, "#", class: "btn btn btn-inverse"%>
+			    	<% end %>
+				    </center>
 			<td>
 
-			    <% if (@teamstat.toon_db.find_index(armory)+1) % columns == 0 %>
+			    <% if (@teamstat.toon_db.find_index(armory)+1) % columns == 0 && tripwire %>
+			    	<% tripwire = false %>
 			    	</tr></tbody></table>
 			    	<% unless @teamstat.toon_db.find_index(armory) == 9 %>
 				    	<!-- ad break =) -->
@@ -516,15 +527,13 @@
 			        <% end %>
 					<table class="table">
 						<thead>
-					    <tr>
-					      <th width="11%"><h3>Toon</h3></th>
+				          <th width="11%"><h3>Toon</h3></th>
 					      <th width="9%"></th>
 					      <th width="14%"><h3>Gear</h3></th>
 					      <th width="22%"><h3>RBG Stats</h3></th>
-					      <th width="23%"><h3>Arena Stats</h3></th>
-					      <th width="10%"><h3>RBGHub Score</h3></th>
-					      <th width="10%"><h3>Notes</h3></th>
-					    </tr>
+					      <th width="20%"><h3>Arena Stats</h3></th>
+					      <th width="15%"><h3>RBG Score</h3></th>
+					      <th width="8%"><h3>Notes</h3></th>
 						</thead>
 						<tbody>
 
@@ -560,9 +569,9 @@
       <th width="9%"></th>
       <th width="14%"></th>
       <th width="22%"></th>
-      <th width="23%"></th>
-      <th width="10%"></th>
-      <th width="10%"></th>
+      <th width="20%"></th>
+      <th width="15%"></th>
+      <th width="8%"></th>
     </tr>
   </thead>
   <tbody>
