@@ -1,6 +1,6 @@
 <% provide(:title, "Team ##{@teamstat.id}") %>
 <% toon_counter = 0 %>
-<% ideal_ilvl = 522 %>
+<% ideal_ilvl = 550 %>
 <% columns = 5 %>
 <% ilvl_array = [] %>
 <% cr_array = [] %>
@@ -334,9 +334,9 @@
 					  <% arena3 = armory["pvp"]["brackets"]["ARENA_BRACKET_3v3"]["rating"] %>
 						<% arena3w = armory["pvp"]["brackets"]["ARENA_BRACKET_3v3"]["seasonWon"] %>
 						<% arena3l = armory["pvp"]["brackets"]["ARENA_BRACKET_3v3"]["seasonLost"] %>
-					  <% arena5 = armory["pvp"]["brackets"]["ARENA_BRACKED_5v5"]["rating"] %>
-						<% arena5w = armory["pvp"]["brackets"]["ARENA_BRACKED_5v5"]["seasonWon"] %>
-						<% arena5l = armory["pvp"]["brackets"]["ARENA_BRACKED_5v5"]["seasonLost"] %>
+					  <% arena5 = armory["pvp"]["brackets"]["ARENA_BRACKET_5v5"]["rating"] %>
+						<% arena5w = armory["pvp"]["brackets"]["ARENA_BRACKET_5v5"]["seasonWon"] %>
+						<% arena5l = armory["pvp"]["brackets"]["ARENA_BRACKET_5v5"]["seasonLost"] %>
 				    
 				    <% achv2 = 1550 if achievements.include? 399 %>
 				    <% achv2 = 1750 if achievements.include? 400 %>

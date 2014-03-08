@@ -20,7 +20,7 @@ class CharactersController < ApplicationController
     @character.cr = armory["pvp"]["brackets"]["ARENA_BRACKET_RBG"]["rating"]
     @character.arena2 = armory["pvp"]["brackets"]["ARENA_BRACKET_2v2"]["rating"]
     @character.arena3 = armory["pvp"]["brackets"]["ARENA_BRACKET_3v3"]["rating"]
-    @character.arena5 = armory["pvp"]["brackets"]["ARENA_BRACKED_5v5"]["rating"]
+    @character.arena5 = armory["pvp"]["brackets"]["ARENA_BRACKET_5v5"]["rating"]
     @character.pvppower = armory["stats"]["pvpPowerRating"]
     @character.pvpresil = armory["stats"]["pvpResilienceRating"]
     @character.hk = armory["totalHonorableKills"]
