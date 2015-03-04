@@ -57,63 +57,6 @@ ActiveRecord::Schema.define(version: 20140115015259) do
 
   add_index "characters", ["user_id"], name: "index_characters_on_user_id"
 
-  create_table "comps", force: true do |t|
-    t.string   "listplayers"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-  end
-
-  create_table "listings", force: true do |t|
-    t.string   "description"
-    t.string   "role"
-    t.boolean  "listSkype"
-    t.boolean  "listBattletag"
-    t.string   "toon"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-    t.integer  "user_id"
-    t.string   "btag"
-  end
-
-  add_index "listings", ["user_id"], name: "index_listings_on_user_id"
-
-  create_table "teams", force: true do |t|
-    t.string   "name"
-    t.string   "role1"
-    t.string   "role2"
-    t.string   "role3"
-    t.string   "role4"
-    t.string   "role5"
-    t.string   "role6"
-    t.string   "role7"
-    t.string   "role8"
-    t.string   "role9"
-    t.string   "role10"
-    t.integer  "rbgdate"
-    t.integer  "rbghour"
-    t.integer  "rbgmin"
-    t.integer  "rbgzone"
-    t.integer  "rbgdurationHour"
-    t.integer  "rbgdurationMin"
-    t.boolean  "isAvailable"
-    t.boolean  "recurs"
-    t.integer  "rolesNeeded"
-    t.integer  "classesNeeded"
-    t.boolean  "listed"
-    t.string   "description"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-    t.integer  "user_id"
-    t.integer  "mincr"
-    t.integer  "minilvl"
-    t.integer  "mintitle"
-    t.integer  "min2s"
-    t.integer  "min3s"
-    t.integer  "min5s"
-  end
-
-  add_index "teams", ["user_id"], name: "index_teams_on_user_id"
-
   create_table "teamstats", force: true do |t|
     t.text     "input"
     t.datetime "created_at"
